@@ -25,6 +25,7 @@ import java.util.Map;
  * @company
  * @create 2022-01-12 13:53
  */
+//http://localhost/contact/toMyContactPage
 @Controller
 @RequestMapping("/contact")
 public class ContactController {

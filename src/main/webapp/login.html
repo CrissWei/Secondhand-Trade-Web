@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>后台登录-LeDao校园二手交易平台</title>
+    <title>Admin Login of Secondhand Goods Trade Website</title>
     <meta name="author" content="DeathGhost"/>
     <link rel="short icon" href="static/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="static/css/styleLoginPage.css"/>
@@ -104,15 +104,15 @@
             var password = $("#password").val();
             var imageCode = $("#imageCode").val();
             if (userName == "") {
-                alert("请输入用户名！");
+                alert("Please input username！");
                 return;
             }
             if (password == "") {
-                alert("请输入密码！");
+                alert("Please input password！");
                 return;
             }
             if (imageCode == "") {
-                alert("请输入验证码！");
+                alert("Verify code");
                 return;
             }
             $.ajax({
@@ -146,27 +146,27 @@
 <form id="fm" action="/login" method="post">
     <dl class="admin_login">
         <dt>
-            <strong>后台登录</strong>
+            <strong>Admin Login</strong>
             <em>background login</em>
         </dt>
         <dd class="user_icon">
-            <input type="text" id="userName" name="userName" placeholder="账号" class="login_txtbx"/>
+            <input type="text" id="userName" name="userName" placeholder="Username" class="login_txtbx"/>
         </dd>
         <dd class="pwd_icon">
-            <input type="password" id="password" name="password" placeholder="密码" class="login_txtbx"/>
+            <input type="password" id="password" name="password" placeholder="Password" class="login_txtbx"/>
         </dd>
         <dd class="val_icon">
             <div class="checkcode">
-                <input type="text" id="imageCode" name="imageCode" placeholder="验证码" maxlength="4" class="login_txtbx">
-                <img id="imgObj" title="看不清，换一张" src="/drawImage" onclick="changeImg()"/>
+                <input type="text" id="imageCode" name="imageCode" placeholder="verify code" maxlength="4" class="login_txtbx">
+                <img id="imgObj" title="Clcick to Refresh" src="/drawImage" onclick="changeImg()"/>
             </div>
         </dd>
         <dd>
-            <a href="javascript:submitData()"><input type="button" id="loginBtn" value="登录"
+            <a href="javascript:submitData()"><input type="button" id="loginBtn" value="Login"
                                                      class="submit_btn"/></a>
         </dd>
         <dd>
-            <p>© www.zoutl.cn 版权所有</p>
+            <p>© www.um.com copyright</p>
         </dd>
     </dl>
 </form>

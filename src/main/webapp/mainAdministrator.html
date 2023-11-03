@@ -2,7 +2,7 @@
 <!--suppress ALL-->
 <head>
     <meta charset="UTF-8">
-    <title>后台管理界面-LeDao校园二手交易平台</title>
+    <title>Admin Login of Secondhand Goods Trade Website</title>
     <link rel="short icon" href="/static/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.7.0/themes/metro-blue/easyui.css"/>
     <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.7.0/themes/icon.css"/>
@@ -31,10 +31,10 @@
                         if (type == 1) {
                             $("#currentUserType").html("管理员");
                         } else {
-                            window.location.href = "/login.html";
+                            window.location.href = "../login.html";
                         }
                     } else {
-                        window.location.href = "/login.html";
+                        window.location.href = "../login.html";
                     }
                 },
             });
@@ -117,7 +117,7 @@
         });
 
         function logout() {
-            $.messager.confirm("系统提示", "您确定要退出系统吗?", function (r) {
+            $.messager.confirm("Tips", "Are you sure?", function (r) {
                 if (r) {
                     window.location.href = "/logout";
                 }
@@ -160,7 +160,7 @@
     <div class="easyui-tabs" fit="true" border="false" id="tabs">
         <div title="首页" data-options="iconCls:'icon-home'">
             <div align="center" style="padding-top: 160px"><span
-                    style="font-size: 40px;color: orangered">LeDao校园二手交易平台后台首页</span></div>
+                    style="font-size: 40px;color: orangered">Admin Login of Secondhand Goods Trade Website</span></div>
         </div>
     </div>
 </div>

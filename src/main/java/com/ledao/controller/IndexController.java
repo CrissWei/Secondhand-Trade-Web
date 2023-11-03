@@ -77,6 +77,7 @@ public class IndexController {
         String checkCode = (String) session.getAttribute("checkCode");
         //验证码正确
         if (checkCode.equals(user.getImageCode())) {
+        //if (true) {//if(true)是取消验证码
             User currentUser = userService.findByUserName(user.getUserName());
             //用户存在时
             if (currentUser != null) {

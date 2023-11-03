@@ -85,6 +85,7 @@ public class ContactInformationController {
      *
      * @return
      */
+    //http://localhost/contactInformation/toMyContactInformationPage
     @RequestMapping("/toMyContactInformationPage")
     public ModelAndView toMyContactInformation(ContactInformation contactInformation, HttpSession session) {
         ModelAndView mav = new ModelAndView();
