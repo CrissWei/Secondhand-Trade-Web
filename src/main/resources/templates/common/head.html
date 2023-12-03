@@ -15,14 +15,14 @@
         <div class="col-md-3">
             <p style="float: right;margin-top: 14%">
                 <a href="/toLoginPage"><span class="badge badge-pill badge-success"
-                                             th:if="${session.currentUser==null}">登录</span></a>
+                                             th:if="${session.currentUser==null}">Login</span></a>
                 <a href="/toPersonalHubsPage"><span class="badge badge-pill badge-success"
-                                                    th:if="${session.currentUser!=null}">个人中心</span></a>
-                <a href="/toContactPage"><span class="badge badge-pill badge-info" th:if="${session.currentUser!=null}">联系我们</span></a>
+                                                    th:if="${session.currentUser!=null}">Profile</span></a>
+                <a href="/toContactPage"><span class="badge badge-pill badge-info" th:if="${session.currentUser!=null}">Contact Us</span></a>
                 <a href="javascript:logoutUser()"><span class="badge badge-pill badge-danger"
-                                                        th:if="${session.currentUser!=null}">注销</span></a>
+                                                        th:if="${session.currentUser!=null}">Logout</span></a>
                 <a href="/toMyShoppingCart"><span class="badge badge-pill badge-warning"
-                                                        th:if="${session.currentUser!=null}">我的购物车</span></a>
+                                                        th:if="${session.currentUser!=null}">Cart</span></a>
             </p>
         </div>
     </div>
@@ -31,30 +31,30 @@
             <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
                 <ul class="navbar-nav">
                     <li class="nav-item active" th:if="${isHome!=null}">
-                        <a class="nav-link" href="/">首页</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item" th:if="${isHome==null}">
-                        <a class="nav-link" href="/">首页</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item active" th:if="${isSort!=null}">
-                        <a class="nav-link" href="/toSortPage?goodsTypeId=1">分类</a>
+                        <a class="nav-link" href="/toSortPage?goodsTypeId=1">Category</a>
                     </li>
                     <li class="nav-item" th:if="${isSort==null}">
-                        <a class="nav-link" href="/toSortPage?goodsTypeId=1">分类</a>
+                        <a class="nav-link" href="/toSortPage?goodsTypeId=1">Category</a>
                     </li>
                     <li class="nav-item active" th:if="${isWantToBuy!=null}">
-                        <a class="nav-link" href="/toWantToBuyPage">用户求购</a>
+                        <a class="nav-link" href="/toWantToBuyPage">Users Needs</a>
                     </li>
                     <li class="nav-item" th:if="${isWantToBuy==null}">
-                        <a class="nav-link" href="/toWantToBuyPage">用户求购</a>
+                        <a class="nav-link" href="/toWantToBuyPage">Users Needs</a>
                     </li>
                 </ul>
                 <div style="margin-left: 50%">
                     <form class="d-flex" action="/goods/search" method="post">
-                        <input class="form-control me-2" type="text" id="name" name="name" required="required" th:value="${name}" placeholder="输入搜索关键词...">
+                        <input class="form-control me-2" type="text" id="name" name="name" required="required" th:value="${name}" placeholder="Key words to search...">
                         <select class="form-control" id="goodsType" name="goodsType" th:value="${goodsType}" style="margin-left: 3px;width: 88px">
-                            <option value="1" th:selected="${goodsType==1}">商品</option>
-                            <option value="2" th:selected="${goodsType==2}">求购</option>
+                            <option value="1" th:selected="${goodsType==1}">Products</option>
+                            <option value="2" th:selected="${goodsType==2}">Buy</option>
                         </select>
                         <button class="btn btn-primary bg-light" type="submit" style="margin-left: 3px"><i
                                 class="fa fa-search" style="color:

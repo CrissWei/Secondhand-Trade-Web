@@ -100,11 +100,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+   <!--     TODO 原版没动，但是我发现和上面重复了
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.26</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>
