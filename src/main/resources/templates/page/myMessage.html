@@ -13,19 +13,19 @@
         </div>
         <div class="col-md-9">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">首页</a></li>
-                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">个人中心</a></li>
-                <li class="breadcrumb-item active">我的消息</li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">My Profile</a></li>
+                <li class="breadcrumb-item active">My Message</li>
             </ol>
-            <span style="color: red;margin-top: 4px" th:if="${messageList.size()==0}">无数据</span>
-            <span th:if="${messageList.size()!=0}" style="float: right">当前有&nbsp;<span style="margin-top: 10px;color: red" th:text="${messageList.size()}"></span>&nbsp;条数据</span>
+            <span style="color: red;margin-top: 4px" th:if="${messageList.size()==0}">No Records</span>
+            <span th:if="${messageList.size()!=0}" style="float: right">Current has&nbsp;<span style="margin-top: 10px;color: red" th:text="${messageList.size()}"></span>&nbsp;records</span>
             <div th:if="${messageList.size()!=0}">
-                <span style="color: red">鼠标悬停在内容上将显示完整的信息</span>
+                <span style="color: red">Mouseover over content will reveal full information</span>
                 <table class="table table-bordered table-striped table-hover table-borderless" style="margin-top: 4px">
                     <thead>
                     <tr>
-                        <th style="text-align: center">时间</th>
-                        <th style="text-align: center">内容</th>
+                        <th style="text-align: center">Time</th>
+                        <th style="text-align: center">Content</th>
                     </tr>
                     </thead>
                     <tbody>

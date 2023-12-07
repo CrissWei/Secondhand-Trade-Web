@@ -28,16 +28,16 @@
                                    th:aria-label="${goods.name}"><h6
                                         class="card-title" th:text="${#strings.abbreviate(goods.name,15)}"></h6>
                                 </a>
-                                <p class="card-text">￥<span th:text="${goods.priceNow}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<del
+                                <p class="card-text">$<span th:text="${goods.priceNow}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<del
                                         th:if="${goods.priceLast!=0&&goods.priceLast>goods.priceNow}"
-                                        style="color: darkred">￥
+                                        style="color: darkred">$
                                 </del>
                                     <del
                                             th:text="${goods.priceLast}"
                                             th:if="${goods.priceLast!=0&&goods.priceLast>goods.priceNow}"
                                             style="color: darkred"></del>
                                 </p>
-                                <a th:href="${'/goods/'+goods.id}" class="btn btn-primary btn-sm">查看详情</a>
+                                <a th:href="${'/goods/'+goods.id}" class="btn btn-primary btn-sm">Check Details</a>
                             </div>
                         </div>
                     </div>

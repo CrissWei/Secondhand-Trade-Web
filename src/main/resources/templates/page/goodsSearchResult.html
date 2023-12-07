@@ -15,8 +15,8 @@
         <!--商品列表-->
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header bg-primary text-white"><i class="fa fa-eercast"></i>搜索"<span
-                        th:text="${name}"></span>"的结果有&nbsp;&nbsp;<span th:text="${goodsList.size()}"></span>&nbsp;&nbsp;个
+                <div class="card-header bg-primary text-white"><i class="fa fa-eercast"></i>Search for"<span
+                        th:text="${name}"></span>"has &nbsp;&nbsp;<span th:text="${goodsList.size()}"></span>&nbsp;&nbsp;results
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -30,9 +30,9 @@
                                    th:aria-label="${goods.name}"><h6
                                         class="card-title" th:text="${#strings.abbreviate(goods.name,15)}"></h6>
                                 </a>
-                                <p class="card-text">￥<span th:text="${goods.priceNow}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<del
+                                <p class="card-text">$<span th:text="${goods.priceNow}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<del
                                         th:if="${goods.priceLast!=0&&goods.priceLast>goods.priceNow}"
-                                        style="color: darkred">￥
+                                        style="color: darkred">$
                                 </del>
                                     <del
                                             th:text="${goods.priceLast}"
@@ -41,7 +41,7 @@
                                     <span class="badge badge-info" th:text="${goods.goodsTypeName}"
                                           style="float: right"></span>
                                 </p>
-                                <a th:href="${'/goods/'+goods.id}" class="btn btn-primary btn-sm">查看详情</a>
+                                <a th:href="${'/goods/'+goods.id}" class="btn btn-primary btn-sm">More Details</a>
                             </div>
                         </div>
                     </div>

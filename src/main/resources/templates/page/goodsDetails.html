@@ -51,7 +51,7 @@
                         </button>
                     </a>
                     <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">
-                        <span th:text="${goods.goodsTypeId!=8?'获取卖家联系方式':'获取求购者联系方式'}"></span>
+                        <span th:text="${goods.goodsTypeId!=8?'Get seller contact information':'Get buyer’s contact information'}"></span>
                     </button>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                     <!-- 模态框主体 -->
                     <div class="modal-body">
                         <span th:if="${session.currentUser==null}">You need login first<span
-                                th:text="${goods.goodsTypeId!=8?'获取卖家联系方式':'获取求购者联系方式'}"></span>，Go to<a
+                                th:text="${goods.goodsTypeId!=8?'Get seller contact information':'Get buyer’s contact information'}"></span>，Go to<a
                                 href="/toLoginPage"><button
                                 type="button"
                                 class="btn btn-primary">Login</button></a></span>

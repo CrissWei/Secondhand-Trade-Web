@@ -13,31 +13,31 @@
         </div>
         <div class="col-md-9">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">首页</a></li>
-                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">个人中心</a></li>
-                <li class="breadcrumb-item active">联系方式</li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">My Profile</a></li>
+                <li class="breadcrumb-item active">My Message</li>
             </ol>
             <form action="/contactInformation/toMyContactInformationPage" method="post">
                 <div class="row" style="margin-left: 3px">
                     <input type="text" class="form-control" id="name" name="name" style="width: 200px" th:value="${name}"
-                           placeholder="请输入联系方式名称...">
+                           placeholder="Please input contact number...">
                     <button type="submit" class="btn btn-primary" style="margin-left: 2px"><i class="fa fa-search"></i>
                     </button>
                     <button type="button" class="btn btn-primary" style="margin-left: 2px" data-toggle="modal"
-                            data-target="#myModalAdd">添加
+                            data-target="#myModalAdd">Add
                     </button>
                 </div>
             </form>
-            <span style="color: #0c9076" th:if="${contactInformationList.size()!=0}">买家将通过你的联系方式与你进行沟通</span>
-            <span style="color: red;margin-top: 4px" th:if="${contactInformationList.size()==0}">无数据</span>
-            <span th:if="${contactInformationList.size()!=0}" style="float: right">当前有&nbsp;<span style="margin-top: 10px;color: red" th:text="${contactInformationList.size()}"></span>&nbsp;条数据</span>
+            <span style="color: #0c9076" th:if="${contactInformationList.size()!=0}">The seller will contact with you by your number</span>
+            <span style="color: red;margin-top: 4px" th:if="${contactInformationList.size()==0}">No Records</span>
+            <span th:if="${contactInformationList.size()!=0}" style="float: right">Current has&nbsp;<span style="margin-top: 10px;color: red" th:text="${contactInformationList.size()}"></span>&nbsp; Records</span>
             <div th:if="${contactInformationList.size()!=0}">
                 <table class="table table-bordered table-striped table-hover table-borderless" style="margin-top: 4px">
                     <thead>
                     <tr>
-                        <th style="text-align: center">名称</th>
-                        <th style="text-align: center">内容</th>
-                        <th style="text-align: center">操作</th>
+                        <th style="text-align: center">Name</th>
+                        <th style="text-align: center">Content</th>
+                        <th style="text-align: center">Operation</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -76,7 +76,7 @@
 
                 <!-- 模态框头部 -->
                 <div class="modal-header">
-                    <h4 class="modal-title">添加联系方式</h4>
+                    <h4 class="modal-title">Add Contact Number</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -86,16 +86,16 @@
                         <input type="hidden" class="form-control" id="userIdAddContactInformationName" name="userId"
                                th:value="${session.currentUser.id}">
                         <div class="form-group">
-                            <label for="name">名称</label>
+                            <label for="name">Name</label>
                             <input type="text" class="form-control" id="nameAddContactInformationName" name="name" required="required">
                         </div>
                         <div class="form-group">
-                            <label for="name">内容</label>
+                            <label for="name">Content</label>
                             <input type="text" class="form-control" id="content" name="content" required="required">
                         </div>
                         <div style="text-align: center">
-                            <button type="submit" class="btn btn-primary">提交</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -109,7 +109,7 @@
 
                 <!-- 模态框头部 -->
                 <div class="modal-header">
-                    <h4 class="modal-title">修改联系方式</h4>
+                    <h4 class="modal-title">Edit Contact Number</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -120,16 +120,16 @@
                                th:value="${session.currentUser.id}">
                         <input type="hidden" class="form-control" id="idModifyContactInformation" name="id">
                         <div class="form-group">
-                            <label for="name">名称</label>
+                            <label for="name">Name</label>
                             <input type="text" class="form-control" id="nameModifyContactInformation" name="name" required="required">
                         </div>
                         <div class="form-group">
-                            <label for="name">内容</label>
+                            <label for="name">Content</label>
                             <input type="text" class="form-control" id="contentModifyContactInformation" name="content" required="required">
                         </div>
                         <div style="text-align: center">
-                            <button type="submit" class="btn btn-primary">提交</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -143,7 +143,7 @@
 
                 <!-- 模态框头部 -->
                 <div class="modal-header">
-                    <h4 class="modal-title">查看联系方式</h4>
+                    <h4 class="modal-title">Check Contact Number</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -153,15 +153,15 @@
                         <input type="hidden" class="form-control" id="userIdSeeContactInformation" name="userId"
                                th:value="${session.currentUser.id}">
                         <div class="form-group">
-                            <label for="name">名称</label>
+                            <label for="name">Name</label>
                             <input type="text" class="form-control" id="nameSeeContactInformation" name="name" disabled="disabled" required="required">
                         </div>
                         <div class="form-group">
-                            <label for="name">内容</label>
+                            <label for="name">Content</label>
                             <input type="text" class="form-control" id="contentSeeContactInformation" name="content" disabled="disabled" required="required">
                         </div>
                         <div style="text-align: center">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>

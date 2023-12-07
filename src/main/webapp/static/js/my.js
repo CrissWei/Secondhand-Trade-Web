@@ -257,7 +257,7 @@ function checkContactValue() {
 
 //删除留言
 function deleteContact(id) {
-    if (confirm("您确定要删除这个留言吗?")) {
+    if (confirm("Are you sure to delete this个留言吗?")) {
         window.location.href = "/contact/delete?id=" + id;
     }
 }
@@ -368,7 +368,7 @@ function modifyContactInformation(id) {
 
 //删除联系方式
 function deleteContactInformation(id) {
-    if (confirm("您确定要删除这个联系方式吗?")) {
+    if (confirm("Are you sure to delete this个联系方式吗?")) {
         window.location.href = "/contactInformation/delete?id=" + id;
     }
 }
@@ -487,7 +487,7 @@ function updateGoodsState(goodsId, state) {
 
 //删除商品
 function deleteGoods(goodsId) {
-    if (confirm("您确定要删除这个商品吗?")) {
+    if (confirm("Are you sure to delete this个商品吗?")) {
         $.ajax({
             url: "/goods/delete",
             type: "post",

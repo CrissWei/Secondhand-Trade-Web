@@ -24,7 +24,7 @@ public class PageUtil {
         int pageTotal = 2;
         long totalPage = totalNum % pageSize == 0 ? totalNum / pageSize : totalNum / pageSize + 1;
         if (totalPage == 0) {
-            return "<span style='color:red'>无数据</span>";
+            return "<span style='color:red'>No records</span>";
         } else {
             StringBuilder pageCode = new StringBuilder();
             //当前不是第一页时,首页链接可点击
