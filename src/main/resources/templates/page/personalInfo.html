@@ -19,7 +19,7 @@
             </ol>
             <p>Username：<span style="color: #0c9076" th:text="${session.currentUser.userName}"></span></p>
             <p>Nickname：<span style="color: #0c9076" th:text="${session.currentUser.nickName}"></span></p>
-            <p>User Type：<span style="color: #0c9076" th:text="${session.currentUser.type==1?'管理员':'普通用户'}"></span></p>
+            <p>User Type：<span style="color: #0c9076" th:text="${session.currentUser.type==1?'Admin':'User'}"></span></p>
             <p>Bound e-mail address：<span style="color: #0c9076" th:text="${session.currentUser.email}"></span></p>
             <p><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Edit</button></p>
             <!-- 模态框 -->

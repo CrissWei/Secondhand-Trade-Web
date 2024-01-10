@@ -35,11 +35,11 @@
                         <option value="">Select state...</option>
                         <div>
                             <option value="0" th:selected="${state==0}">Not Check</option>
-                            <option value="1" th:selected="${state==1}">Approving</option>
+                            <option value="1" th:selected="${state==1}">Approved</option>
                             <option value="2" th:selected="${state==2}">Not Approved</option>
                             <option value="3" th:selected="${state==3}">Off the shelves</option>
                             <option value="4" th:selected="${state==4}">Ordered</option>
-                            <option value="5" th:selected="${state==5}">Deal Successfully</option>
+                            <option value="5" th:selected="${state==5}">Deal Done</option>
                         </div>
                     </select>
                     <select id="isRecommendSearchGoods" name="isRecommend" th:value="${recommend}"
@@ -87,41 +87,42 @@
                         </td>
                         <td th:text="${goods.goodsTypeName}" style="text-align: center"
                         ></td>
+                        <!--TODO 改掉中文-->
                         <td th:title="${goods.state==2?goods.reason:''}"
-                            th:text="${goods.state==0?'未审核':(goods.state==1?'上架中':(goods.state==2?'审核不通过':(goods.state==3?'已下架':(goods.state==4?'被预订':'交易完成'))))}"
+                            th:text="${goods.state==0?'Not Check':(goods.state==1?'Approvd':(goods.state==2?'Not Approved':(goods.state==3?'Off shelves':(goods.state==4?'Ordered':'Deal Done'))))}"
                             th:style="${goods.state==0?'color:blue;text-align: center':(goods.state==1?'color:green;text-align: center':(goods.state==2?'color:red;text-align: center':(goods.state==3?'color:pink;text-align: center':(goods.state==4?'color:#660066;text-align: center':'color:#669966;text-align: center'))))}"></td>
-                        <td th:text="${goods.isRecommend==0?'不推荐':'推荐'}"
+                        <td th:text="${goods.isRecommend==0?'Not Recommended':'Recommended'}"
                             th:style="${goods.isRecommend==0?'color:red;text-align: center':'color:blue;text-align: center'}"
                         ></td>
                         <td style="text-align: center">
                             <a th:href="'javascript:seeOrModifyGoodsDetails('+${goods.id}+',1)'"
                                style="text-decoration: none">
                                 <button type="button" class="btn btn-primary btn-sm status-icon hint--top"
-                                        aria-label="查看详情" data-toggle="modal" data-target="#myModalSeeGoods"><i
+                                        aria-label="Details" data-toggle="modal" data-target="#myModalSeeGoods"><i
                                         class="fa fa-search"></i></button>
                             </a>
                             <a th:href="'javascript:seeOrModifyGoodsDetails('+${goods.id}+',2)'"
                                style="text-decoration: none"
                                th:if="${goods.state!=4&&goods.state!=5}">
-                                <button type="button" class="btn btn-info btn-sm status-icon hint--top" aria-label="修改"
+                                <button type="button" class="btn btn-info btn-sm status-icon hint--top" aria-label="Update"
                                         data-toggle="modal" data-target="#myModalSeeGoods"><i class="fa fa-pencil"></i>
                                 </button>
                             </a>
                             <a th:href="'javascript:deleteGoods('+${goods.id}+')'" style="text-decoration: none"
                                th:if="${goods.state==3||goods.state==0||goods.state==2}">
                                 <button type="button" class="btn btn-danger btn-sm status-icon hint--top"
-                                        style="margin-left: 2px" aria-label="删除"><i class="fa fa-trash-o"></i></button>
+                                        style="margin-left: 2px" aria-label="Delete"><i class="fa fa-trash-o"></i></button>
                             </a>
                             <a th:href="'javascript:updateGoodsState('+${goods.id}+',3)'" th:if="${goods.state==1}"
                                style="text-decoration: none">
                                 <button type="button" class="btn btn-secondary btn-sm status-icon hint--top"
-                                        style="margin-left: 2px" aria-label="下架"><i class="fa fa-angle-double-down"></i>
+                                        style="margin-left: 2px" aria-label="Off shelves"><i class="fa fa-angle-double-down"></i>
                                 </button>
                             </a>
                             <a th:href="'javascript:updateGoodsState('+${goods.id}+',1)'" th:if="${goods.state==3}"
                                style="text-decoration: none">
                                 <button type="button" class="btn btn-warning btn-sm status-icon hint--top"
-                                        style="margin-left: 2px" aria-label="上架"><i class="fa fa-angle-double-up"></i>
+                                        style="margin-left: 2px" aria-label="On the shelves"><i class="fa fa-angle-double-up"></i>
                                 </button>
                             </a>
                             <a th:href="'javascript:getContactInformation('+${goods.id}+')'"
@@ -129,26 +130,26 @@
                                style="text-decoration: none">
                                 <button type="button" class="btn btn-warning btn-sm status-icon hint--top" data-toggle="modal"
                                         data-target="#myModal"
-                                        style="margin-left: 2px" aria-label="获取买家联系方式"><i class="fa fa-phone"></i>
+                                        style="margin-left: 2px" aria-label="Get seller information"><i class="fa fa-phone"></i>
                                 </button>
                             </a>
                             <a th:href="'javascript:updateGoodsState('+${goods.id}+',1)'" th:if="${goods.state==4}"
                                style="text-decoration: none">
                                 <button type="button" class="btn btn-danger btn-sm status-icon hint--top"
-                                        aria-label="取消被预订"><i
+                                        aria-label="Order be cancelled"><i
                                         class="fa fa-ban"></i></button>
                             </a>
                             <a th:href="'javascript:updateGoodsState('+${goods.id}+',5)'" th:if="${goods.state==4}"
                                style="text-decoration: none">
                                 <button type="button" class="btn btn-success btn-sm status-icon hint--top"
-                                        style="margin-left: 2px" aria-label="完成交易"><i class="fa fa-hand-peace-o"></i>
+                                        style="margin-left: 2px" aria-label="Deal done"><i class="fa fa-hand-peace-o"></i>
                                 </button>
                             </a>
                             <a th:href="'javascript:updateGoodsState('+${goods.id}+',5)'"
                                th:if="${goods.goodsTypeId==8&&goods.state==1}"
                                style="text-decoration: none">
                                 <button type="button" class="btn btn-success btn-sm status-icon hint--top"
-                                        style="margin-left: 2px" aria-label="完成交易"><i class="fa fa-hand-peace-o"></i>
+                                        style="margin-left: 2px" aria-label="Deal done"><i class="fa fa-hand-peace-o"></i>
                                 </button>
                             </a>
                         </td>
@@ -201,6 +202,7 @@
                         </div>
                         <div class="form-group">
                             <label for="name">Product Details：</label>&nbsp;&nbsp;<span
+                                <!--todo 没有上传图片的功能，需要增加-->
                                 style="color: red">Please upload at least one image, otherwise the system's default image will be used</span>
                             <textarea id="contentGoods" name="content" style="width: 50%"></textarea>
                         </div>

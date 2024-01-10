@@ -48,7 +48,7 @@ public class ContactController {
         Page<Contact> contactPage = new Page<>(1, 10);
         List<Contact> contactList = contactService.list(contactQueryWrapper, contactPage);
         mav.addObject("contactList", contactList);
-        mav.addObject("title", "我的留言--LeDao校园二手交易平台");
+        mav.addObject("title", "My message-- Secondhand Trade Website");
         mav.addObject("mainPage", "page/myContact");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -85,7 +85,7 @@ public class ContactController {
         Page<Contact> contactPage = new Page<>(1, 10);
         List<Contact> contactList = contactService.list(contactQueryWrapper, contactPage);
         mav.addObject("contactList", contactList);
-        mav.addObject("title", "我的留言--LeDao校园二手交易平台");
+        mav.addObject("title", "My message-- Secondhand Trade Website");
         mav.addObject("mainPage", "page/myContact");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -109,7 +109,7 @@ public class ContactController {
         Page<Contact> contactPage = new Page<>(1, 10);
         List<Contact> contactList = contactService.list(contactQueryWrapper, contactPage);
         mav.addObject("contactList", contactList);
-        mav.addObject("title", "我的留言--LeDao校园二手交易平台");
+        mav.addObject("title", "My message-- Secondhand Trade Website");
         mav.addObject("mainPage", "page/myContact");
         mav.addObject("mainPageKey", "#b");
         //删除成功时

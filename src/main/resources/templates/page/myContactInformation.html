@@ -48,17 +48,17 @@
                             <td style="text-align: center">
                                 <a th:href="'javascript:seeContactInformationDetails('+${contactInformation.id}+')'" style="text-decoration: none">
                                     <button type="button" class="btn btn-primary btn-sm status-icon hint--top"
-                                            aria-label="查看详情" data-toggle="modal" data-target="#myModalSee"><i
+                                            aria-label="Details" data-toggle="modal" data-target="#myModalSee"><i
                                             class="fa fa-search"></i></button>
                                 </a>
                                 <a th:href="'javascript:modifyContactInformation('+${contactInformation.id}+')'" style="text-decoration: none">
                                     <button type="button" class="btn btn-info btn-sm status-icon hint--top"
-                                            aria-label="修改" data-toggle="modal" data-target="#myModalModify"><i
+                                            aria-label="Edit" data-toggle="modal" data-target="#myModalModify"><i
                                             class="fa fa-pencil"></i></button>
                                 </a>
                                 <a th:href="'javascript:deleteContactInformation('+${contactInformation.id}+')'">
                                     <button type="button" class="btn btn-danger btn-sm status-icon hint--top"
-                                            style="margin-left: 2px" aria-label="删除"><i class="fa fa-trash-o"></i>
+                                            style="margin-left: 2px" aria-label="Delete"><i class="fa fa-trash-o"></i>
                                     </button>
                                 </a>
                             </td>

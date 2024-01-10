@@ -45,13 +45,13 @@ function setTime(val, type) {
     if (countdown === 0) {
         val.removeAttribute("disabled");
         val.className = 'btn-warning btn btn-sm';
-        val.value = "获取验证码";
+        val.value = "Get verify code";//发验证码
         countdown = 60;
         return false;
     } else {
         val.setAttribute("disabled", true);
         val.className = 'btn-default btn btn-sm disabled';
-        val.value = "重新发送(" + countdown + ")";
+        val.value = "Resend(" + countdown + ")";//重新发验证码
         countdown--;
     }
     setTimeout(function () {
@@ -79,7 +79,7 @@ $(function () {
 //检验用户名是否存在
 function checkUserName(userName) {
     if (userName === "") {
-        $("#userNameFail").html("用户名不能为空！请输入用户名后再注册!");
+        $("#userNameFail").html("Username cannot be empty ");//用户名不能为空
         $("#userNameSuccess").html("");
         $("#userName").focus();
         return;
@@ -87,11 +87,11 @@ function checkUserName(userName) {
     $.post("/user/existUserWithUserName", {userName: userName},
         function (result) {
             if (result.success) {
-                $("#userNameFail").html("该用户名已被注册,请重新输入后再注册!");
+                $("#userNameFail").html("Username exist");//用户名已存在
                 $("#userNameSuccess").html("");
                 $("#userName").focus();
             } else {
-                $("#userNameSuccess").html("用户名可以使用!");
+                $("#userNameSuccess").html("Username can use");//用户名可以使用!
                 $("#userNameFail").html("");
             }
         }
@@ -101,7 +101,7 @@ function checkUserName(userName) {
 //检验邮箱是否存在--注册时
 function checkEmail(email) {
     if (email === "") {
-        $("#emailFail").html("邮箱不能为空！请输入邮箱后再注册！");
+        $("#emailFail").html("Email cannot be empty");//邮箱不能为空
         $("#emailSuccess").html("");
         $("#emailRegister").focus();
         return;
@@ -109,12 +109,12 @@ function checkEmail(email) {
     $.post("/user/existEmail", {email: email},
         function (result) {
             if (result.success) {
-                $("#emailFail").html("该邮箱已被注册,请重新输入后再注册!");
+                $("#emailFail").html("Email exist");
                 $("#emailSuccess").html("");
                 $("#emailRegister").focus();
             } else {
                 $("#emailFail").html("");
-                $("#emailSuccess").html("邮箱可以使用!");
+                $("#emailSuccess").html("Email can use");
             }
         }
     );
@@ -139,12 +139,12 @@ function getVerificationCode(type) {
             }
         });
         if (existEmail === false) {
-            alert("你输入的邮箱地址没有在本站注册!!")
+            alert("New email")//你输入的邮箱地址没有在本站注册!
             return false;
         }
     }
     if (email == null || email === "") {
-        alert("邮箱不能为空!!");
+        alert("Email cannot be empty ");//邮箱不能为空!!
         return false;
     }
     $.ajax({
@@ -154,9 +154,9 @@ function getVerificationCode(type) {
         success: function (result) {
             if (result.success) {
                 if (type === 1) {
-                    alert("注册的验证码已经发送到你的邮箱,请注意查收!!")
+                    alert("Please check the verification code")//注册的验证码已经发送到你的邮箱,请注意查收!!
                 } else if (type === 2) {
-                    alert("找回密码的验证码已经发送到你的邮箱,请注意查收!!")
+                    alert("Please check the verification code")//找回密码的验证码已经发送到你的邮箱,请注意查收!!
                 }
             }
         }
@@ -171,11 +171,11 @@ function checkRegisterValue() {
     let registerCode = $("#registerCode").val();
     let imageCode;
     if (password.length < 6) {
-        alert("密码长度要大于5!");
+        alert("The length of the password need more than 5 ");//密码长度要大于5!
         return false;
     }
     if (password !== password2) {
-        alert("密码和确认密码不相同,请重新输入!");
+        alert("The password is not the same like previous one");//密码和确认密码不相同,请重新输入!
         return false;
     }
     $.ajax({
@@ -189,14 +189,14 @@ function checkRegisterValue() {
         }
     });
     if (registerCode !== imageCode) {
-        alert("验证码不正确,请重新输入!");
+        alert("Verification code wrong");//验证码不正确,请重新输入!
         return false;
     }
     return true;
 }
 
 function logoutUser() {
-    if (confirm("您确定要退出登录吗?")) {
+    if (confirm("Are you sure logout? ")) {//您确定要退出登录吗?
         window.location.href = "/user/logout";
     }
 }
@@ -209,11 +209,11 @@ function checkResetPasswordValue() {
     let resetPasswordCode = $("#resetPasswordCode").val();
     let imageCode;
     if (password.length < 6) {
-        alert("密码长度要大于5!");
+        alert("The length of the password need more than 5");//密码长度要大于5
         return false;
     }
     if (password !== password2) {
-        alert("密码和确认密码不相同,请重新输入!");
+        alert("The password is not the same like previous one");
         return false;
     }
     $.ajax({
@@ -228,7 +228,7 @@ function checkResetPasswordValue() {
     });
     alert(resetPasswordCode + "," + imageCode)
     if (resetPasswordCode !== imageCode) {
-        alert("验证码不正确,请重新输入!");
+        alert("Verification code wrong, please try again ");
         return false;
     }
     return true;
@@ -239,7 +239,7 @@ function checkModifyValue() {
     let password = $("#passwordModify").val();
     let password2 = $("#password2Modify").val();
     if (password !== password2) {
-        alert("密码和确认密码不相同,请重新输入!");
+        alert("The password is not the same like previous one");
         return false;
     }
     return true;
@@ -249,7 +249,7 @@ function checkModifyValue() {
 function checkContactValue() {
     let userId = $("#userId").val();
     if (userId == null || userId === '') {
-        alert("你的登录状态已到期，请重新登录！！");
+        alert("Your login status has expired, please login again ");
         return false;
     }
     return true;
@@ -257,7 +257,7 @@ function checkContactValue() {
 
 //删除留言
 function deleteContact(id) {
-    if (confirm("Are you sure to delete this个留言吗?")) {
+    if (confirm("Are you sure to delete this? ")) {
         window.location.href = "/contact/delete?id=" + id;
     }
 }
@@ -274,12 +274,12 @@ function seeContactDetails(id) {
                 $("#contactTime").html(result.contact.time);
                 $("#contactContent").html(result.contact.content);
                 if (result.contact.reply == null) {
-                    $("#contactReply").html("<span style='color: red'>未答复</span>");
+                    $("#contactReply").html("<span style='color: red'>Not reply</span>");
                 } else {
                     $("#contactReply").html(result.contact.reply);
                 }
             } else {
-                alert("查看详情失败！！");
+                alert("Failed to view details ");
             }
         },
     });
@@ -296,7 +296,7 @@ function modifyContact(id) {
             if (result.success) {
                 $("#contentContactModify").val(result.contact.content);
             } else {
-                alert("查看详情失败！！");
+                alert("View details failed ");
             }
         },
     });
@@ -322,7 +322,7 @@ function checkSaveContactInformationName(type) {
         success: function (result) {
             if (result.success) {
                 nameIsExist = true;
-                alert("请重新输入联系方式的名称，因为名称为" + name + "的联系方式已存在！！");
+                alert("Sorry, "+ name + " already exist, please try others ");
             } else {
                 nameIsExist = false;
             }
@@ -342,7 +342,7 @@ function seeContactInformationDetails(id) {
                 $("#nameSeeContactInformation").val(result.contactInformation.name);
                 $("#contentSeeContactInformation").val(result.contactInformation.content);
             } else {
-                alert("查看详情失败！！");
+                alert("View details failed ");
             }
         },
     });
@@ -360,7 +360,7 @@ function modifyContactInformation(id) {
                 $("#nameModifyContactInformation").val(result.contactInformation.name);
                 $("#contentModifyContactInformation").val(result.contactInformation.content);
             } else {
-                alert("查看详情失败！！");
+                alert("View details failed ");
             }
         },
     });
@@ -368,7 +368,7 @@ function modifyContactInformation(id) {
 
 //删除联系方式
 function deleteContactInformation(id) {
-    if (confirm("Are you sure to delete this个联系方式吗?")) {
+    if (confirm("Are you sure to delete this? ")) {
         window.location.href = "/contactInformation/delete?id=" + id;
     }
 }
@@ -377,13 +377,13 @@ function deleteContactInformation(id) {
 function checkAddGoodsValue() {
     let content = CKEDITOR.instances.contentGoods.getData();
     if (content === "" || content === null) {
-        alert("商品详情不能为空!");
+        alert("Cannot be empty");
         return false;
     }
     return true;
 }
 
-//重置搜索商品的条件(用户商品管理)
+//重置搜索商品的条件(用户商品管理),//TODO 重置功能未实现
 function resetSearchGoodsValue() {
     $("#nameSearchGoods").val("");
     $("#goodsTypeIdSearchGoods").val("");
@@ -391,16 +391,16 @@ function resetSearchGoodsValue() {
     $("#isRecommendSearchGoods").val("");
 }
 
-// 添加商品到购物车
+// 添加商品到购物车 TODO 购物车
 function addGoodsToShoppingCart(goodsId) {
-    if (confirm("您确定要将这个商品加入购物车吗?")) {
+    if (confirm("Are you sure put this to your shopping cart? ")) {//您确定要将这个商品加入购物车吗?
         $.ajax({
             url: "/goods/addGoodsToShoppingCart",
             type: "post",
             data: {goodsId: goodsId},
             success: function (result) {
                 if (result.success) {
-                    alert("加入购物车成功！！");
+                    alert("Add to Cart successful ");//加入购物车成功！！
                 } else {
                     alert(result.errorInfo);
                 }
@@ -411,14 +411,14 @@ function addGoodsToShoppingCart(goodsId) {
 
 //删除购物车的商品
 function deleteGoodsInShoppingCart(goodsId) {
-    if (confirm("您确定要将这个商品从购物车中删除吗?")) {
+    if (confirm("Are you sure to delete? ")) {//您确定要将这个商品从购物车中删除吗?
         $.ajax({
             url: "/goods/deleteGoodsInShoppingCart",
             type: "post",
             data: {goodsId: goodsId},
             success: function (result) {
                 if (result.success) {
-                    alert("删除成功！！");
+                    alert("successfully deleted ");//todo 是不是这个有问题, 试试addGoodsToShoppingCart也不行
                     window.location.href = "/toMyShoppingCart";
                 } else {
                     alert(result.errorInfo);
@@ -430,14 +430,14 @@ function deleteGoodsInShoppingCart(goodsId) {
 
 // 预订商品
 function reserve(goodsId) {
-    if (confirm("您确定要预订吗?")) {
+    if (confirm("Are you sure to book? ")) {
         $.ajax({
             url: "/reserveRecord/reserve",
             type: "post",
             data: {goodsId: goodsId},
             success: function (result) {
                 if (result.success) {
-                    alert("成功预订，请联系卖家当面交易哦");
+                    alert("Successfully booked, please contact the seller for transaction");
                     $.ajax({
                         url: "/goods/deleteGoodsInShoppingCart",
                         type: "post",
@@ -451,7 +451,7 @@ function reserve(goodsId) {
                         },
                     });
                 } else {
-                    alert("预订失败！！");
+                    alert("Booking failed ");
                 }
             },
         });
@@ -462,23 +462,23 @@ function reserve(goodsId) {
 function updateGoodsState(goodsId, state) {
     let stateName;
     if (state === 1) {
-        stateName = "上架";
+        stateName = "On the shelves";//上架
     } else if (state === 3) {
-        stateName = "下架";
+        stateName = "Remove from shelves";//下架
     } else if (state === 5) {
-        stateName = "完成交易";
+        stateName = "Transaction Done";//完成交易
     }
-    if (confirm("您确定要将商品状态设置为" + stateName + "吗?")) {
+    if (confirm("Are you sure to set the state as " + stateName + " ?")) {
         $.ajax({
             url: "/goods/updateGoodsState",
             type: "post",
             data: {goodsId: goodsId, state: state},
             success: function (result) {
                 if (result.success) {
-                    alert("设置成功！！");
+                    alert("Set successfully");
                     window.location.href = "/toGoodsManagePage";
                 } else {
-                    alert("设置失败！！");
+                    alert("Set fail");//设置失败
                 }
             },
         });
@@ -487,17 +487,17 @@ function updateGoodsState(goodsId, state) {
 
 //删除商品
 function deleteGoods(goodsId) {
-    if (confirm("Are you sure to delete this个商品吗?")) {
+    if (confirm("Are you sure to delete the product?")) {
         $.ajax({
             url: "/goods/delete",
             type: "post",
             data: {goodsId: goodsId},
             success: function (result) {
                 if (result.success) {
-                    alert("删除成功！！");
+                    alert("Delete successfully");//删除成功！
                     window.location.href = "/toGoodsManagePage";
                 } else {
-                    alert("删除失败！！");
+                    alert("Delete failed");//删除失败！！
                 }
             },
         });
@@ -508,10 +508,10 @@ function deleteGoods(goodsId) {
 function seeOrModifyGoodsDetails(goodsId, type) {
 
     if (type === 1) {
-        $("#modalHeadName").html("查看");
+        $("#modalHeadName").html("View");//查看
         $("#modifyButton").css("display", "none");
     } else if (type === 2) {
-        $("#modalHeadName").html("修改");
+        $("#modalHeadName").html("Modify");//修改
         $("#modifyButton").css("display", "block");
     }
     $.ajax({
@@ -526,7 +526,7 @@ function seeOrModifyGoodsDetails(goodsId, type) {
                 $("#goodsTypeId").val(result.goods.goodsTypeId);
                 CKEDITOR.instances.contentGoods.setData(result.goods.content);
             } else {
-                alert("删除失败！！");
+                alert("Delete failed");
             }
         },
     });
@@ -543,7 +543,7 @@ function getContactInformation(goodsId) {
             if (result.success) {
                 $("#contactInformationStr").html(result.contactInformationStr);
             } else {
-                alert("删除失败！！");
+                alert("Delete failed");
             }
         },
     });
@@ -554,23 +554,23 @@ function updateReserveRecordState(reserveRecordId, state, stateNow) {
 
     let stateName;
     if (state === 1) {
-        stateName = "预订已取消";
+        stateName = "The order has be cancelled";//预订已取消
     }
     if (stateNow === 1) {
-        alert("无需操作,状态已经是预订已取消！！");
+        alert("The order has be cancelled");//无需操作,状态已经是预订已取消！！
         return false;
     }
-    if (confirm("您确定要将预订记录状态设置为" + stateName + "吗?")) {
+    if (confirm("Are you sure set order state as " + stateName + " ?")) {
         $.ajax({
             url: "/reserveRecord/updateReserveRecordState",
             type: "post",
             data: {reserveRecordId: reserveRecordId, state: state},
             success: function (result) {
                 if (result.success) {
-                    alert("设置成功！！");
+                    alert("Set successfully");
                     window.location.href = "/toMyReserveRecordPage";
                 } else {
-                    alert("设置失败！！");
+                    alert("Set failed");//设置失败
                 }
             },
         });
@@ -596,8 +596,8 @@ function checkLoginUserState() {
             }
         },
     });
-    if (isBan === true) {
-        alert("你的账号已被封禁，如果要解封，请发邮件到管理员邮箱说明情况，管理员邮箱地址为：123141@qq.com");
+    if (isBan === true) {//账号被封，联系管理员解封
+        alert("Your account has be locked, please contact admin, admin email: iamcriss44@gmail.com");
         return false;
     }
     return true;
@@ -608,7 +608,7 @@ function getGoodsNameTestPage() {
     let goodsTypeId = $("#goodsTypeIdTestPage").val();
     //当goodsTypeId为空,就结束方法并添加默认选项
     if (goodsTypeId === "") {
-        $("#goodsNameTestPage").empty().append('<option>选择商品名称...</option>');
+        $("#goodsNameTestPage").empty().append('<option>Select product name...</option>');//选择商品名称
         return false;
     }
     $.ajax({
@@ -617,7 +617,7 @@ function getGoodsNameTestPage() {
         success: function (result) {
             let goods = $("#goodsNameTestPage").empty();
             //添加默认选项
-            goods.append('<option>选择商品名称...</option>');
+            goods.append('<option>Select product name...</option>');//选择商品名称
             for (let i = 0; i < result.length; i++) {
                 goods.append("<option value='" + result[i].id + "'>" + result[i].name + "</option>");
             }

@@ -75,7 +75,7 @@ public class AnnouncementController {
         }
         Collections.shuffle(goodsRecommendList);
         mav.addObject("goodsRecommendList", goodsRecommendList);
-        mav.addObject("title", announcement.getTitle() + "--LeDao校园二手交易平台");
+        mav.addObject("title", announcement.getTitle() + "--Secondhand Trade Website in Campus");
         mav.addObject("mainPage", "page/announcementDetails");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");

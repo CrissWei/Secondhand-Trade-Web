@@ -73,7 +73,7 @@ public class ContactInformationController {
         Page<ContactInformation> contactInformationPage = new Page<>(1, 100);
         List<ContactInformation> contactInformationList = contactInformationService.list(contactInformationQueryWrapper, contactInformationPage);
         mav.addObject("contactInformationList", contactInformationList);
-        mav.addObject("title", "联系方式--LeDao校园二手交易平台");
+        mav.addObject("title", "My contact-- Secondhand Trade Website");
         mav.addObject("mainPage", "page/myContactInformation");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -99,7 +99,7 @@ public class ContactInformationController {
         List<ContactInformation> contactInformationList = contactInformationService.list(contactInformationQueryWrapper, contactInformationPage);
         mav.addObject("name", contactInformation.getName());
         mav.addObject("contactInformationList", contactInformationList);
-        mav.addObject("title", "联系方式--LeDao校园二手交易平台");
+        mav.addObject("title", "My contact -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/myContactInformation");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -121,7 +121,7 @@ public class ContactInformationController {
         Page<ContactInformation> contactInformationPage = new Page<>(1, 100);
         List<ContactInformation> contactInformationList = contactInformationService.list(contactInformationQueryWrapper, contactInformationPage);
         mav.addObject("contactInformationList", contactInformationList);
-        mav.addObject("title", "联系方式--LeDao校园二手交易平台");
+        mav.addObject("title", "My contact -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/myContactInformation");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -186,7 +186,7 @@ public class ContactInformationController {
                 contactInformationStr.append(contactInformation.getName()).append("：").append(contactInformation.getContent()).append("；");
             }
         } else {
-            contactInformationStr.append("买家邮箱：").append(userService.findById(reserveRecordService.findByGoodsId(goodsId).getUserId()).getEmail());
+            contactInformationStr.append("Buyer email：").append(userService.findById(reserveRecordService.findByGoodsId(goodsId).getUserId()).getEmail());
         }
         resultMap.put("success", true);
         resultMap.put("contactInformationStr", contactInformationStr);

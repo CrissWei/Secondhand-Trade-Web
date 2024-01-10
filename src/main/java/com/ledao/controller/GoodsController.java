@@ -104,7 +104,7 @@ public class GoodsController {
         //获取卖家邮箱
         String emailStr = userService.findById(goods.getUserId()).getEmail();
         mav.addObject("emailStr", emailStr);
-        mav.addObject("title", goods.getName() + "--LeDao校园二手交易平台");
+        mav.addObject("title", goods.getName() + "--Secondhand Trade Website");
         mav.addObject("mainPage", "page/goodsDetails");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -188,21 +188,21 @@ public class GoodsController {
         mav.addObject("goodsRecommendList", goodsRecommendList);
         mav.addObject("name", name);
         mav.addObject("goodsType", goodsType);
-        mav.addObject("title", "搜索(" + name + ")的结果--LeDao校园二手交易平台");
+        mav.addObject("title", "Search(" + name + ")result -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/goodsSearchResult");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
         return mav;
     }
 
-    /**
+    /** TODO
      * 将商品加入购物车
      *
      * @param goodsId
      * @return
      */
     @ResponseBody
-    @RequestMapping("/addGoodsToShoppingCart")
+    @RequestMapping("/addGoodsToShoppingCart")//TODO 购物车
     public Map<String, Object> addGoodsToShoppingCart(Integer goodsId, HttpSession session) {
         Map<String, Object> resultMap = new HashMap<>(16);
         Gson gson = new Gson();
@@ -210,7 +210,7 @@ public class GoodsController {
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
             resultMap.put("success", false);
-            resultMap.put("errorInfo", "你的登录状态已经过期，请重新登录！！");
+            resultMap.put("errorInfo", "Login expired, please login again!");
             return resultMap;
         }
         String shoppingCartName = currentUser.getId() + "_shoppingCart";
@@ -219,7 +219,7 @@ public class GoodsController {
             Goods goods1 = gson.fromJson(shoppingCartGoodsStr.get(i), Goods.class);
             if (goods.getId().equals(goods1.getId())) {
                 resultMap.put("success", false);
-                resultMap.put("errorInfo", "加入购物车失败，这个商品已经在你的购物车里了哦！！");
+                resultMap.put("errorInfo", "Failed，This product already in your cart");
                 return resultMap;
             }
         }
@@ -247,7 +247,7 @@ public class GoodsController {
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
             resultMap.put("success", false);
-            resultMap.put("errorInfo", "你的登录状态已经过期，请重新登录！！");
+            resultMap.put("errorInfo", "Login expired, please login again!");
             return resultMap;
         }
         String shoppingCartName = currentUser.getId() + "_shoppingCart";
@@ -296,7 +296,7 @@ public class GoodsController {
             //卖家取消买家的预订，系统给买家发送一条消息
             Message message = new Message();
             message.setUserId(userService.findById(reserveRecord.getUserId()).getId());
-            message.setContent("你预订的商品（" + goods.getName() + "）已被卖家取消预订！！");
+            message.setContent("Your ordered product named（" + goods.getName() + "）has been cancelled by seller！！");
             message.setTime(new Date());
             message.setIsRead(0);
             messageService.add(message);

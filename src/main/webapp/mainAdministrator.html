@@ -143,8 +143,8 @@
 <div region="north" style="height: 82px;background-color: #daeef5">
     <table style="padding: 2px" width="100%">
         <tr>
-            <td width="50%">
-                <img alt="logo" src="/static/images/logo.png" style="height: 65px"/>
+            <td width="50%"><!--TODO 改logo-->
+                <img alt="logo" src="/static/images/second.png" style="height: 65px"/>
             </td>
             <td valign="bottom" align="right" width="50%">
                 <span style="font-size: 18px">&nbsp;&nbsp;<strong>Current Username：</strong><span
@@ -165,26 +165,36 @@
     </div>
 </div>
 
+<!--导航菜单,用户管理,商品类别管理,商品管理，用户联系方式管理，用户留言管理，轮播图管理，公告管理，预订记录管理，用户消息管理，-->
 <div region="west" style="width: 200px" title="导航菜单" split="true">
     <div style="padding-top: 10px;padding-left: 10px;">
-        <a href="javascript:openTab('用户管理','userManage.html','icon-userManage')" class="easyui-linkbutton"
+        <a href="javascript:openTab('User Management','userManage.html','icon-userManage')" class="easyui-linkbutton"
            data-options="plain:true,iconCls:'icon-userManage'" style="width: 150px;">User Management</a>
-        <a href="javascript:openTab('商品类别管理','goodsTypeManage.html','icon-goodsTypeManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-goodsTypeManage'" style="width: 150px;">Product category management</a>
-        <a href="javascript:openTab('商品管理','goodsManage.html','icon-goodsManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-goodsManage'" style="width: 150px;">Product management</a>
-        <a href="javascript:openTab('用户联系方式管理','contactInformationManage.html','icon-contactInformationManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-contactInformationManage'" style="width: 150px;">User contact information management</a>
-        <a href="javascript:openTab('用户留言管理','contactManage.html','icon-contactManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-contactManage'" style="width: 150px;">User message management</a>
-        <a href="javascript:openTab('轮播图管理','carouselManage.html','icon-carouselManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-carouselManage'" style="width: 150px;">Carousel image management</a>
-        <a href="javascript:openTab('公告管理','announcementManage.html','icon-announcementManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-announcementManage'" style="width: 150px;">Announcement management</a>
-        <a href="javascript:openTab('预订记录管理','reserveRecordManage.html','icon-payRecordManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-payRecordManage'" style="width: 150px;">Booking record management</a>
-        <a href="javascript:openTab('用户消息管理','messageManage.html','icon-messageManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-messageManage'" style="width: 150px;">User message management</a>
+        <br/>
+        <a href="javascript:openTab('Product Category Management','goodsTypeManage.html','icon-goodsTypeManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-goodsTypeManage'" style="width: 150px;">Product Category Management</a>
+        <br/>
+        <a href="javascript:openTab('Product management','goodsManage.html','icon-goodsManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-goodsManage'" style="width: 150px;">Product Management</a>
+        <br/>
+        <a href="javascript:openTab('User Contact Information Management','contactInformationManage.html','icon-contactInformationManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-contactInformationManage'" style="width: 150px;">User Contact Information Management</a>
+        <br/>
+        <a href="javascript:openTab('User Message Management','contactManage.html','icon-contactManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-contactManage'" style="width: 150px;">User Message Management</a>
+        <br/>
+        <a href="javascript:openTab('Carousel Image Management','carouselManage.html','icon-carouselManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-carouselManage'" style="width: 150px;">Carousel Image Management</a>
+        <br/>
+        <a href="javascript:openTab('Announcement Management','announcementManage.html','icon-announcementManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-announcementManage'" style="width: 150px;">Announcement Management</a>
+        <br/>
+        <a href="javascript:openTab('Book Record Management','reserveRecordManage.html','icon-payRecordManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-payRecordManage'" style="width: 150px;">Book Record Management</a>
+        <br/>
+        <a href="javascript:openTab('User Message Management','messageManage.html','icon-messageManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-messageManage'" style="width: 150px;">User Message Management</a>
+        <br/>
         <a href="javascript:logout()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-exit'"
            style="width: 150px;float: left">Log out safely</a>
     </div>

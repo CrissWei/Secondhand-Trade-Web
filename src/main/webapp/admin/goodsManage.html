@@ -68,8 +68,8 @@
             var id = selectedRows[0].id;
             var isRecommend = selectedRows[0].isRecommend;
             var goodsTypeName = selectedRows[0].goodsTypeName;
-            if (goodsTypeName === "求购") {
-                $.messager.alert("Prompt", "You can't be recommended in the \"求购\" category.!!");
+            if (goodsTypeName === "Needs") {
+                $.messager.alert("Prompt", "You can't be recommended in the \"Needs\" category.!!");
                 return;
             }
             var state = selectedRows[0].state;
@@ -135,30 +135,30 @@
             var state = selectedRows[0].state;
             var reason = $("#reason").val();
             if (state === 2) {
-                $.messager.alert("Prompt", "该商品的状态已经是<span style='color: red'>审核不通过</span>了!!");
+                $.messager.alert("Prompt", "The state is already<span style='color: red'>Not Approved</span>!!");
                 return;
             }
-            $.messager.confirm("Prompt", "你确定要将商品状态设置为<span style='color: red'>审核不通过</span>吗?", function (r) {
+            $.messager.confirm("Prompt", "Are you sure set the state as <span style='color: red'> Not Approved</span>?", function (r) {
                 if (r) {
-                    $("#dlg3").dialog("open").dialog("setTitle", "输入审核不通过的理由");
+                    $("#dlg3").dialog("open").dialog("setTitle", "Why you do not approve? ");
                     url = "/goods/updateGoodsState?goodsId=" + id + "&state=2&reason=" + reason;
                 }
             });
         }
 
         function openGoodslAddDialog() {
-            $("#dlg").dialog("open").dialog("setTitle", "添加商品信息");
+            $("#dlg").dialog("open").dialog("setTitle", "Add product information");
             url = "/admin/goods/save";
         }
 
         function openGoodsModifyTab() {
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length != 1) {
-                $.messager.alert("Prompt", "请选择一个要查看的商品!");
+                $.messager.alert("Prompt", "Please select a product to check details!");
                 return;
             }
             var row = selectedRows[0];
-            $("#dlg").dialog("open").dialog("setTitle", "查看商品");
+            $("#dlg").dialog("open").dialog("setTitle", "Check Goods");
             $("#fm").form("load", row);
             CKEDITOR.instances.content.setData(row.content);
             url = "/admin/goods/save?id=" + row.id;
@@ -172,7 +172,7 @@
                     console.log(url);
                     var content = CKEDITOR.instances.content.getData();
                     if (content == "") {
-                        $.messager.alert("Prompt", "内容不能为空!");
+                        $.messager.alert("Prompt", "Cannot be empty");
                         return false;
                     }
                     return $(this).form("validate");
@@ -200,12 +200,12 @@
                 success: function (result) {
                     var result = eval('(' + result + ')');
                     if (result.success) {
-                        $.messager.alert("Prompt", "推荐商品成功!");
+                        $.messager.alert("Prompt", "Recommond success!");
                         $("#dg").datagrid("reload");
                         $("#dlg2").dialog("close");
                         $("#recommendDays").numberbox('setValue', "")
                     } else {
-                        $.messager.alert("Prompt", "推荐商品失败！");
+                        $.messager.alert("Prompt", "Recommond failed！");
                     }
                 }
             })
@@ -220,12 +220,12 @@
                 success: function (result) {
                     var result = eval('(' + result + ')');
                     if (result.success) {
-                        $.messager.alert("Prompt", "将商品状态设置为审核不通过成功!");
+                        $.messager.alert("Prompt", "Set goods state as Approved");//将商品状态设置为审核不通过成功
                         $("#dg").datagrid("reload");
                         $("#dlg3").dialog("close");
                         $("#reason").val("");
                     } else {
-                        $.messager.alert("Prompt", "将商品状态设置为审核不通过失败！");
+                        $.messager.alert("Prompt", "Set goods state as Not Approved");
                     }
                 }
             })
@@ -251,7 +251,7 @@
 
             $("#dg").datagrid({
                 onDblClickRow: function (index, row) {
-                    $("#dlg").dialog("open").dialog("setTitle", "查看商品信息");
+                    $("#dlg").dialog("open").dialog("setTitle", "Goods Details");
                     $("#fm").form("load", row);
                     CKEDITOR.instances.content.setData(row.content);
                     url = "/admin/goods/save?id=" + row.id;
@@ -279,9 +279,9 @@
             if (val == 0) {
                 return "<span style='color: #0000FF'>Not Check</span>";
             } else if (val == 1) {
-                return "<span style='color: #0c9076'>On the way to shelves</span>";
+                return "<span style='color: #0c9076'>Approved</span>";
             } else if (val == 2) {
-                return "<span style='color: red' title='" + row.reason + "'>Failed to put on the shelves</span>";
+                return "<span style='color: red' title='" + row.reason + "'>Failed push</span>";
             } else if (val == 3) {
                 return "Removed";
             } else if (val == 4) {
@@ -293,15 +293,15 @@
 
         function formatIsRecommend(val, row) {
             if (val == 0) {
-                return "不推荐";
+                return "Not Recommend";
             } else if (val == 1) {
-                return "<span style='color: #0000FF'>被推荐</span>";
+                return "<span style='color: #0000FF'>Recommend</span>";
             }
         }
     </script>
 </head>
 <body style="margin: 1px">
-<table id="dg" title="商品管理" class="easyui-datagrid" striped="true"
+<table id="dg" title="Goods Management" class="easyui-datagrid" striped="true"
        fitColumns="true" pagination="true" rownumbers="true" singleSelect="true"
        url="/admin/goods/list" fit="true" toolbar="#tb">
     <thead>
@@ -338,8 +338,8 @@
         <select id="s_state" class="easyui-combobox" style="width:115px;" data-options="panelHeight:'auto'">
             <option value="">Please select...</option>
             <option value="0">Not Check</option>
-            <option value="1">On the way to shelves</option>
-            <option value="2">Failed to put on the shelves</option>
+            <option value="1">Approved</option>
+            <option value="2">Failed push</option>
             <option value="3">Removed</option>
             <option value="4">Be Ordered</option>
             <option value="5">Transaction successful</option>

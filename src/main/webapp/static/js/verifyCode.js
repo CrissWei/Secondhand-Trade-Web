@@ -33,7 +33,7 @@ function isRightCode() {
 function callback(data) {
 	if(data.toString()==1)
 	{
-		$("#info").html("xw素材网提醒您：成功了！");
+		$("#info").html("Tips: Successful ");
 	  return;
 	}else
 	{

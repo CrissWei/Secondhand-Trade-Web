@@ -119,7 +119,7 @@ public class GoodsTypeAdminController {
                 goodsTypeService.deleteById(id);
                 key++;
             } else {
-                resultMap.put("errorInfo", "该分类下有商品，不能删除！！");
+                resultMap.put("errorInfo", "Cannot delete, because there are products in this category");
             }
         }
         if (key > 0) {

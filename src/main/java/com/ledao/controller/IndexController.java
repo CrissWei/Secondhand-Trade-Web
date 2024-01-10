@@ -76,7 +76,7 @@ public class IndexController {
         Map<String, Object> resultMap = new HashMap<>(16);
         String checkCode = (String) session.getAttribute("checkCode");
         //验证码正确
-        if (checkCode.equals(user.getImageCode())) {
+        if (user.getImageCode().equals(checkCode)) {
         //if (true) {//if(true)是取消验证码
             User currentUser = userService.findByUserName(user.getUserName());
             //用户存在时
@@ -92,23 +92,23 @@ public class IndexController {
                             session.setAttribute("currentUserAdmin", currentUser);
                         } else {
                             resultMap.put("success", false);
-                            resultMap.put("errorInfo", "用户名或密码错误,请重新输入!!");
+                            resultMap.put("errorInfo", "Username or password wrong, please try again");
                         }
                     } else {
                         resultMap.put("success", false);
-                        resultMap.put("errorInfo", "你的账号已被封禁，如要解禁联系管理员\n管理员邮箱为：1234567890@qq.com");
+                        resultMap.put("errorInfo", "Your account has been banned, please contact admin\n email: crissjoanwei@gmail.com");
                     }
                 } else {
                     resultMap.put("success", false);
-                    resultMap.put("errorInfo", "请使用管理员身份登录!!");
+                    resultMap.put("errorInfo", "Please use the admin account to login!");
                 }
             } else {
                 resultMap.put("success", false);
-                resultMap.put("errorInfo", "用户名或密码错误,请重新输入!!");
+                resultMap.put("errorInfo", "Username or password wrong, please try again ");
             }
         } else {
             resultMap.put("success", false);
-            resultMap.put("errorInfo", "验证码错误,请重新输入!!");
+            resultMap.put("errorInfo", "Verify wrong, please try again");
         }
         return resultMap;
     }
@@ -204,7 +204,7 @@ public class IndexController {
         Collections.shuffle(goodsRecommendList);
         mav.addObject("goodsRecommendList", goodsRecommendList);
         mav.addObject("isHome", true);
-        mav.addObject("title", "首页--LeDao校园二手交易平台");
+        mav.addObject("title", "Home--Secondhand Trade Website");
         mav.addObject("mainPage", "page/indexFirst");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -242,7 +242,7 @@ public class IndexController {
     @RequestMapping("/toLoginPage")
     public ModelAndView toLoginPage() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("title", "用户登录--LeDao校园二手交易平台");
+        mav.addObject("title", "User Login--Secondhand Trade Website");
         mav.addObject("mainPage", "page/login");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -257,7 +257,7 @@ public class IndexController {
     @RequestMapping("/toRegisterPage")
     public ModelAndView toRegisterPage() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("title", "用户注册--LeDao校园二手交易平台");
+        mav.addObject("title", "User Register--Secondhand Trade Website");
         mav.addObject("mainPage", "page/register");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -272,7 +272,7 @@ public class IndexController {
     @RequestMapping("/toResetPasswordPage")
     public ModelAndView toResetPasswordPage() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("title", "找回密码--LeDao校园二手交易平台");
+        mav.addObject("title", "Find Password -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/resetPassword");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -292,7 +292,7 @@ public class IndexController {
             ModelAndView mav2 = new ModelAndView("redirect:/toLoginPage");
             return mav2;
         }
-        mav.addObject("title", "联系我们--LeDao校园二手交易平台");
+        mav.addObject("title", "Contact Us -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/contact");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -312,7 +312,7 @@ public class IndexController {
             ModelAndView mav2 = new ModelAndView("redirect:/toLoginPage");
             return mav2;
         }
-        mav.addObject("title", "个人中心--LeDao校园二手交易平台");
+        mav.addObject("title", "Profile -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/personalHubs");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -332,7 +332,7 @@ public class IndexController {
             ModelAndView mav2 = new ModelAndView("redirect:/toLoginPage");
             return mav2;
         }
-        mav.addObject("title", "个人中心--LeDao校园二手交易平台");
+        mav.addObject("title", "Profile -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/personalInfo");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -356,7 +356,7 @@ public class IndexController {
         goodsTypeQueryWrapper.orderByAsc("sortNum");
         List<GoodsType> goodsTypeList = goodsTypeService.list(goodsTypeQueryWrapper);
         mav.addObject("goodsTypeList", goodsTypeList);
-        mav.addObject("title", "发布商品--LeDao校园二手交易平台");
+        mav.addObject("title", "Post Products -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/addGoods");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -405,7 +405,7 @@ public class IndexController {
         List<GoodsType> goodsTypeList = goodsTypeService.list(goodsTypeQueryWrapper);
         mav.addObject("goodsTypeList", goodsTypeList);
         mav.addObject("goodsList", goodsList);
-        mav.addObject("title", "我的商品管理--LeDao校园二手交易平台");
+        mav.addObject("title", "Product Management -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/goodsManage");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -430,7 +430,7 @@ public class IndexController {
         messageQueryWrapper.orderByDesc("time");
         List<Message> messageList = messageService.list(messageQueryWrapper);
         mav.addObject("messageList", messageList);
-        mav.addObject("title", "我的消息--LeDao校园二手交易平台");
+        mav.addObject("title", "My Message -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/myMessage");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -505,7 +505,7 @@ public class IndexController {
         List<Goods> goodsWantToBuyList = goodsService.list(goodsQueryWrapper2);
         mav.addObject("isWantToBuy", true);
         mav.addObject("goodsWantToBuyList", goodsWantToBuyList);
-        mav.addObject("title", "用户求购--LeDao校园二手交易平台");
+        mav.addObject("title", "User Needs -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/wantToBuy");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -563,7 +563,7 @@ public class IndexController {
         StringBuilder param = new StringBuilder();
         param.append("&goodsTypeId=").append(goodsTypeId);
         mav.addObject("pageCode", PageUtil.genPagination1("/toSortPage", goodsService.getCount(goodsQueryWrapper), page, pageSize, param.toString()));
-        mav.addObject("title", "分类--LeDao校园二手交易平台");
+        mav.addObject("title", "Category -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/sortPage");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -625,7 +625,7 @@ public class IndexController {
         }
         Collections.shuffle(goodsRecommendList);
         mav.addObject("goodsRecommendList", goodsRecommendList);
-        mav.addObject("title", "我的购物车--LeDao校园二手交易平台");
+        mav.addObject("title", "My Cart -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/myShoppingCart");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -675,7 +675,7 @@ public class IndexController {
             reserveRecord.setGoodsName(goodsService.findById(reserveRecord.getGoodsId()).getName());
         }
         mav.addObject("reserveRecordList", reserveRecordList);
-        mav.addObject("title", "我的预订--LeDao校园二手交易平台");
+        mav.addObject("title", "My Order -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/myReserveRecord");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -687,8 +687,8 @@ public class IndexController {
     public String setRedisKey() {
         RedisUtil.setKey("a", "1");
         RedisUtil.setKeyTime("a", 10);
-        System.out.println(new Date() + ": " + "设置了key,过期时间为" + 10 + "秒");
-        return "设置成功";
+        System.out.println(new Date() + ": " + "Set key, period time left" + 10 + " second");
+        return "Set successfully";
     }
 
     /**
@@ -701,7 +701,7 @@ public class IndexController {
         ModelAndView mav = new ModelAndView();
         List<GoodsType> goodsTypeList = goodsTypeService.list(null);
         mav.addObject("goodsTypeList", goodsTypeList);
-        mav.addObject("title", "测试界面--LeDao校园二手交易平台");
+        mav.addObject("title", "Test UI -- Secondhand Trade Website");
         mav.addObject("mainPage", "page/test");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");

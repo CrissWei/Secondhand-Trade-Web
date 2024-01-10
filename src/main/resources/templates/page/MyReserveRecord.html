@@ -30,11 +30,11 @@
                         <div>
                             <option value="0" th:selected="${state==0}">Ordering</option>
                             <option value="1" th:selected="${state==1}">Canceling</option>
-                            <option value="2" th:selected="${state==2}">Done Transaction</option>
+                            <option value="2" th:selected="${state==2}">Deal Done</option>
                         </div>
                     </select>
                     <button type="submit" class="btn btn-primary status-icon hint--top" style="margin-left: 2px"
-                            aria-label="搜索"><i class="fa fa-search"></i>
+                            aria-label="Search"><i class="fa fa-search"></i>
                     </button>
                 </div>
             </form>
@@ -59,14 +59,14 @@
                         <td style="text-align: center"><a th:href="${'/goods/'+reserveRecord.goodsId}"><span th:aria-label="${reserveRecord.goodsName}"
                                 th:text="${#strings.abbreviate(reserveRecord.goodsName,18)}" class="status-icon hint--top"></span></a></td>
                         <td style="text-align: center"><span
-                                th:text="${reserveRecord.state==0?'预订中':(reserveRecord.state==1?'预订已取消':'完成交易')}"
+                                th:text="${reserveRecord.state==0?'Ordering':(reserveRecord.state==1?'Order be cancelled':'Deal Done')}"
                                 th:style="${reserveRecord.state==0?'color:blue':(reserveRecord.state==1?'color:red':'color:green')}"></span>
                         </td>
                         <td style="text-align: center">
                             <a th:href="'javascript:updateReserveRecordState('+${reserveRecord.id}+',1,'+${reserveRecord.state}+')'"
                                style="text-decoration: none" th:if="${reserveRecord.state==0}">
                                 <button type="button" class="btn btn-danger btn-sm status-icon hint--top"
-                                        aria-label="取消预订"><i
+                                        aria-label="Cancel order"><i
                                         class="fa fa-ban"></i></button>
 
                             </a>

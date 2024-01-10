@@ -3,6 +3,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <!--todo 需要添加购物车功能-->
     <title>Title</title>
 </head>
 <body>
@@ -14,7 +15,7 @@
         </div>
         <!--商品详情-->
         <div class="col-md-9">
-            <h2 style="color: red" th:if="${shoppingCartGoodsListSize==0}">你的购物车为空</h2>
+            <h2 style="color: red" th:if="${shoppingCartGoodsListSize==0}">Your shopping cart is empty</h2>
             <table class="table table-bordered table-striped table-hover table-borderless"
                    style="margin-top: 4px"
                    th:if="${shoppingCartGoodsListSize>0&&session.currentUser!=null}">
@@ -39,11 +40,11 @@
                         <td style="text-align: center">
                             <a th:href="'javascript:deleteGoodsInShoppingCart('+${goods.id}+')'" style="text-decoration: none">
                                 <button type="button" class="btn btn-danger btn-sm status-icon hint--top"
-                                        style="margin-left: 2px" aria-label="删除"><i class="fa fa-trash-o"></i></button>
+                                        style="margin-left: 2px" aria-label="Delete"><i class="fa fa-trash-o"></i></button>
                             </a>
                             <a th:href="'javascript:reserve('+${goods.id}+')'">
                                 <button type="button" class="btn btn-info btn-sm status-icon hint--top"
-                                        style="margin-left: 2px" aria-label="预订"><i class="fa fa-check-square-o"></i>
+                                        style="margin-left: 2px" aria-label="Order"><i class="fa fa-check-square-o"></i>
                                 </button>
                             </a>
                         </td>

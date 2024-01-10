@@ -40,8 +40,12 @@
                            placeholder="Please input the product price" required="required">
                 </div>
                 <div class="form-group">
-                    <label for="name">Product Details：</label>&nbsp;&nbsp;<span style="color: red">Please upload at least one image, otherwise the system's default image will be used</span>
-                    <!--需要提交图片-->
+                    <input type="file" accept="image/*">Select photo</input>
+                    <br/>
+                    <span style="color: red">Please upload at least 1 image, otherwise the system's default image will be used</span>
+                    <br/>
+                    <label for="name" >Product Details：</label>&nbsp;&nbsp;
+                    <!--todo 需要提交图片-->
                     <textarea id="contentGoods" name="content" rows="30" cols="80"></textarea>
                 </div>
                 <div style="text-align: center">
