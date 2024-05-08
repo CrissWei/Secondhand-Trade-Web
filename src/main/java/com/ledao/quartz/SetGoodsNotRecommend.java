@@ -24,7 +24,7 @@ public class SetGoodsNotRecommend {
     private GoodsService goodsService;
 
     /**
-     * 每隔60分钟执行一次
+     * 每隔60 seconds 执行一次
      */
     @Scheduled(cron = "0 */60 * * * ?")
     public void work(){
