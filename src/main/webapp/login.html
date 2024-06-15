@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>后台登录-校园二手交易平台</title>
+    <title>Admin Login of Secondhand Goods Trade Website</title>
     <meta name="author" content="DeathGhost"/>
     <link rel="short icon" href="static/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="static/css/styleLoginPage.css"/>
@@ -104,15 +104,15 @@
             var password = $("#password").val();
             var imageCode = $("#imageCode").val();
             if (userName == "") {
-                alert("Please enter a username！");
+                alert("Please input username！");
                 return;
             }
             if (password == "") {
-                alert("Need Password！");
+                alert("Please input password！");
                 return;
             }
             if (imageCode == "") {
-                alert("Verify Code！");
+                alert("Verify code");
                 return;
             }
             $.ajax({
@@ -122,12 +122,13 @@
                 success: function (result) {
                     if (result.success == true) {
                         if (result.currentUserType == 1) {
-                            window.location.href = "/mainAdministrator.html";
+                            window.location.href = "../mainAdministrator.html";
                         } else {
-                            window.location.href = "/mainGeneralUser.html";
+                            //window.location.href = "../mainGeneralUser.html";
+                            window.location.href = "../mainGeneralUser.html";//cannot catch
                         }
                     } else {
-                        alert(result.errorInfo);
+                        alert(result.errorInfo);//cannot catch
                     }
                 },
             });
@@ -146,7 +147,7 @@
 <form id="fm" action="/login" method="post">
     <dl class="admin_login">
         <dt>
-            <strong>Admin System</strong>
+            <strong>Admin Login</strong>
             <em>background login</em>
         </dt>
         <dd class="user_icon">
@@ -157,8 +158,8 @@
         </dd>
         <dd class="val_icon">
             <div class="checkcode">
-                <input type="text" id="imageCode" name="imageCode" placeholder="Verify Code" maxlength="4" class="login_txtbx">
-                <img id="imgObj" title="Refresh" src="/drawImage" onclick="changeImg()"/>
+                <input type="text" id="imageCode" name="imageCode" placeholder="verify code" maxlength="4" class="login_txtbx">
+                <img id="imgObj" title="Clcick to Refresh" src="/drawImage" onclick="changeImg()"/>
             </div>
         </dd>
         <dd>
@@ -166,7 +167,7 @@
                                                      class="submit_btn"/></a>
         </dd>
         <dd>
-            <p>©Copyright www.um.com </p>
+            <p>© www.um.com copyright</p>
         </dd>
     </dl>
 </form>
