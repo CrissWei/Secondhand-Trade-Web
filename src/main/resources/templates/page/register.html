@@ -8,54 +8,54 @@
 <div id="b">
     <div class="col-md-6" style="margin-left: 25%">
         <form role="form" method="post" enctype="multipart/form-data" action="/user/save" onsubmit="return checkRegisterValue()">
-            <h3 style="text-align: center">用户注册</h3>
+            <h3 style="text-align: center">User Register</h3>
             <div class="form-group">
-                <p class="help-block" style="float: right">已有账号?去<a href="/toLoginPage"><span class="badge badge-pill badge-info" style="color: white">登录</span></a>
+                <p class="help-block" style="float: right">Have account? Go<a href="/toLoginPage"><span class="badge badge-pill badge-info" style="color: white">登录</span></a>
                 </p>
             </div>
             <div class="form-group">
-                <label for="name">用户名</label>&nbsp;&nbsp;
+                <label for="name">Uername</label>&nbsp;&nbsp;
                 <span id="userNameFail" style="color: red"></span>
                 <span id="userNameSuccess" style="color: forestgreen"></span>
                 <input type="text" class="form-control" id="userName" name="userName"
-                       placeholder="请输入用户名" required="required" onblur="checkUserName(this.value)">
+                       placeholder="Please enter a username" required="required" onblur="checkUserName(this.value)">
             </div>
             <div class="form-group">
-                <label for="name">密码</label>
+                <label for="name">Password</label>
                 <input type="password" class="form-control" id="passwordRegister" name="password"
-                       placeholder="请输入密码" required="required">
+                       placeholder="Password" required="required">
             </div>
             <div class="form-group">
-                <label for="name">确认密码</label>
+                <label for="name">Comfirm Password</label>
                 <input type="password" class="form-control" id="password2Register"
-                       placeholder="请输入确认密码" required="required">
+                       placeholder="Comfirm Password" required="required">
             </div>
             <div class="form-group">
-                <p>头像</p>
-                <label class="sr-only" for="inputfile">头像</label>
+                <p>Avatar</p>
+                <label class="sr-only" for="inputfile">Avatar</label>
                 <input type="file" id="inputfile" name="userImage" required="required">
             </div>
             <div class="form-group">
-                <label for="name">昵称</label>
+                <label for="name">Nickname</label>
                 <input type="text" class="form-control" id="nickName" name="nickName"
-                       placeholder="请输入昵称" required="required">
+                       placeholder="Nickname" required="required">
             </div>
             <div class="form-group">
-                <label for="name">邮箱</label>（用于找回密码）
+                <label for="name">Email</label>
                 <span id="emailFail" style="color: red"></span>
                 <span id="emailSuccess" style="color: forestgreen"></span>
                 <input type="email" class="form-control" id="emailRegister" name="email"
-                       placeholder="请输入邮箱" required="required" onblur="checkEmail(this.value)">
+                       placeholder="Email" required="required" onblur="checkEmail(this.value)">
             </div>
             <div class="form-group">
-                <label for="name">验证码</label>
+                <label for="name">Verify Code</label>
                 <input type="text" class="form-control" id="registerCode" name="imageCode"
-                       placeholder="请输入验证码" required="required">
-                <input type="button" class="btn btn-warning btn-sm" style="margin-top: 12px;" value="获取验证码"
+                       placeholder="Verify Code" required="required">
+                <input type="button" class="btn btn-warning btn-sm" style="margin-top: 12px;" value="Send"
                        onclick="setTime(this,1);getVerificationCode(1)">
             </div>
             <div style="text-align: center">
-                <button type="submit" class="btn btn-primary">注册</button>
+                <button type="submit" class="btn btn-primary">Register</button>
             </div>
         </form>
     </div>

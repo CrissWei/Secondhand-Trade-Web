@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台消息Controller层
+ * Background message Controller layer
  *
  * @author LeDao
  * @company
@@ -35,7 +35,7 @@ public class MessageAdminController {
     private UserService userService;
 
     /**
-     * 分页条件查询消息
+     * Pagination condition query message
      *
      * @param message
      * @param page
@@ -73,7 +73,7 @@ public class MessageAdminController {
     }
 
     /**
-     * 删除消息,可批量删除
+     * Delete messages, you can delete them in batches
      *
      * @param ids
      * @return

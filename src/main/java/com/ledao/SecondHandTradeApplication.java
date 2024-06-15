@@ -12,9 +12,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @SpringBootApplication
 @ServletComponentScan
 public class SecondHandTradeApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(SecondHandTradeApplication.class, args);
     }
-
 }

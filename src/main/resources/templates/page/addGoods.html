@@ -13,38 +13,38 @@
         </div>
         <div class="col-md-9">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">首页</a></li>
-                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">个人中心</a></li>
-                <li class="breadcrumb-item active">发布商品</li>
+                <li class="breadcrumb-item"><a href="/">home</a></li>
+                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">Personal Center</a></li>
+                <li class="breadcrumb-item active">List your product</li>
             </ol>
             <form role="form" method="post" action="/goods/save" onsubmit="return checkAddGoodsValue()">
                 <div class="form-group">
-                    <label for="name">商品名称：</label>&nbsp;&nbsp;
+                    <label for="name">The title of the product：</label>&nbsp;&nbsp;
                     <input type="hidden" class="form-control" id="userId" name="userId" th:value="${session.currentUser.id}"
-                           placeholder="请输入用户名" required="required">
+                           placeholder="Please enter a username" required="required">
                     <input type="text" class="form-control" id="name" name="name"
-                           placeholder="请输入商品名称" required="required">
+                           placeholder="Please enter a product name" required="required">
                 </div>
                 <div class="form-group form-inline">
-                    <label for="name">商品类别：</label>&nbsp;&nbsp;
+                    <label for="name">Product category：</label>&nbsp;&nbsp;
                     <select id="goodsTypeId" name="goodsTypeId" required="required" class="form-control">
-                        <option value="">选择商品类别...</option>
+                        <option value="">Select a product category...</option>
                         <div th:each="goodsType:${goodsTypeList}">
                             <option th:text="${goodsType.name}" th:value="${goodsType.id}"></option>
                         </div>
                     </select>
                 </div>
                 <div class="form-group form-inline">
-                    <label for="name">价格：</label>&nbsp;&nbsp;
+                    <label for="name">Price：</label>&nbsp;&nbsp;
                     <input type="text" class="form-control" id="priceNow" name="priceNow"
-                           placeholder="请输入商品价格" required="required">
+                           placeholder="Please enter the price of the item" required="required">
                 </div>
                 <div class="form-group">
-                    <label for="name">商品详情：</label>&nbsp;&nbsp;<span style="color: red">请至少上传一张图片，不然将采用系统的默认图片</span>
+                    <label for="name">Product details：</label>&nbsp;&nbsp;<span style="color: red">Please upload at least one image, otherwise the default image will be used</span>
                     <textarea id="contentGoods" name="content" rows="30" cols="80"></textarea>
                 </div>
                 <div style="text-align: center">
-                    <button type="submit" class="btn btn-primary">提交</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>

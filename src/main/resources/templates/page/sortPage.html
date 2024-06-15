@@ -12,7 +12,7 @@
         <div class="col-md-3">
             <div th:include="common/menuSortAndRecommend::#m"></div>
         </div>
-        <!--商品详情-->
+        <!--Product details-->
         <div class="col-md-9">
             <div class="card">
                 <div class="card-header bg-primary text-white"><i class="fa fa-eercast"></i><span th:text="${goodsTypeName}"></span></div>
@@ -37,7 +37,7 @@
                                             th:if="${goods.priceLast!=0&&goods.priceLast>goods.priceNow}"
                                             style="color: darkred"></del>
                                 </p>
-                                <a th:href="${'/goods/'+goods.id}" class="btn btn-primary btn-sm">查看详情</a>
+                                <a th:href="${'/goods/'+goods.id}" class="btn btn-primary btn-sm">Detail</a>
                             </div>
                         </div>
                     </div>

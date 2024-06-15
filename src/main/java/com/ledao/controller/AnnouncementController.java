@@ -19,7 +19,7 @@ import java.util.List;
 import static com.ledao.controller.IndexController.getFirstImageInGoodsContent;
 
 /**
- * 前台公告Controller层
+ * Front desk announcement Controller layer
  *
  * @author LeDao
  * @company
@@ -47,12 +47,12 @@ public class AnnouncementController {
     @RequestMapping("/{id}")
     public ModelAndView details(@PathVariable("id") Integer id) {
         ModelAndView mav = new ModelAndView();
-        //要展示的公告
+        //Announcements to display
         Announcement announcement = announcementService.findById(id);
         announcement.setClick(announcement.getClick() + 1);
         mav.addObject("announcement", announcement);
         announcementService.update(announcement);
-        //获取公告list
+        //Get announcement list
         QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper<>();
         announcementQueryWrapper.orderByAsc("sortNum");
         List<Announcement> announcementList = announcementService.list(announcementQueryWrapper);
@@ -63,7 +63,7 @@ public class AnnouncementController {
             }
         }
         mav.addObject("announcementList", announcementList);
-        //获取推荐商品列表
+        //Get a list of recommended products
         QueryWrapper<Goods> goodsQueryWrapper3 = new QueryWrapper<>();
         goodsQueryWrapper3.eq("isRecommend", 1);
         goodsQueryWrapper3.eq("state", 1);
@@ -75,7 +75,7 @@ public class AnnouncementController {
         }
         Collections.shuffle(goodsRecommendList);
         mav.addObject("goodsRecommendList", goodsRecommendList);
-        mav.addObject("title", announcement.getTitle() + "--LeDao校园二手交易平台");
+        mav.addObject("title", announcement.getTitle() + "--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/announcementDetails");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");

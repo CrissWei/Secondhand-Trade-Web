@@ -31,7 +31,7 @@ import java.util.Map;
 import static com.ledao.controller.IndexController.getFirstImageInGoodsContent;
 
 /**
- * 前台用户Controller层
+ * Front-end userController layer
  *
  * @author LeDao
  * @company
@@ -63,7 +63,7 @@ public class UserController {
     private GoodsService goodsService;
 
     /**
-     * 前台用户登录
+     * Front desk user login
      *
      * @param user
      * @param session
@@ -73,30 +73,30 @@ public class UserController {
     public ModelAndView login(User user, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         User currentUser = userService.findByUserName(user.getUserName());
-        //用户存在时
+        //when user exists
         if (currentUser != null) {
-            //登录的用户身份不是普通用户而是管理员
+            //The logged in user identity is not an ordinary user but an administrator
             if (currentUser.getType() != 2) {
                 mav.addObject("userNameLogin", user.getUserName());
                 mav.addObject("passwordLogin", user.getPassword());
-                mav.addObject("title", "用户登录--LeDao校园二手交易平台");
+                mav.addObject("title", "User login--Campus second-hand trading platform");
                 mav.addObject("mainPage", "page/login");
                 mav.addObject("isUserOrNot", false);
             }else {
-                //密码正确时
+                //When the password is correct
                 if (user.getPassword().equals(currentUser.getPassword())) {
                     session.setAttribute("currentUser", currentUser);
-                    //获取轮播图list
+                    //Get carousel image list
                     QueryWrapper<Carousel> carouselQueryWrapper = new QueryWrapper<>();
                     carouselQueryWrapper.orderByAsc("sortNum");
                     List<Carousel> carouselList = carouselService.list(carouselQueryWrapper);
                     mav.addObject("carouselList", carouselList);
-                    //获取公告list
+                    //Get announcement list
                     QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper<>();
                     announcementQueryWrapper.orderByAsc("sortNum");
                     List<Announcement> announcementList = announcementService.list(announcementQueryWrapper);
                     mav.addObject("announcementList", announcementList);
-                    //获取9个最近发布的商品
+                    //Get 9 recently released products
                     QueryWrapper<Goods> goodsQueryWrapper = new QueryWrapper<>();
                     goodsQueryWrapper.orderByDesc("addTime");
                     goodsQueryWrapper.eq("state", 1);
@@ -108,7 +108,7 @@ public class UserController {
                         goods.setGoodsTypeName(goodsTypeService.findById(goods.getGoodsTypeId()).getName());
                     }
                     mav.addObject("goodsNewList", goodsNewList);
-                    //获取9个热门商品
+                    //Get 9 popular items
                     QueryWrapper<Goods> goodsQueryWrapper2 = new QueryWrapper<>();
                     goodsQueryWrapper2.orderByDesc("click");
                     goodsQueryWrapper2.eq("state", 1);
@@ -120,7 +120,7 @@ public class UserController {
                         goods.setGoodsTypeName(goodsTypeService.findById(goods.getGoodsTypeId()).getName());
                     }
                     mav.addObject("goodsHotList", goodsHotList);
-                    //获取推荐商品列表
+                    //Get a list of recommended products
                     QueryWrapper<Goods> goodsQueryWrapper3 = new QueryWrapper<>();
                     goodsQueryWrapper3.eq("isRecommend", 1);
                     goodsQueryWrapper3.ne("goodsTypeId", configProperties.getWantToBuyId());
@@ -133,13 +133,13 @@ public class UserController {
                     }
                     Collections.shuffle(goodsRecommendList);
                     mav.addObject("goodsRecommendList", goodsRecommendList);
-                    mav.addObject("title", "首页--LeDao校园二手交易平台");
+                    mav.addObject("title", "front page--Campus second-hand trading platform");
                     mav.addObject("mainPage", "page/indexFirst");
                     mav.addObject("loginSuccess", true);
                 } else {
                     mav.addObject("userNameLogin", user.getUserName());
                     mav.addObject("passwordLogin", user.getPassword());
-                    mav.addObject("title", "用户登录--LeDao校园二手交易平台");
+                    mav.addObject("title", "User login--Campus second-hand trading platform");
                     mav.addObject("mainPage", "page/login");
                     mav.addObject("loginSuccess", false);
                 }
@@ -147,7 +147,7 @@ public class UserController {
         } else {
             mav.addObject("userNameLogin", user.getUserName());
             mav.addObject("passwordLogin", user.getPassword());
-            mav.addObject("title", "用户登录--LeDao校园二手交易平台");
+            mav.addObject("title", "User login--Campus second-hand trading platform");
             mav.addObject("mainPage", "page/login");
             mav.addObject("loginSuccess", false);
         }
@@ -157,7 +157,7 @@ public class UserController {
     }
 
     /**
-     * 用户注销
+     * User logout
      *
      * @param session
      * @param response
@@ -170,7 +170,7 @@ public class UserController {
     }
 
     /**
-     * 添加或修改用户
+     * Add or modify users
      *
      * @param user
      * @param file
@@ -180,37 +180,37 @@ public class UserController {
      */
     @RequestMapping("/save")
     public ModelAndView save(User user, @RequestParam("userImage") MultipartFile file, HttpSession session) throws Exception {
-        //上传的图片存在时
+        //When the uploaded image exists
         if (!file.isEmpty()) {
-            //修改用户时,删除原头像
+            //When modifying the user, delete the original avatar
             if (user.getId() != null) {
                 FileUtils.deleteQuietly(new File(configProperties.getUserImageFilePath() + userService.findById(user.getId()).getImageName()));
             }
-            //获取上传的文件名
+            //Get the uploaded file name
             String fileName = file.getOriginalFilename();
-            //获取文件的后缀
+            //Get file suffix
             String suffixName = null;
             if (fileName != null) {
                 suffixName = fileName.split("\\.")[1];
             }
-            //新文件名1
+            //New file name 1
             String newFileName1 = DateUtil.getCurrentDateStr2() + System.currentTimeMillis() + "." + suffixName;
-            //上传
+            //upload
             FileUtils.copyInputStreamToFile(file.getInputStream(), new File(configProperties.getUserImageFilePath() + newFileName1));
-            //新文件名2
+            //New file name 2
             String newFileName2 = DateUtil.getCurrentDateStr2() + System.currentTimeMillis() + "." + suffixName;
-            //压缩图片
+            //Compress Pictures
             ImageUtil.compressImage(new File(configProperties.getUserImageFilePath() + newFileName1), new File(configProperties.getUserImageFilePath() + newFileName2));
             user.setImageName(newFileName2);
         }
-        //添加用户时
+        //When adding a user
         if (user.getId() == null) {
             user.setStatus(1);
             user.setType(2);
             userService.add(user);
             ModelAndView mav = new ModelAndView();
             mav.addObject("successRegister", true);
-            mav.addObject("title", "用户登录");
+            mav.addObject("title", "User login");
             mav.addObject("mainPage", "page/login");
             mav.addObject("mainPageKey", "#b");
             mav.setViewName("index");
@@ -225,7 +225,7 @@ public class UserController {
             userService.update(trueUser);
             ModelAndView mav = new ModelAndView();
             session.setAttribute("currentUser", trueUser);
-            mav.addObject("title", "个人中心--LeDao校园二手交易平台");
+            mav.addObject("title", "Personal center--Campus second-hand trading platform");
             mav.addObject("mainPage", "page/personalInfo");
             mav.addObject("mainPageKey", "#b");
             mav.addObject("modifyUserSuccess", true);
@@ -235,7 +235,7 @@ public class UserController {
     }
 
     /**
-     * 用户注册时判断用户名是否已经存在
+     * Determine whether the username already exists when the user registers
      *
      * @param userName
      * @return
@@ -254,7 +254,7 @@ public class UserController {
     }
 
     /**
-     * 判断数据库中邮箱是否存在
+     * Determine whether the mailbox exists in the database
      *
      * @param email
      * @return
@@ -273,7 +273,7 @@ public class UserController {
     }
 
     /**
-     * 注册或找回密码时获取验证码
+     * Get verification code when registering or retrieving password
      *
      * @param session
      * @param email
@@ -284,34 +284,34 @@ public class UserController {
     @RequestMapping("/getVerificationCode")
     public Map<String, Object> getVerificationCode(HttpSession session, String email, Integer type) {
         Map<String, Object> resultMap = new HashMap<>(16);
-        //生成6位数字验证码
+        //Generate 6-digit verification code
         String registerCode = StringUtil.genSixRandomNum();
         SimpleMailMessage message = new SimpleMailMessage();
-        //发件人QQ邮箱
+        //Sender's QQ email
         message.setFrom(configProperties.getSendMailPerson());
-        //收件人邮箱
+        //Recipient email
         message.setTo(email);
-        //邮件主题
-        message.setSubject("来自LeDao校园二手交易平台的邮件");
-        //1为注册,2为找回密码
+        //Email Subject
+        message.setSubject("Email from the campus second-hand trading platform");
+        //1 is for registration, 2 is for retrieving password
         int codeTypeRegister = 1, codeTypeResetPassword = 2;
         if (type == codeTypeRegister) {
-            //邮件内容
-            message.setText("注册的验证码为:" + registerCode);
+            //content of email
+            message.setText("The verification code for registration is:" + registerCode);
             session.setAttribute("registerCode", registerCode);
         } else if (type == codeTypeResetPassword) {
-            //邮件内容
-            message.setText("找回密码的验证码为:" + registerCode);
+            //content of email
+            message.setText("The verification code to retrieve your password is:" + registerCode);
             session.setAttribute("resetPasswordCode", registerCode);
         }
-        //发送邮件
+        //send email
         javaMailSender.send(message);
         resultMap.put("success", true);
         return resultMap;
     }
 
     /**
-     * 获取session中的注册验证码
+     * Get the registration verification code in the session
      *
      * @param session
      * @return
@@ -332,7 +332,7 @@ public class UserController {
     }
 
     /**
-     * 获取session中的找回密码验证码
+     * Get the password retrieval verification code in the session
      *
      * @param session
      * @return
@@ -360,7 +360,7 @@ public class UserController {
         resetPasswordUser.setPassword(user.getPassword());
         userService.update(resetPasswordUser);
         mav.addObject("successResetPassword", true);
-        mav.addObject("title", "用户登录");
+        mav.addObject("title", "User login");
         mav.addObject("mainPage", "page/login");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -368,7 +368,7 @@ public class UserController {
     }
 
     /**
-     * 登录前检验用户的状态
+     * Verify user status before logging in
      *
      * @param userName
      * @return

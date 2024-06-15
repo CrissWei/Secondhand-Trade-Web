@@ -2,7 +2,7 @@
 <!--suppress ALL-->
 <head>
     <meta charset="UTF-8">
-    <title>后台管理界面-LeDao校园二手交易平台</title>
+    <title>Secondhand website for Admin</title>
     <link rel="short icon" href="/static/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.7.0/themes/metro-blue/easyui.css"/>
     <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.7.0/themes/icon.css"/>
@@ -29,7 +29,7 @@
                         $("#currentUserNickName").html(result.currentUserAdmin.nickName);
                         var type = result.currentUserAdmin.type;
                         if (type == 1) {
-                            $("#currentUserType").html("管理员");
+                            $("#currentUserType").html(" Admin");
                         } else {
                             window.location.href = "/login.html";
                         }
@@ -117,7 +117,7 @@
         });
 
         function logout() {
-            $.messager.confirm("系统提示", "您确定要退出系统吗?", function (r) {
+            $.messager.confirm("Tips", "Are you sure logout?", function (r) {
                 if (r) {
                     window.location.href = "/logout";
                 }
@@ -144,12 +144,12 @@
     <table style="padding: 2px" width="100%">
         <tr>
             <td width="50%">
-                <img alt="logo" src="/static/images/logo.png" style="height: 65px"/>
+                <img alt="logo" src="/static/images/second.png" style="height: 65px"/>
             </td>
             <td valign="bottom" align="right" width="50%">
-                <span style="font-size: 18px">&nbsp;&nbsp;<strong>当前用户：</strong><span
+                <span style="font-size: 18px">&nbsp;&nbsp;<strong>Account Type：</strong><span
                         id="currentUserNickName" style="color: blue"></span></span>
-                <span style="font-size: 18px">&nbsp;&nbsp;<strong>当前身份：</strong><span
+                <span style="font-size: 18px">&nbsp;&nbsp;<strong>User</strong><span
                         id="currentUserType" style="color: orange"></span></span>
             </td>
         </tr>
@@ -160,46 +160,46 @@
     <div class="easyui-tabs" fit="true" border="false" id="tabs">
         <div title="首页" data-options="iconCls:'icon-home'">
             <div align="center" style="padding-top: 160px"><span
-                    style="font-size: 40px;color: orangered">LeDao校园二手交易平台后台首页</span></div>
+                    style="font-size: 40px;color: orangered">Campus second-hand trading platform backend homepage</span></div>
         </div>
     </div>
 </div>
 
-<div region="west" style="width: 200px" title="导航菜单" split="true">
+<div region="west" style="width: 200px" title="Menu" split="true">
     <div style="padding-top: 10px;padding-left: 10px;">
-        <a href="javascript:openTab('用户管理','userManage.html','icon-userManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-userManage'" style="width: 150px;">用户管理</a>
-        <a href="javascript:openTab('商品类别管理','goodsTypeManage.html','icon-goodsTypeManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-goodsTypeManage'" style="width: 150px;">商品类别管理</a>
-        <a href="javascript:openTab('商品管理','goodsManage.html','icon-goodsManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-goodsManage'" style="width: 150px;">商品管理</a>
-        <a href="javascript:openTab('用户联系方式管理','contactInformationManage.html','icon-contactInformationManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-contactInformationManage'" style="width: 150px;">用户联系方式管理</a>
-        <a href="javascript:openTab('用户留言管理','contactManage.html','icon-contactManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-contactManage'" style="width: 150px;">用户留言管理</a>
-        <a href="javascript:openTab('轮播图管理','carouselManage.html','icon-carouselManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-carouselManage'" style="width: 150px;">轮播图管理</a>
-        <a href="javascript:openTab('公告管理','announcementManage.html','icon-announcementManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-announcementManage'" style="width: 150px;">公告管理</a>
-        <a href="javascript:openTab('预订记录管理','reserveRecordManage.html','icon-payRecordManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-payRecordManage'" style="width: 150px;">预订记录管理</a>
-        <a href="javascript:openTab('用户消息管理','messageManage.html','icon-messageManage')" class="easyui-linkbutton"
-           data-options="plain:true,iconCls:'icon-messageManage'" style="width: 150px;">用户消息管理</a>
+        <a href="javascript:openTab('User Management','userManage.html','icon-userManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-userManage'" style="width: 150px;">User</a>
+        <a href="javascript:openTab('Product Type Management','goodsTypeManage.html','icon-goodsTypeManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-goodsTypeManage'" style="width: 150px;">Product Category</a>
+        <a href="javascript:openTab('Product Management','goodsManage.html','icon-goodsManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-goodsManage'" style="width: 150px;">Product</a>
+        <a href="javascript:openTab('User contact Management','contactInformationManage.html','icon-contactInformationManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-contactInformationManage'" style="width: 150px;">User Contact</a>
+        <a href="javascript:openTab('contact message Management','contactManage.html','icon-contactManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-contactManage'" style="width: 150px;">User Comments</a>
+        <a href="javascript:openTab('carousel Management','carouselManage.html','icon-carouselManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-carouselManage'" style="width: 150px;">Carousel</a>
+        <a href="javascript:openTab('Announcement Management','announcementManage.html','icon-announcementManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-announcementManage'" style="width: 150px;">Announcement</a>
+        <a href="javascript:openTab('Oder Management','reserveRecordManage.html','icon-payRecordManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-payRecordManage'" style="width: 150px;">Order</a>
+        <a href="javascript:openTab('User message Management','messageManage.html','icon-messageManage')" class="easyui-linkbutton"
+           data-options="plain:true,iconCls:'icon-messageManage'" style="width: 150px;">User Message</a>
         <a href="javascript:logout()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-exit'"
-           style="width: 150px;float: left">安全退出</a>
+           style="width: 150px;float: left">Quit</a>
     </div>
 </div>
 <div id="menu" class="easyui-menu">
-    <div id="mm-tabrefresh" data-options="name:'1',iconCls:'icon-refresh'"> 刷新当前标签页</div>
+    <div id="mm-tabrefresh" data-options="name:'1',iconCls:'icon-refresh'"> Fresh</div>
     <div class="menu-sep"></div>
-    <div id="mm-tabclose" data-options="name:'2',iconCls:'icon-closetab'">关闭当前标签页</div>
-    <div id="mm-tabcloseall" data-options="name:'3',iconCls:'icon-closealltab'">关闭全部标签页</div>
-    <div id="mm-tabcloseother" data-options="name:'4',iconCls:'icon-closeothertab'">关闭其他标签页</div>
-    <div id="mm-tabcloseright" data-options="name:'5',iconCls:'icon-closerighttab'">关闭右侧标签页</div>
-    <div id="mm-tabcloseleft" data-options="name:'6',iconCls:'icon-closelefttab'">关闭左侧标签页</div>
+    <div id="mm-tabclose" data-options="name:'2',iconCls:'icon-closetab'">Close</div>
+    <div id="mm-tabcloseall" data-options="name:'3',iconCls:'icon-closealltab'">Close All</div>
+    <div id="mm-tabcloseother" data-options="name:'4',iconCls:'icon-closeothertab'">Close Others</div>
+    <div id="mm-tabcloseright" data-options="name:'5',iconCls:'icon-closerighttab'">Close Right</div>
+    <div id="mm-tabcloseleft" data-options="name:'6',iconCls:'icon-closelefttab'">Close Left</div>
 </div>
 <div region="south" style="height: 30px;padding: 5px" align="center">
-    Copyright © www.zoutl.cn
+    Copyright © www.um.com
 </div>
 </body>
 </html>

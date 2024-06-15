@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>预订记录管理</title>
+    <title>订单管理</title>
     <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.7.0/themes/metro-blue/easyui.css">
     <link rel="stylesheet" type="text/css" href="/static/jquery-easyui-1.7.0/themes/icon.css">
     <script type="text/javascript" src="/static/jquery-easyui-1.7.0/jquery.min.js"></script>
@@ -30,11 +30,11 @@
         function openReserveRecordModifyDialog() {
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length != 1) {
-                $.messager.alert("系统提示", "请选择一条要查看的数据！");
+                $.messager.alert("Tips", "请选择一条要查看的数据！");
                 return;
             }
             var row = selectedRows[0];
-            $("#dlg").dialog("open").dialog("setTitle", "查看预订记录信息");
+            $("#dlg").dialog("open").dialog("setTitle", "查看订单信息");
             $("#fm").form("load", row);
             url = "/admin/reserveRecord/save?id=" + row.id;
         }
@@ -42,7 +42,7 @@
         function deleteReserveRecord() {
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length == 0) {
-                $.messager.alert("系统提示", "请选择要删除的数据！");
+                $.messager.alert("Tips", "请选择要删除的数据！");
                 return;
             }
             var strIds = [];
@@ -50,14 +50,14 @@
                 strIds.push(selectedRows[i].id);
             }
             var ids = strIds.join(",");
-            $.messager.confirm("系统提示", "您确定要删除这<span style='color: red'>" + selectedRows.length + "</span>条数据吗?", function (r) {
+            $.messager.confirm("Tips", "您确定要删除这<span style='color: red'>" + selectedRows.length + "</span>条数据吗?", function (r) {
                 if (r) {
                     $.post("/admin/reserveRecord/delete", {ids: ids}, function (result) {
                         if (result.success) {
-                            $.messager.alert("系统提示", "数据已成功删除！");
+                            $.messager.alert("Tips", "数据已成功删除！");
                             $("#dg").datagrid("reload");
                         } else {
-                            $.messager.alert("系统提示", result.errorInfo);
+                            $.messager.alert("Tips", result.errorInfo);
                         }
                     }, "json");
                 }
@@ -68,7 +68,7 @@
 
             $("#dg").datagrid({
                 onDblClickRow: function (index, row) {
-                    $("#dlg").dialog("open").dialog("setTitle", "查看预订记录信息");
+                    $("#dlg").dialog("open").dialog("setTitle", "查看订单信息");
                     $("#fm").form("load", row);
                 }
             });
@@ -77,29 +77,29 @@
     </script>
 </head>
 <body style="margin: 1px">
-<table id="dg" title="预订记录管理" class="easyui-datagrid" striped="true"
+<table id="dg" title="订单管理" class="easyui-datagrid" striped="true"
        fitColumns="true" pagination="true" rownumbers="true"
        url="/admin/reserveRecord/list" fit="true" toolbar="#tb">
     <thead>
     <th field="cb" checkbox="true" align="center"></th>
-    <th field="id" width="10" align="center">编号</th>
-    <th field="reserveTime" width="20" align="center">预订时间</th>
-    <th field="userName" width="20" align="center">用户名</th>
-    <th field="goodsName" width="50" align="center">商品名称</th>
+    <th field="id" width="10" align="center">No.</th>
+    <th field="reserveTime" width="20" align="center">Buy Time</th>
+    <th field="userName" width="20" align="center">User</th>
+    <th field="goodsName" width="50" align="center">Product Title</th>
     </thead>
 </table>
 
 <div id="tb">
     <div>
         <a href="javascript:openReserveRecordModifyDialog()" class="easyui-linkbutton" iconCls="icon-search"
-           plain="true">查看</a>
-        <a href="javascript:deleteReserveRecord()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
-        <span style="color: #0c9076">（删除预订记录后对应的商品状态会被设置为<span style="color: red">上架中</span>）</span>
+           plain="true">Check</a>
+        <a href="javascript:deleteReserveRecord()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">Delete</a>
+        <span style="color: #0c9076">（After deleting the order, the product status will be set to<span style="color: red"> On Sale</span>）</span>
     </div>
     <div>
-        &nbsp;用户名：&nbsp;<input type="text" id="s_userName" size="20" onkeydown="if(event.keyCode==13) searchReserveRecord()"/>
-        <a href="javascript:searchReserveRecord()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
-        <a href="javascript:resetValue()" class="easyui-linkbutton" iconCls="icon-reset" plain="true">重置</a>
+        &nbsp;Username：&nbsp;<input type="text" id="s_userName" size="20" onkeydown="if(event.keyCode==13) searchReserveRecord()"/>
+        <a href="javascript:searchReserveRecord()" class="easyui-linkbutton" iconCls="icon-search" plain="true">Search</a>
+        <a href="javascript:resetValue()" class="easyui-linkbutton" iconCls="icon-reset" plain="true">Reset</a>
     </div>
 </div>
 
@@ -109,19 +109,19 @@
     <form id="fm" method="post">
         <table cellspacing="8px">
             <tr>
-                <td valign="top">预订时间:</td>
+                <td valign="top">Buy Time:</td>
                 <td>
                     <input id="reserveTime" name="reserveTime" class="easyui-validatebox" required="true" style="width: 200px">
                 </td>
             </tr>
             <tr>
-                <td valign="top">用户名:</td>
+                <td valign="top">Username:</td>
                 <td>
                     <input id="userName" name="userName" class="easyui-validatebox" required="true" style="width: 200px">
                 </td>
             </tr>
             <tr>
-                <td valign="top">商品名称:</td>
+                <td valign="top">The title of the product:</td>
                 <td>
                     <textarea id="goodsName" name="goodsName" type="text" required="true"
                               rows="5" cols="50"></textarea>
@@ -132,7 +132,7 @@
 </div>
 
 <div id="dlg-buttons">
-    <a href="javascript:closeReserveRecordDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+    <a href="javascript:closeReserveRecordDialog()" class="easyui-linkbutton" iconCls="icon-cancel">Close</a>
 </div>
 </body>
 </html>

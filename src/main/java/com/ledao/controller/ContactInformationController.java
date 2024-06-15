@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 联系方式Controller层
+ * Contact Controller layer
  *
  * @author LeDao
  * @company
@@ -44,7 +44,7 @@ public class ContactInformationController {
     private ReserveRecordService reserveRecordService;
 
     /**
-     * 添加或修改联系方式
+     * Add or modify contact information
      *
      * @param contactInformation
      * @return
@@ -73,7 +73,7 @@ public class ContactInformationController {
         Page<ContactInformation> contactInformationPage = new Page<>(1, 100);
         List<ContactInformation> contactInformationList = contactInformationService.list(contactInformationQueryWrapper, contactInformationPage);
         mav.addObject("contactInformationList", contactInformationList);
-        mav.addObject("title", "联系方式--LeDao校园二手交易平台");
+        mav.addObject("title", "Contact information--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/myContactInformation");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -81,7 +81,7 @@ public class ContactInformationController {
     }
 
     /**
-     * 跳转到我的联系方式界面
+     * Jump to my contact interface
      *
      * @return
      */
@@ -98,7 +98,7 @@ public class ContactInformationController {
         List<ContactInformation> contactInformationList = contactInformationService.list(contactInformationQueryWrapper, contactInformationPage);
         mav.addObject("name", contactInformation.getName());
         mav.addObject("contactInformationList", contactInformationList);
-        mav.addObject("title", "联系方式--LeDao校园二手交易平台");
+        mav.addObject("title", "Contact information--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/myContactInformation");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -120,7 +120,7 @@ public class ContactInformationController {
         Page<ContactInformation> contactInformationPage = new Page<>(1, 100);
         List<ContactInformation> contactInformationList = contactInformationService.list(contactInformationQueryWrapper, contactInformationPage);
         mav.addObject("contactInformationList", contactInformationList);
-        mav.addObject("title", "联系方式--LeDao校园二手交易平台");
+        mav.addObject("title", "Contact information--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/myContactInformation");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -128,7 +128,7 @@ public class ContactInformationController {
     }
 
     /**
-     * 查看用户联系方式的名称是否已经存在
+     * Check whether the user's contact name already exists
      *
      * @param name
      * @param userId
@@ -149,7 +149,7 @@ public class ContactInformationController {
     }
 
     /**
-     * 根据id查找联系方式
+     * Find contact information based on id
      *
      * @param id
      * @return
@@ -167,7 +167,7 @@ public class ContactInformationController {
     }
 
     /**
-     * 根据商品id获取联系方式
+     * Get contact information based on product id
      *
      * @param goodsId
      * @return
@@ -185,7 +185,7 @@ public class ContactInformationController {
                 contactInformationStr.append(contactInformation.getName()).append("：").append(contactInformation.getContent()).append("；");
             }
         } else {
-            contactInformationStr.append("买家邮箱：").append(userService.findById(reserveRecordService.findByGoodsId(goodsId).getUserId()).getEmail());
+            contactInformationStr.append("Buyer's email：").append(userService.findById(reserveRecordService.findByGoodsId(goodsId).getUserId()).getEmail());
         }
         resultMap.put("success", true);
         resultMap.put("contactInformationStr", contactInformationStr);

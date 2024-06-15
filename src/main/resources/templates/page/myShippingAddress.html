@@ -14,13 +14,13 @@
         <div class="col-md-9">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">Proflie</a></li>
-                <li class="breadcrumb-item active">Contact Us</li>
+                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">Profile</a></li>
+                <li class="breadcrumb-item active">Address</li>
             </ol>
-            <form action="/contactInformation/toMyContactInformationPage" method="post">
+            <form action="/shippingAddress/toMyShippingAddressPage" method="post">
                 <div class="row" style="margin-left: 3px">
-                    <input type="text" class="form-control" id="name" name="name" style="width: 200px" th:value="${name}"
-                           placeholder="Please enter the contact number  ...">
+                    <input type="text" class="form-control" id="content" name="content" style="width: 200px" th:value="${content}"
+                           placeholder="Address...">
                     <button type="submit" class="btn btn-primary" style="margin-left: 2px"><i class="fa fa-search"></i>
                     </button>
                     <button type="button" class="btn btn-primary" style="margin-left: 2px" data-toggle="modal"
@@ -28,37 +28,40 @@
                     </button>
                 </div>
             </form>
-            <span style="color: #0c9076" th:if="${contactInformationList.size()!=0}">The buyer will communicate with you through your contact information</span>
-            <span style="color: red;margin-top: 4px" th:if="${contactInformationList.size()==0}">No Data</span>
-            <span th:if="${contactInformationList.size()!=0}" style="float: right">Has&nbsp;<span style="margin-top: 10px;color: red" th:text="${contactInformationList.size()}"></span>&nbsp; data</span>
-            <div th:if="${contactInformationList.size()!=0}">
+            <span style="color: red" th:if="${shippingAddressList.size()!=0}">This address is the default delivery address</span>
+            <span style="color: red;margin-top: 4px" th:if="${shippingAddressList.size()==0}">No Data</span>
+            <span th:if="${shippingAddressList.size()!=0}" style="float: right">Now has &nbsp;<span style="margin-top: 10px;color: red" th:text="${shippingAddressList.size()}"></span>&nbsp; data</span>
+            <div th:if="${shippingAddressList.size()!=0}">
                 <table class="table table-bordered table-striped table-hover table-borderless" style="margin-top: 4px">
                     <thead>
                     <tr>
-                        <th style="text-align: center">Name</th>
-                        <th style="text-align: center">Content</th>
+                        <th style="text-align: center">Address</th>
                         <th style="text-align: center">Edit</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <div th:each="contactInformation:${contactInformationList}">
+                    <div th:each="shippingAddress:${shippingAddressList}">
                         <tr>
-                            <td style="text-align: center" th:text="${contactInformation.name}"></td>
-                            <td style="text-align: center" th:text="${contactInformation.content}"></td>
+                            <td th:style="${shippingAddress.useOrNot==1?'color:red;text-align: center':'text-align: center'}" th:text="${shippingAddress.content}"></td>
                             <td style="text-align: center">
-                                <a th:href="'javascript:seeContactInformationDetails('+${contactInformation.id}+')'" style="text-decoration: none">
+                                <a th:if="${shippingAddress.useOrNot==0}" th:href="'javascript:setDefaultShippingAddress('+${shippingAddress.id}+')'" style="text-decoration: none">
+                                    <button type="button" class="btn btn-success btn-sm status-icon hint--top"
+                                            aria-label="Set default delivery address" data-toggle="modal"><i
+                                            class="fa fa-check-square-o"></i></button>
+                                </a>
+                                <a th:href="'javascript:seeShippingAddressDetails('+${shippingAddress.id}+')'" style="text-decoration: none">
                                     <button type="button" class="btn btn-primary btn-sm status-icon hint--top"
                                             aria-label="查看详情" data-toggle="modal" data-target="#myModalSee"><i
                                             class="fa fa-search"></i></button>
                                 </a>
-                                <a th:href="'javascript:modifyContactInformation('+${contactInformation.id}+')'" style="text-decoration: none">
+                                <a th:href="'javascript:modifyShippingAddress('+${shippingAddress.id}+')'" style="text-decoration: none">
                                     <button type="button" class="btn btn-info btn-sm status-icon hint--top"
                                             aria-label="修改" data-toggle="modal" data-target="#myModalModify"><i
                                             class="fa fa-pencil"></i></button>
                                 </a>
-                                <a th:href="'javascript:deleteContactInformation('+${contactInformation.id}+')'">
+                                <a th:href="'javascript:deleteShippingAddress('+${shippingAddress.id}+')'">
                                     <button type="button" class="btn btn-danger btn-sm status-icon hint--top"
-                                            style="margin-left: 2px" aria-label="删除"><i class="fa fa-trash-o"></i>
+                                            aria-label="删除"><i class="fa fa-trash-o"></i>
                                     </button>
                                 </a>
                             </td>
@@ -69,28 +72,24 @@
             </div>
         </div>
     </div>
-    <!-- 添加联系方式模态框 -->
+    <!-- 添加收货地址模态框 -->
     <div class="modal fade" id="myModalAdd">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- 模态框头部 -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Add contact details</h4>
+                    <h4 class="modal-title">Address</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- 模态框主体 -->
                 <div class="modal-body">
-                    <form role="form" method="post" action="/contactInformation/save" onsubmit="return checkSaveContactInformationName()">
-                        <input type="hidden" class="form-control" id="userIdAddContactInformationName" name="userId"
+                    <form role="form" method="post" action="/shippingAddress/save" onsubmit="return checkSaveShippingAddressName()">
+                        <input type="hidden" class="form-control" id="userIdAddShippingAddressName" name="userId"
                                th:value="${session.currentUser.id}">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="nameAddContactInformationName" name="name" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Content</label>
+                            <label for="name">Address</label>
                             <input type="text" class="form-control" id="content" name="content" required="required">
                         </div>
                         <div style="text-align: center">
@@ -102,30 +101,26 @@
             </div>
         </div>
     </div>
-    <!-- 修改联系方式模态框 -->
+    <!-- 修改收货地址模态框 -->
     <div class="modal fade" id="myModalModify">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- 模态框头部 -->
                 <div class="modal-header">
-                    <h4 class="modal-title">Modify contact information</h4>
+                    <h4 class="modal-title">Update Address</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- 模态框主体 -->
                 <div class="modal-body">
-                    <form role="form" method="post" action="/contactInformation/save" onsubmit="return checkSaveContactInformationName()">
-                        <input type="hidden" class="form-control" id="userIdModifyContactInformation" name="userId"
+                    <form role="form" method="post" action="/shippingAddress/save" onsubmit="return checkSaveShippingAddressName()">
+                        <input type="hidden" class="form-control" id="userIdModifyShippingAddress" name="userId"
                                th:value="${session.currentUser.id}">
-                        <input type="hidden" class="form-control" id="idModifyContactInformation" name="id">
+                        <input type="hidden" class="form-control" id="idModifyShippingAddress" name="id">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="nameModifyContactInformation" name="name" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Content</label>
-                            <input type="text" class="form-control" id="contentModifyContactInformation" name="content" required="required">
+                            <label for="name">Address</label>
+                            <input type="text" class="form-control" id="contentModifyShippingAddress" name="content" required="required">
                         </div>
                         <div style="text-align: center">
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -136,29 +131,25 @@
             </div>
         </div>
     </div>
-    <!-- 查看联系方式模态框 -->
+    <!-- 查看收货地址模态框 -->
     <div class="modal fade" id="myModalSee">
         <div class="modal-dialog">
             <div class="modal-content">
 
                 <!-- 模态框头部 -->
                 <div class="modal-header">
-                    <h4 class="modal-title">View contact information</h4>
+                    <h4 class="modal-title">Check Address</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- 模态框主体 -->
                 <div class="modal-body">
-                    <form role="form" method="post" action="/contactInformation/save" onsubmit="return checkSaveContactInformationName()">
-                        <input type="hidden" class="form-control" id="userIdSeeContactInformation" name="userId"
+                    <form role="form" method="post" action="/shippingAddress/save" onsubmit="return checkSaveShippingAddressName()">
+                        <input type="hidden" class="form-control" id="userIdSeeShippingAddress" name="userId"
                                th:value="${session.currentUser.id}">
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="nameSeeContactInformation" name="name" disabled="disabled" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Content</label>
-                            <input type="text" class="form-control" id="contentSeeContactInformation" name="content" disabled="disabled" required="required">
+                            <label for="name">Address</label>
+                            <input type="text" class="form-control" id="contentSeeShippingAddress" name="content" disabled="disabled" required="required">
                         </div>
                         <div style="text-align: center">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

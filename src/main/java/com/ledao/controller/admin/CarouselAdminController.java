@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台轮播图Controller层
+ * Background carousel chart Controller layer
  *
  * @author LeDao
  * @company
@@ -37,7 +37,7 @@ public class CarouselAdminController {
     private CarouselService carouselService;
 
     /**
-     * 分页条件查询轮播图
+     * Pagination condition query carousel chart
      *
      * @param carousel
      * @param page
@@ -61,7 +61,7 @@ public class CarouselAdminController {
     }
 
     /**
-     * 添加或修改轮播图
+     * Add or modify carousel images
      *
      * @param carousel
      * @param file
@@ -73,29 +73,29 @@ public class CarouselAdminController {
         Map<String, Object> resultMap = new HashMap<>(16);
         if (file.isEmpty() && carousel.getId() == null) {
             resultMap.put("success", false);
-            resultMap.put("errorInfo", "请选择轮播图的图片!!");
+            resultMap.put("errorInfo", "Please select a picture for the carousel!!");
             return resultMap;
         }
-        //上传的图片存在时
+        //When the uploaded image exists
         if (!file.isEmpty()) {
-            //修改时,删除图片
+            //When modifying, delete the picture
             if (carousel.getId() != null) {
                 FileUtils.deleteQuietly(new File(carouselImageFilePath + carouselService.findById(carousel.getId()).getImageName()));
             }
-            //获取上传的文件名
+            //Get the uploaded file name
             String fileName = file.getOriginalFilename();
-            //获取文件的后缀
+            //Get file suffix
             String suffixName = null;
             if (fileName != null) {
                 suffixName = fileName.split("\\.")[1];
             }
-            //新文件名1
+            //New file name 1
             String newFileName1 = DateUtil.getCurrentDateStr2() + System.currentTimeMillis() + "." + suffixName;
-            //上传
+            //upload
             FileUtils.copyInputStreamToFile(file.getInputStream(), new File(carouselImageFilePath + newFileName1));
-            //新文件名2
+            //New file name 2
             String newFileName2 = DateUtil.getCurrentDateStr2() + System.currentTimeMillis() + "." + suffixName;
-            //压缩图片
+            //Compress Pictures
             ImageUtil.compressImage(new File(carouselImageFilePath + newFileName1), new File(carouselImageFilePath + newFileName2));
             carousel.setImageName(newFileName2);
         }
@@ -117,7 +117,7 @@ public class CarouselAdminController {
     }
 
     /**
-     * 删除轮播图,可批量删除
+     * Delete carousel images, you can delete them in batches
      *
      * @param ids
      * @return

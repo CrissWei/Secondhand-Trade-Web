@@ -21,7 +21,7 @@ import java.util.*;
 import static com.ledao.controller.IndexController.getFirstImageInGoodsContent;
 
 /**
- * 前台商品Controller层
+ * Front desk product Controller layer
  *
  * @author LeDao
  * @company
@@ -32,7 +32,7 @@ import static com.ledao.controller.IndexController.getFirstImageInGoodsContent;
 public class GoodsController {
 
     @Value("${wantToBuyId}")
-    private String wantToBuyId;
+    private Integer wantToBuyId;
 
     @Resource
     private GoodsService goodsService;
@@ -52,8 +52,11 @@ public class GoodsController {
     @Resource
     private MessageService messageService;
 
+    @Resource
+    private ShippingAddressService shippingAddressService;
+
     /**
-     * 查看商品详情
+     * View product details
      *
      * @param id
      * @return
@@ -61,7 +64,7 @@ public class GoodsController {
     @RequestMapping("/{id}")
     public ModelAndView details(@PathVariable("id") Integer id) {
         ModelAndView mav = new ModelAndView();
-        //要展示的商品
+        //Products to display
         Goods goods = goodsService.findById(id);
         goods.setClick(goods.getClick() + 1);
         goods.setGoodsTypeName(goodsTypeService.findById(goods.getGoodsTypeId()).getName());
@@ -72,18 +75,18 @@ public class GoodsController {
         getFirstImageInGoodsContent(goods);
         mav.addObject("goods", goods);
         goodsService.update(goods);
-        //商品分类列表
+        //Product category list
         QueryWrapper<GoodsType> goodsTypeQueryWrapper = new QueryWrapper<>();
         goodsTypeQueryWrapper.orderByAsc("sortNum");
         List<GoodsType> goodsTypeList = goodsTypeService.list(goodsTypeQueryWrapper);
         for (int i = 0; i < goodsTypeList.size(); i++) {
-            if ("求购".equals(goodsTypeList.get(i).getName())) {
+            if (wantToBuyId.equals(goodsTypeList.get(i).getId())) {
                 goodsTypeList.remove(goodsTypeList.get(i));
                 i--;
             }
         }
         mav.addObject("goodsTypeList", goodsTypeList);
-        //获取推荐商品列表
+        //Get a list of recommended products
         QueryWrapper<Goods> goodsQueryWrapper3 = new QueryWrapper<>();
         goodsQueryWrapper3.eq("isRecommend", 1);
         goodsQueryWrapper3.eq("state", 1);
@@ -101,10 +104,10 @@ public class GoodsController {
         }
         Collections.shuffle(goodsRecommendList);
         mav.addObject("goodsRecommendList", goodsRecommendList);
-        //获取卖家邮箱
+        //Get seller's email
         String emailStr = userService.findById(goods.getUserId()).getEmail();
         mav.addObject("emailStr", emailStr);
-        mav.addObject("title", goods.getName() + "--LeDao校园二手交易平台");
+        mav.addObject("title", goods.getName() + "--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/goodsDetails");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -112,7 +115,7 @@ public class GoodsController {
     }
 
     /**
-     * 添加或修改商品
+     * Add or modify products
      *
      * @param goods
      * @return
@@ -127,10 +130,10 @@ public class GoodsController {
             goods.setClick(0);
             goodsService.add(goods);
         } else {
-            //数据库中的对应商品,即:修改前的商品
+            //The corresponding product in the database, that is: the product before modification
             Goods trueGoods = goodsService.findById(goods.getId());
             goods.setState(0);
-            //价格进行了修改,就更新上次价格
+            //If the price is modified, the last price will be updated.
             if (goods.getPriceNow() != trueGoods.getPriceNow()) {
                 goods.setPriceLast(trueGoods.getPriceNow());
             }
@@ -140,8 +143,7 @@ public class GoodsController {
     }
 
     /**
-     * 根据商品名称搜索商品
-     *
+     * Search for products based on product name
      * @param name
      * @return
      */
@@ -163,18 +165,18 @@ public class GoodsController {
             getFirstImageInGoodsContent(goods);
         }
         mav.addObject("goodsList", goodsList);
-        //商品分类列表
+        //Product category list
         QueryWrapper<GoodsType> goodsTypeQueryWrapper = new QueryWrapper<>();
         goodsTypeQueryWrapper.orderByAsc("sortNum");
         List<GoodsType> goodsTypeList = goodsTypeService.list(goodsTypeQueryWrapper);
         for (int i = 0; i < goodsTypeList.size(); i++) {
-            if ("求购".equals(goodsTypeList.get(i).getName())) {
+            if (wantToBuyId.equals(goodsTypeList.get(i).getId())) {
                 goodsTypeList.remove(goodsTypeList.get(i));
                 i--;
             }
         }
         mav.addObject("goodsTypeList", goodsTypeList);
-        //获取推荐商品列表
+        //Get a list of recommended products
         QueryWrapper<Goods> goodsQueryWrapper3 = new QueryWrapper<>();
         goodsQueryWrapper3.eq("isRecommend", 1);
         goodsQueryWrapper3.eq("state", 1);
@@ -188,7 +190,8 @@ public class GoodsController {
         mav.addObject("goodsRecommendList", goodsRecommendList);
         mav.addObject("name", name);
         mav.addObject("goodsType", goodsType);
-        mav.addObject("title", "搜索(" + name + ")的结果--LeDao校园二手交易平台");
+        mav.addObject("title",
+                "the result of search(" + name + ")--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/goodsSearchResult");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -196,7 +199,7 @@ public class GoodsController {
     }
 
     /**
-     * 将商品加入购物车
+     * Add items to shopping cart
      *
      * @param goodsId
      * @return
@@ -210,7 +213,7 @@ public class GoodsController {
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
             resultMap.put("success", false);
-            resultMap.put("errorInfo", "你的登录状态已经过期，请重新登录！！");
+            resultMap.put("errorInfo", "Your login status has expired, please log in again! !");
             return resultMap;
         }
         String shoppingCartName = currentUser.getId() + "_shoppingCart";
@@ -219,7 +222,8 @@ public class GoodsController {
             Goods goods1 = gson.fromJson(shoppingCartGoodsStr.get(i), Goods.class);
             if (goods.getId().equals(goods1.getId())) {
                 resultMap.put("success", false);
-                resultMap.put("errorInfo", "加入购物车失败，这个商品已经在你的购物车里了哦！！");
+                resultMap.put("errorInfo", "Failed to add to shopping cart. " +
+                        "This product is already in your shopping cart! !");
                 return resultMap;
             }
         }
@@ -233,7 +237,7 @@ public class GoodsController {
     }
 
     /**
-     * 将商品从购物车删除
+     * Remove items from shopping cart
      *
      * @param goodsId
      * @return
@@ -247,7 +251,7 @@ public class GoodsController {
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
             resultMap.put("success", false);
-            resultMap.put("errorInfo", "你的登录状态已经过期，请重新登录！！");
+            resultMap.put("errorInfo", "Your login status has expired, please log in again! !");
             return resultMap;
         }
         String shoppingCartName = currentUser.getId() + "_shoppingCart";
@@ -277,7 +281,7 @@ public class GoodsController {
     }
 
     /**
-     * 修改商品状态
+     * Modify product status
      *
      * @param goodsId
      * @param state
@@ -288,24 +292,24 @@ public class GoodsController {
     public Map<String, Object> updateGoodsState(Integer goodsId, Integer state, String reason) {
         Map<String, Object> resultMap = new HashMap<>(16);
         Goods goods = goodsService.findById(goodsId);
-        //如果是取消预订,goods.getState()是当前的状态,state是要目标状态
+        //If the reservation is canceled, goods.get State() is the current state, and state is the target state.
         if (goods.getState() == 4 && state == 1) {
             ReserveRecord reserveRecord = reserveRecordService.findByGoodsIdAndState(goodsId, 0);
             reserveRecord.setState(1);
             reserveRecordService.update(reserveRecord);
-            //卖家取消买家的预订，系统给买家发送一条消息
+            //When the seller cancels the buyer's reservation, the system sends a message to the buyer
             Message message = new Message();
             message.setUserId(userService.findById(reserveRecord.getUserId()).getId());
-            message.setContent("你预订的商品（" + goods.getName() + "）已被卖家取消预订！！");
+            message.setContent("Items you ordered（" + goods.getName() + "）The reservation has been canceled by the seller！！");
             message.setTime(new Date());
             message.setIsRead(0);
             messageService.add(message);
         }
-        //如果将商品状态设置为审核不通过
+        //If the product status is set to review failed
         if (state == 2) {
             goods.setReason(reason.split(",")[0]);
         }
-        //如果将商品状态设置为交易成功
+        //If the item status is set to Transaction Successful
         if (state == 5) {
             ReserveRecord reserveRecord = reserveRecordService.findByGoodsIdAndState(goodsId, 0);
             reserveRecord.setState(2);
@@ -322,7 +326,7 @@ public class GoodsController {
     }
 
     /**
-     * 删除商品
+     * Delete product
      *
      * @param goodsId
      * @return
@@ -341,7 +345,7 @@ public class GoodsController {
     }
 
     /**
-     * 根据商品id获取商品(Ajax请求后返回)
+     * Get the product based on the product id (returned after Ajax request)
      *
      * @param goodsId
      * @return
@@ -362,5 +366,29 @@ public class GoodsController {
             resultMap.put("success", false);
         }
         return resultMap;
+    }
+
+    @RequestMapping("/buy")
+    public ModelAndView buy(Integer goodsId, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        Goods goods = goodsService.findById(goodsId);
+        goods.setGoodsTypeName(goodsTypeService.findById(goods.getGoodsTypeId()).getName());
+        getFirstImageInGoodsContent(goods);
+        QueryWrapper<ShippingAddress> shippingAddressQueryWrapper = new QueryWrapper<>();
+        User currentUser = (User) session.getAttribute("currentUser");
+        shippingAddressQueryWrapper.eq("userId", currentUser.getId());
+        shippingAddressQueryWrapper.eq("useOrNot", 1);
+        List<ShippingAddress> shippingAddressList = shippingAddressService.list(shippingAddressQueryWrapper);
+        ShippingAddress shippingAddress = null;
+        if (shippingAddressList.size() > 0) {
+            shippingAddress = shippingAddressList.get(0);
+        }
+        mav.addObject("goods", goods);
+        mav.addObject("shippingAddress", shippingAddress);
+        mav.addObject("title", "buy goods--Campus second-hand trading platform");
+        mav.addObject("mainPage", "page/buyGoods");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
     }
 }

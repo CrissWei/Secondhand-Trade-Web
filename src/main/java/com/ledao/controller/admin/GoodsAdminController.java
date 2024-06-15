@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.util.*;
 
 /**
- * 后台商品Controller层
+ * Backend product Controller layer
  *
  * @author LeDao
  * @company
@@ -35,15 +35,15 @@ public class GoodsAdminController {
     private UserService userService;
 
     /**
-     * 分页条件查询商品
-     *
+     * Query products with paging conditions
      * @param goods
      * @param page
      * @param rows
      * @return
      */
     @RequestMapping("/list")
-    public Map<String, Object> list(Goods goods, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows) {
+    public Map<String, Object> list(Goods goods, @RequestParam(value = "page", required = false)
+            Integer page, @RequestParam(value = "rows", required = false) Integer rows) {
         Map<String, Object> resultMap = new HashMap<>(16);
         QueryWrapper<Goods> goodsQueryWrapper = new QueryWrapper<>();
         if (goods.getName() != null) {
@@ -86,7 +86,7 @@ public class GoodsAdminController {
     }
 
     /**
-     * 推荐或不推荐商品
+     * Recommend or not recommend products
      *
      * @param id
      * @param isRecommend
@@ -111,7 +111,7 @@ public class GoodsAdminController {
     }
 
     /**
-     * 删除商品
+     * Delete product
      *
      * @param ids
      * @return

@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.08 (64 bit)
 MySQL - 5.6.24 : Database - db_secondhandtrade
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -97,7 +98,7 @@ DROP TABLE IF EXISTS `t_goods`;
 CREATE TABLE `t_goods` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `name` varchar(100) DEFAULT NULL COMMENT '商品名称',
-  `content` text COMMENT '商品详情',
+  `content` text COMMENT 'Product details',
   `priceNow` decimal(10,0) DEFAULT NULL COMMENT '现在价格',
   `priceLast` decimal(10,0) DEFAULT NULL COMMENT '上次价格',
   `state` int(11) DEFAULT NULL COMMENT '商品状态,0为未审核,1为上架中,2为审核不通过,3为已下架,4为被预定,5为交易成功',

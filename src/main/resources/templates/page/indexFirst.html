@@ -44,7 +44,7 @@
             <!--最近发布-->
             <div>
                 <div class="card" style="margin-top: 5px">
-                    <div class="card-header bg-primary text-white"><i class="fa fa-dropbox"></i>最近发布
+                    <div class="card-header bg-primary text-white"><i class="fa fa-dropbox"></i>Recently Posted
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -67,7 +67,7 @@
                                                 th:if="${goodsNew.priceLast!=0&&goodsNew.priceLast>goodsNew.priceNow}"
                                                 style="color: darkred"></del>
                                     </p>
-                                    <a th:href="${'/goods/'+goodsNew.id}" class="btn btn-primary btn-sm">查看详情</a>
+                                    <a th:href="${'/goods/'+goodsNew.id}" class="btn btn-primary btn-sm">Check Details</a>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
             <!--热门商品-->
             <div>
                 <div class="card" style="margin-top: 5px">
-                    <div class="card-header bg-primary text-white"><i class="fa fa-fire"></i>热门商品
+                    <div class="card-header bg-primary text-white"><i class="fa fa-fire"></i>Popular product
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -99,7 +99,7 @@
                                              th:text="${goodsHot.priceLast}"
                                              th:if="${goodsHot.priceLast!=0&&goodsHot.priceLast>goodsHot.priceNow}"></del>
                                     </p>
-                                    <a th:href="${'/goods/'+goodsHot.id}" class="btn btn-primary btn-sm">查看详情</a>
+                                    <a th:href="${'/goods/'+goodsHot.id}" class="btn btn-primary btn-sm">Check Details</a>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
         <!--公告和推荐商品-->
         <div class="col-md-3">
             <div class="card">
-                <div class="card-header bg-primary text-white"><i class="fa fa-google-wallet"></i>公告</div>
+                <div class="card-header bg-primary text-white"><i class="fa fa-google-wallet"></i>Announcement</div>
                 <div class="card-body">
                     <div>
                         <p th:each="announcement:${announcementList}"><a th:href="${'/announcement/'+announcement.id}"
@@ -121,7 +121,7 @@
                 </div>
             </div>
             <div class="card" style="margin-top: 8px" th:if="${goodsRecommendList.size()>0}">
-                <div class="card-header bg-primary text-white"><i class="fa fa-houzz"></i>推荐商品</div>
+                <div class="card-header bg-primary text-white"><i class="fa fa-houzz"></i>Recommended products</div>
                 <div class="card-body">
                     <div>
                         <div class="row" th:each="goodsRecommend:${goodsRecommendList}">

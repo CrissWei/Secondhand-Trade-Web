@@ -9,16 +9,16 @@
 <div id="b">
     <div class="col-md-6" style="margin-left: 25%;margin-top: 22px">
         <div class="form-group form-inline" onchange="getGoodsNameTestPage()">
-            <label for="name">商品类别：</label>&nbsp;&nbsp;
+            <label for="name">Product category：</label>&nbsp;&nbsp;
             <select id="goodsTypeIdTestPage" name="goodsTypeId" required="required" class="form-control">
-                <option value="">选择商品类别...</option>
+                <option value="">Select a product category...</option>
                 <div th:each="goodsType:${goodsTypeList}">
                     <option th:text="${goodsType.name}" th:value="${goodsType.id}"></option>
                 </div>
             </select>
         </div>
         <div class="form-group form-inline">
-            <label for="name">商品名称：</label>&nbsp;&nbsp;
+            <label for="name">The title of the product：</label>&nbsp;&nbsp;
             <select id="goodsNameTestPage" name="goodsTypeId" required="required" class="form-control">
                 <option value="">先选择商品类别...</option>
             </select>

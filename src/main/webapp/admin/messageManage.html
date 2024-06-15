@@ -37,12 +37,12 @@
                 success: function (result) {
                     var result = eval('(' + result + ')');
                     if (result.success) {
-                        $.messager.alert("系统提示", "保存成功！");
+                        $.messager.alert("Tips", "保存成功！");
                         resetValue();
                         $("#dlg").dialog("close");
                         $("#dg").datagrid("reload");
                     } else {
-                        $.messager.alert("系统提示", "保存失败!");
+                        $.messager.alert("Tips", "保存失败!");
                     }
                 }
             });
@@ -56,7 +56,7 @@
         function openMessageModifyDialog() {
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length != 1) {
-                $.messager.alert("系统提示", "请选择一条要查看的数据！");
+                $.messager.alert("Tips", "请选择一条要查看的数据！");
                 return;
             }
             var row = selectedRows[0];
@@ -68,7 +68,7 @@
         function deleteMessage() {
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length == 0) {
-                $.messager.alert("系统提示", "请选择要删除的数据！");
+                $.messager.alert("Tips", "请选择要删除的数据！");
                 return;
             }
             var strIds = [];
@@ -76,14 +76,14 @@
                 strIds.push(selectedRows[i].id);
             }
             var ids = strIds.join(",");
-            $.messager.confirm("系统提示", "您确定要删除这<span style='color: red'>" + selectedRows.length + "</span>条数据吗?", function (r) {
+            $.messager.confirm("Tips", "您确定要删除这<span style='color: red'>" + selectedRows.length + "</span>条数据吗?", function (r) {
                 if (r) {
                     $.post("/admin/message/delete", {ids: ids}, function (result) {
                         if (result.success) {
-                            $.messager.alert("系统提示", "数据已成功删除！");
+                            $.messager.alert("Tips", "数据已成功删除！");
                             $("#dg").datagrid("reload");
                         } else {
-                            $.messager.alert("系统提示", result.errorInfo);
+                            $.messager.alert("Tips", result.errorInfo);
                         }
                     }, "json");
                 }
@@ -117,23 +117,23 @@
        url="/admin/message/list" fit="true" toolbar="#tb">
     <thead>
     <th field="cb" checkbox="true" align="center"></th>
-    <th field="id" width="10" align="center">编号</th>
-    <th field="userName" width="20" align="center">接收人用户名</th>
-    <th field="content" width="90" align="center" formatter="formatContent">内容</th>
-    <th field="time" width="20" align="center">时间</th>
+    <th field="id" width="10" align="center">No.</th>
+    <th field="userName" width="20" align="center">Received Username</th>
+    <th field="content" width="90" align="center" formatter="formatContent">Content</th>
+    <th field="time" width="20" align="center">Time</th>
     </thead>
 </table>
 
 <div id="tb">
     <div>
         <a href="javascript:openMessageModifyDialog()" class="easyui-linkbutton" iconCls="icon-search"
-           plain="true">查看</a>
-        <a href="javascript:deleteMessage()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+           plain="true">Check</a>
+        <a href="javascript:deleteMessage()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">Delete</a>
     </div>
     <div>
-        &nbsp;用户名：&nbsp;<input type="text" id="s_userName" size="20" onkeydown="if(event.keyCode==13) searchMessage()"/>
-        <a href="javascript:searchMessage()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
-        <a href="javascript:resetValue()" class="easyui-linkbutton" iconCls="icon-reset" plain="true">重置</a>
+        &nbsp;Username：&nbsp;<input type="text" id="s_userName" size="20" onkeydown="if(event.keyCode==13) searchMessage()"/>
+        <a href="javascript:searchMessage()" class="easyui-linkbutton" iconCls="icon-search" plain="true">Search</a>
+        <a href="javascript:resetValue()" class="easyui-linkbutton" iconCls="icon-reset" plain="true">Reset</a>
     </div>
 </div>
 
@@ -143,7 +143,7 @@
     <form id="fm" method="post">
         <table cellspacing="8px">
             <tr>
-                <td valign="top">内容:</td>
+                <td valign="top">Content:</td>
                 <td>
                     <textarea id="content" name="content" rows="6" cols="50"></textarea>
                 </td>
@@ -153,7 +153,7 @@
 </div>
 
 <div id="dlg-buttons">
-    <a href="javascript:closeMessageDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+    <a href="javascript:closeMessageDialog()" class="easyui-linkbutton" iconCls="icon-cancel">Close</a>
 </div>
 </body>
 </html>

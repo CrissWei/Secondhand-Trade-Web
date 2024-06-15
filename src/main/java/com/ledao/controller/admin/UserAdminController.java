@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台用户Controller层
+ * Background userController layer
  *
  * @author LeDao
  * @company
@@ -29,15 +29,15 @@ public class UserAdminController {
     private UserService userService;
 
     /**
-     * 分页条件查询用户
-     *
+     * Query users with paging conditions
      * @param user
      * @param page
      * @param rows
      * @return
      */
     @RequestMapping("/list")
-    public Map<String, Object> list(User user, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows) {
+    public Map<String, Object> list(User user, @RequestParam(value = "page", required = false)
+            Integer page, @RequestParam(value = "rows", required = false) Integer rows) {
         Map<String, Object> resultMap = new HashMap<>(16);
         QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
         if (user.getUserName() != null) {
@@ -53,8 +53,7 @@ public class UserAdminController {
     }
 
     /**
-     * 添加或修改用户
-     *
+     * Add or modify users
      * @param user
      * @return
      */
@@ -62,12 +61,12 @@ public class UserAdminController {
     public Map<String, Object> save(User user) {
         Map<String, Object> resultMap = new HashMap<>(16);
         int result;
-        //id存在,修改用户
+        //ID exists, modify the user
         if (user.getId() != null) {
             user.setType(2);
             user.setStatus(1);
             result = userService.update(user);
-        } else {//id不存在,添加用户
+        } else {//id does not exist, add user
             user.setType(2);
             user.setStatus(1);
             result = userService.add(user);
@@ -81,8 +80,7 @@ public class UserAdminController {
     }
 
     /**
-     * 封禁或解禁用户
-     *
+     * Ban or unban users
      * @param id
      * @param status
      * @return
@@ -102,8 +100,7 @@ public class UserAdminController {
     }
 
     /**
-     * 删除用户，可批量删除
-     *
+     * Delete users, you can delete them in batches
      * @param ids
      * @return
      */

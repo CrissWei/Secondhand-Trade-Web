@@ -27,7 +27,7 @@ public class ReserveRecord {
     @TableField(value = "goodsId")
     private Integer goodsId;
     /**
-     * 商品名称,用于搜索
+     * The title of the product,用于搜索
      */
     @TableField(exist = false)
     private String goodsName;
@@ -47,7 +47,7 @@ public class ReserveRecord {
     @TableField(value = "reserveTime")
     private Date reserveTime;
     /**
-     * 状态,0代表未取消,1代表已取消,2代表交易完成
+     * 状态,0代表已购买,1代表已取消,2代表交易完成
      */
     @TableField(value = "state")
     private Integer state;

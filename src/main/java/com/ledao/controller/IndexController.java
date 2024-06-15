@@ -27,7 +27,7 @@ import java.io.File;
 import java.util.*;
 
 /**
- * 首页Controller
+ * home controller
  *
  * @author LeDao
  * @company
@@ -40,7 +40,7 @@ public class IndexController {
     private String articleImageFilePath;
 
     @Value("${wantToBuyId}")
-    private String wantToBuyId;
+    private Integer wantToBuyId;
 
     @Resource
     private UserService userService;
@@ -64,7 +64,7 @@ public class IndexController {
     private ReserveRecordService reserveRecordService;
 
     /**
-     * 管理员登录
+     * Administrator login
      *
      * @param user
      * @param session
@@ -75,45 +75,48 @@ public class IndexController {
     public Map<String, Object> login(User user, HttpSession session) {
         Map<String, Object> resultMap = new HashMap<>(16);
         String checkCode = (String) session.getAttribute("checkCode");
-        //验证码正确
+        //Verification code is correct
         if (checkCode.equals(user.getImageCode())) {
             User currentUser = userService.findByUserName(user.getUserName());
-            //用户存在时
+            //when user exists
             if (currentUser != null) {
-                //登录的用户身份不是管理员
+                //The logged in user is not an administrator
                 if (currentUser.getType() == 1) {
-                    //用户没有被封禁
+                    //User is not banned
                     if (currentUser.getStatus() == 1) {
-                        //密码正确时
+                        //When the password is correct
                         if (currentUser.getPassword().equals(user.getPassword())) {
                             resultMap.put("success", true);
                             resultMap.put("currentUserType", currentUser.getType());
                             session.setAttribute("currentUserAdmin", currentUser);
                         } else {
                             resultMap.put("success", false);
-                            resultMap.put("errorInfo", "用户名或密码错误,请重新输入!!");
+                            resultMap.put("errorInfo", "The username or password is wrong, " +
+                                    "please re-enter!!");
                         }
                     } else {
                         resultMap.put("success", false);
-                        resultMap.put("errorInfo", "你的账号已被封禁，如要解禁联系管理员\n管理员邮箱为：1234567890@qq.com");
+                        resultMap.put("errorInfo", "Your account has been banned. " +
+                                "If you want to unban it, please contact the administrator." +
+                                "\nThe administrator's email is: 1234567890@qq.com");
                     }
                 } else {
                     resultMap.put("success", false);
-                    resultMap.put("errorInfo", "请使用管理员身份登录!!");
+                    resultMap.put("errorInfo", "Please log in as administrator!!");
                 }
             } else {
                 resultMap.put("success", false);
-                resultMap.put("errorInfo", "用户名或密码错误,请重新输入!!");
+                resultMap.put("errorInfo", "The username or password is wrong, please re-enter!!");
             }
         } else {
             resultMap.put("success", false);
-            resultMap.put("errorInfo", "验证码错误,请重新输入!!");
+            resultMap.put("errorInfo", "The verification code is wrong, please re-enter!!");
         }
         return resultMap;
     }
 
     /**
-     * 注销登录
+     * logout
      *
      * @param session
      * @return
@@ -125,7 +128,7 @@ public class IndexController {
     }
 
     /**
-     * 获取当前登录用户信息
+     * Get current logged in user information
      *
      * @param session
      * @return
@@ -145,24 +148,24 @@ public class IndexController {
     }
 
     /**
-     * 首页
+     * front page
      *
      * @return
      */
     @RequestMapping("/")
     public ModelAndView root() {
         ModelAndView mav = new ModelAndView();
-        //获取轮播图list
+        //Get carousel image list
         QueryWrapper<Carousel> carouselQueryWrapper = new QueryWrapper<>();
         carouselQueryWrapper.orderByAsc("sortNum");
         List<Carousel> carouselList = carouselService.list(carouselQueryWrapper);
         mav.addObject("carouselList", carouselList);
-        //获取公告list
+        //Get announcement list
         QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper<>();
         announcementQueryWrapper.orderByAsc("sortNum");
         List<Announcement> announcementList = announcementService.list(announcementQueryWrapper);
         mav.addObject("announcementList", announcementList);
-        //获取9个最近发布的商品
+        //Get 9 recently released products
         QueryWrapper<Goods> goodsQueryWrapper = new QueryWrapper<>();
         goodsQueryWrapper.orderByDesc("addTime");
         goodsQueryWrapper.ne("goodsTypeId", wantToBuyId);
@@ -174,7 +177,7 @@ public class IndexController {
             goods.setGoodsTypeName(goodsTypeService.findById(goods.getGoodsTypeId()).getName());
         }
         mav.addObject("goodsNewList", goodsNewList);
-        //获取9个热门商品
+        //Get 9 popular items
         QueryWrapper<Goods> goodsQueryWrapper2 = new QueryWrapper<>();
         goodsQueryWrapper2.orderByDesc("click");
         goodsQueryWrapper2.ne("goodsTypeId", wantToBuyId);
@@ -186,13 +189,13 @@ public class IndexController {
             goods.setGoodsTypeName(goodsTypeService.findById(goods.getGoodsTypeId()).getName());
         }
         mav.addObject("goodsHotList", goodsHotList);
-        //获取推荐商品列表
+        //Get a list of recommended products
         QueryWrapper<Goods> goodsQueryWrapper3 = new QueryWrapper<>();
-        //被推荐
+        //recommended
         goodsQueryWrapper3.eq("isRecommend", 1);
-        //上架中
+        //Coming soon
         goodsQueryWrapper3.eq("state", 1);
-        //不是求购
+        //Not buying
         goodsQueryWrapper3.ne("goodsTypeId", wantToBuyId);
         Page<Goods> goodsPage3 = new Page<>(1, 9);
         List<Goods> goodsRecommendList = goodsService.list(goodsPage3, goodsQueryWrapper3);
@@ -203,7 +206,7 @@ public class IndexController {
         Collections.shuffle(goodsRecommendList);
         mav.addObject("goodsRecommendList", goodsRecommendList);
         mav.addObject("isHome", true);
-        mav.addObject("title", "首页--LeDao校园二手交易平台");
+        mav.addObject("title", "frontPage--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/indexFirst");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -211,17 +214,17 @@ public class IndexController {
     }
 
     /**
-     * 从商品详情内取第一张图片
+     * Get the first picture from product details
      *
      * @param goods
      */
     public static void getFirstImageInGoodsContent(Goods goods) {
 
-        //博客里的内容
+        //Blog content
         String goodsInfo = goods.getContent();
-        //抓取出博客里的内容
+        //Capture content from blogs
         Document document = Jsoup.parse(goodsInfo);
-        //提出.jpg图片
+        //Propose .jpg image
         Elements jpgs = document.select("img[src$=.jpg]");
         if (jpgs.size() > 0) {
             String imageName = String.valueOf(jpgs.get(0));
@@ -234,14 +237,14 @@ public class IndexController {
     }
 
     /**
-     * 跳转到用户登录界面
+     * Jump to user login interface
      *
      * @return
      */
     @RequestMapping("/toLoginPage")
     public ModelAndView toLoginPage() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("title", "用户登录--LeDao校园二手交易平台");
+        mav.addObject("title", "User login--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/login");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -249,14 +252,15 @@ public class IndexController {
     }
 
     /**
-     * 跳转到用户注册界面
+     * Jump to user registration interface
      *
      * @return
      */
     @RequestMapping("/toRegisterPage")
     public ModelAndView toRegisterPage() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("title", "用户注册--LeDao校园二手交易平台");
+        mav.addObject("title",
+                "User registration--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/register");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -264,14 +268,15 @@ public class IndexController {
     }
 
     /**
-     * 跳转到找回密码界面
+     * Jump to the password retrieval interface
      *
      * @return
      */
     @RequestMapping("/toResetPasswordPage")
     public ModelAndView toResetPasswordPage() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("title", "找回密码--LeDao校园二手交易平台");
+        mav.addObject("title",
+                "Retrieve password--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/resetPassword");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -279,7 +284,7 @@ public class IndexController {
     }
 
     /**
-     * 跳转到联系我们界面
+     * Jump to contact us interface
      *
      * @return
      */
@@ -291,7 +296,8 @@ public class IndexController {
             ModelAndView mav2 = new ModelAndView("redirect:/toLoginPage");
             return mav2;
         }
-        mav.addObject("title", "联系我们--LeDao校园二手交易平台");
+        mav.addObject("title",
+                "contact us--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/contact");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -299,7 +305,7 @@ public class IndexController {
     }
 
     /**
-     * 跳转到个人中心界面
+     * Jump to personal center interface
      *
      * @return
      */
@@ -311,7 +317,8 @@ public class IndexController {
             ModelAndView mav2 = new ModelAndView("redirect:/toLoginPage");
             return mav2;
         }
-        mav.addObject("title", "个人中心--LeDao校园二手交易平台");
+        mav.addObject("title",
+                "Personal center--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/personalHubs");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -319,7 +326,7 @@ public class IndexController {
     }
 
     /**
-     * 跳转到查看个人信息界面
+     * Jump to view personal information interface
      *
      * @return
      */
@@ -331,7 +338,8 @@ public class IndexController {
             ModelAndView mav2 = new ModelAndView("redirect:/toLoginPage");
             return mav2;
         }
-        mav.addObject("title", "个人中心--LeDao校园二手交易平台");
+        mav.addObject("title",
+                "Personal center--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/personalInfo");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -339,7 +347,7 @@ public class IndexController {
     }
 
     /**
-     * 跳转到发布商品界面
+     * Jump to product publishing interface
      *
      * @return
      */
@@ -355,7 +363,7 @@ public class IndexController {
         goodsTypeQueryWrapper.orderByAsc("sortNum");
         List<GoodsType> goodsTypeList = goodsTypeService.list(goodsTypeQueryWrapper);
         mav.addObject("goodsTypeList", goodsTypeList);
-        mav.addObject("title", "发布商品--LeDao校园二手交易平台");
+        mav.addObject("title", "Post a product--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/addGoods");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -363,7 +371,7 @@ public class IndexController {
     }
 
     /**
-     * 跳转到我的商品管理界面
+     * Jump to my product management interface
      *
      * @return
      */
@@ -404,7 +412,7 @@ public class IndexController {
         List<GoodsType> goodsTypeList = goodsTypeService.list(goodsTypeQueryWrapper);
         mav.addObject("goodsTypeList", goodsTypeList);
         mav.addObject("goodsList", goodsList);
-        mav.addObject("title", "我的商品管理--LeDao校园二手交易平台");
+        mav.addObject("title", "My product management--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/goodsManage");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -412,7 +420,7 @@ public class IndexController {
     }
 
     /**
-     * 跳转到我的消息界面
+     * Jump to my message interface
      *
      * @return
      */
@@ -429,7 +437,7 @@ public class IndexController {
         messageQueryWrapper.orderByDesc("time");
         List<Message> messageList = messageService.list(messageQueryWrapper);
         mav.addObject("messageList", messageList);
-        mav.addObject("title", "我的消息--LeDao校园二手交易平台");
+        mav.addObject("title", "my message--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/myMessage");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -437,7 +445,7 @@ public class IndexController {
     }
 
     /**
-     * ckeditor上传图片
+     * ckeditor upload pictures
      *
      * @param file
      * @param CKEditorFuncNum
@@ -447,16 +455,16 @@ public class IndexController {
     @ResponseBody
     @RequestMapping("/ckeditorUpload")
     public String ckeditorUpload(@RequestParam("upload") MultipartFile file, String CKEditorFuncNum) throws Exception {
-        // 获取文件名
+        // Get file name
         String fileName = file.getOriginalFilename();
-        // 获取文件的后缀
+        // Get file suffix
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        //拼接新的文件名
+        //Splice new file name
         String newFileName1 = DateUtil.getCurrentDateStr2() + System.currentTimeMillis() + ".jpg";
         FileUtils.copyInputStreamToFile(file.getInputStream(), new File(articleImageFilePath + "/" + newFileName1));
-        //新文件名2
+        //New file name 2
         String newFileName2 = DateUtil.getCurrentDateStr2() + System.currentTimeMillis() + ".jpg";
-        //压缩图片
+        //Compress Pictures
         ImageUtil.compressImage(new File(articleImageFilePath + newFileName1), new File(articleImageFilePath + newFileName2));
         StringBuffer sb = new StringBuffer();
         sb.append("<script type=\"text/javascript\">");
@@ -466,25 +474,25 @@ public class IndexController {
     }
 
     /**
-     * 跳转到求购页面
+     * Jump to purchase page
      *
      * @return
      */
     @RequestMapping("/toWantToBuyPage")
     public ModelAndView toWantToBuyPage() {
         ModelAndView mav = new ModelAndView();
-        //商品分类列表
+        //Product category list
         QueryWrapper<GoodsType> goodsTypeQueryWrapper = new QueryWrapper<>();
         goodsTypeQueryWrapper.orderByAsc("sortNum");
         List<GoodsType> goodsTypeList = goodsTypeService.list(goodsTypeQueryWrapper);
         for (int i = 0; i < goodsTypeList.size(); i++) {
-            if ("求购".equals(goodsTypeList.get(i).getName())) {
+            if (wantToBuyId.equals(goodsTypeList.get(i).getId())) {
                 goodsTypeList.remove(goodsTypeList.get(i));
                 i--;
             }
         }
         mav.addObject("goodsTypeList", goodsTypeList);
-        //获取推荐商品列表
+        //Get a list of recommended products
         QueryWrapper<Goods> goodsQueryWrapper3 = new QueryWrapper<>();
         goodsQueryWrapper3.eq("state", 1);
         goodsQueryWrapper3.eq("isRecommend", 1);
@@ -496,7 +504,7 @@ public class IndexController {
         }
         Collections.shuffle(goodsRecommendList);
         mav.addObject("goodsRecommendList", goodsRecommendList);
-        //获取求购列表
+        //Get a want list
         QueryWrapper<Goods> goodsQueryWrapper2 = new QueryWrapper<>();
         goodsQueryWrapper2.eq("goodsTypeId", wantToBuyId);
         goodsQueryWrapper2.eq("state", 1);
@@ -504,7 +512,7 @@ public class IndexController {
         List<Goods> goodsWantToBuyList = goodsService.list(goodsQueryWrapper2);
         mav.addObject("isWantToBuy", true);
         mav.addObject("goodsWantToBuyList", goodsWantToBuyList);
-        mav.addObject("title", "用户求购--LeDao校园二手交易平台");
+        mav.addObject("title", "Users want to buy--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/wantToBuy");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -512,19 +520,19 @@ public class IndexController {
     }
 
     /**
-     * 跳转到分类页面
+     * Jump to category page
      *
      * @return
      */
     @RequestMapping("/toSortPage")
     public ModelAndView toSortPage(Integer goodsTypeId, Integer page) {
-        //每页展示的商品数量
+        //Number of products displayed per page
         int pageSize = 9;
         if (page == null) {
             page = 1;
         }
         ModelAndView mav = new ModelAndView();
-        //获取商品列表
+        //Get product list
         QueryWrapper<Goods> goodsQueryWrapper = new QueryWrapper<>();
         goodsQueryWrapper.eq("goodsTypeId", goodsTypeId);
         goodsQueryWrapper.eq("state", 1);
@@ -534,12 +542,12 @@ public class IndexController {
             getFirstImageInGoodsContent(goods);
         }
         mav.addObject("goodsList", goodsList);
-        //商品分类列表
+        //Product category list
         QueryWrapper<GoodsType> goodsTypeQueryWrapper = new QueryWrapper<>();
         goodsTypeQueryWrapper.orderByAsc("sortNum");
         List<GoodsType> goodsTypeList = goodsTypeService.list(goodsTypeQueryWrapper);
         for (int i = 0; i < goodsTypeList.size(); i++) {
-            if ("求购".equals(goodsTypeList.get(i).getName())) {
+            if (wantToBuyId.equals(goodsTypeList.get(i).getId())) {
                 goodsTypeList.remove(goodsTypeList.get(i));
                 i--;
             }
@@ -561,8 +569,10 @@ public class IndexController {
         mav.addObject("goodsTypeName", goodsTypeService.findById(goodsTypeId).getName());
         StringBuilder param = new StringBuilder();
         param.append("&goodsTypeId=").append(goodsTypeId);
-        mav.addObject("pageCode", PageUtil.genPagination1("/toSortPage", goodsService.getCount(goodsQueryWrapper), page, pageSize, param.toString()));
-        mav.addObject("title", "分类--LeDao校园二手交易平台");
+        mav.addObject("pageCode", PageUtil.genPagination1("/toSortPage",
+                goodsService.getCount(goodsQueryWrapper), page, pageSize, param.toString()));
+        mav.addObject("title",
+                "classification--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/sortPage");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -570,8 +580,7 @@ public class IndexController {
     }
 
     /**
-     * 跳转到我的购物车界面
-     *
+     * Jump to my shopping cart interface
      * @param session
      * @return
      */
@@ -587,10 +596,12 @@ public class IndexController {
         String shoppingCartName = currentUser.getId() + "_shoppingCart";
         List<String> shoppingCartGoodsStr = RedisUtil.listRange(shoppingCartName, 0L, -1L);
         List<Goods> shoppingCartGoodsList = new ArrayList<>();
-        for (String s : shoppingCartGoodsStr) {
-            Goods goods = gson.fromJson(s, Goods.class);
-            shoppingCartGoodsList.add(goods);
-            getFirstImageInGoodsContent(goods);
+        if (shoppingCartGoodsStr.size()>0) {
+            for (String s : shoppingCartGoodsStr) {
+                Goods goods = gson.fromJson(s, Goods.class);
+                shoppingCartGoodsList.add(goods);
+                getFirstImageInGoodsContent(goods);
+            }
         }
         Iterator<Goods> iterator = shoppingCartGoodsList.iterator();
         while (iterator.hasNext()) {
@@ -606,13 +617,13 @@ public class IndexController {
         goodsTypeQueryWrapper.orderByAsc("sortNum");
         List<GoodsType> goodsTypeList = goodsTypeService.list(goodsTypeQueryWrapper);
         for (int i = 0; i < goodsTypeList.size(); i++) {
-            if ("求购".equals(goodsTypeList.get(i).getName())) {
+            if (wantToBuyId.equals(goodsTypeList.get(i).getId())) {
                 goodsTypeList.remove(goodsTypeList.get(i));
                 i--;
             }
         }
         mav.addObject("goodsTypeList", goodsTypeList);
-        //获取推荐商品列表
+        //Get a list of recommended products
         QueryWrapper<Goods> goodsQueryWrapper3 = new QueryWrapper<>();
         goodsQueryWrapper3.eq("isRecommend", 1);
         goodsQueryWrapper3.eq("state", 1);
@@ -624,7 +635,7 @@ public class IndexController {
         }
         Collections.shuffle(goodsRecommendList);
         mav.addObject("goodsRecommendList", goodsRecommendList);
-        mav.addObject("title", "我的购物车--LeDao校园二手交易平台");
+        mav.addObject("title", "my shopping cart--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/myShoppingCart");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -633,7 +644,7 @@ public class IndexController {
 
 
     /**
-     * 跳转到我的预订界面
+     * Jump to my order interface
      *
      * @param session
      * @param searchReserveRecord
@@ -674,7 +685,7 @@ public class IndexController {
             reserveRecord.setGoodsName(goodsService.findById(reserveRecord.getGoodsId()).getName());
         }
         mav.addObject("reserveRecordList", reserveRecordList);
-        mav.addObject("title", "我的预订--LeDao校园二手交易平台");
+        mav.addObject("title", "My Order--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/myReserveRecord");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -686,12 +697,12 @@ public class IndexController {
     public String setRedisKey() {
         RedisUtil.setKey("a", "1");
         RedisUtil.setKeyTime("a", 10);
-        System.out.println(new Date() + ": " + "设置了key,过期时间为" + 10 + "秒");
-        return "设置成功";
+        System.out.println(new Date() + ": " + "The key is set and the expiration time is" + 10 + "seconds");
+        return "Setup successful";
     }
 
     /**
-     * 跳转到测试界面
+     * Jump to test interface
      *
      * @return
      */
@@ -700,7 +711,7 @@ public class IndexController {
         ModelAndView mav = new ModelAndView();
         List<GoodsType> goodsTypeList = goodsTypeService.list(null);
         mav.addObject("goodsTypeList", goodsTypeList);
-        mav.addObject("title", "测试界面--LeDao校园二手交易平台");
+        mav.addObject("title", "Test interface--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/test");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -708,7 +719,7 @@ public class IndexController {
     }
 
     /**
-     * 根据商品类别id获取商品集合
+     * Get product collection based on product category id
      *
      * @param goodsTypeId
      * @return

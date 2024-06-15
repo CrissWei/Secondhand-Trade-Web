@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台公告Controller层
+ * Background Announcement Controller Layer
  *
  * @author LeDao
  * @company
@@ -29,15 +29,15 @@ public class AnnouncementAdminController {
     private AnnouncementService announcementService;
 
     /**
-     * 分页条件查询公告
-     *
+     * Pagination condition query announcement
      * @param announcement
      * @param page
      * @param rows
      * @return
      */
     @RequestMapping("/list")
-    public Map<String, Object> list(Announcement announcement, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows) {
+    public Map<String, Object> list(Announcement announcement, @RequestParam(value = "page",
+    required = false) Integer page, @RequestParam(value = "rows", required = false) Integer rows) {
         Map<String, Object> resultMap = new HashMap<>(16);
         QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper<>();
         if (announcement.getTitle() != null) {
@@ -45,7 +45,8 @@ public class AnnouncementAdminController {
         }
         announcementQueryWrapper.orderByAsc("sortNum");
         Page<Announcement> announcementPage = new Page<>(page, rows);
-        List<Announcement> announcementList = announcementService.list(announcementQueryWrapper, announcementPage);
+        List<Announcement> announcementList =
+                announcementService.list(announcementQueryWrapper, announcementPage);
         Integer total = announcementService.getCount(announcementQueryWrapper);
         resultMap.put("rows", announcementList);
         resultMap.put("total", total);
@@ -53,8 +54,7 @@ public class AnnouncementAdminController {
     }
 
     /**
-     * 添加或修改公告
-     *
+     * Add or edit announcement
      * @param announcement
      * @return
      */
@@ -78,8 +78,7 @@ public class AnnouncementAdminController {
     }
 
     /**
-     * 删除公告,可批量删除
-     *
+     * Delete announcements, can be deleted in batches
      * @param ids
      * @return
      */

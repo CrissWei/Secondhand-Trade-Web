@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
   servlet:
     context-path: /
   tomcat:
@@ -12,13 +12,13 @@ spring:
       file-size-threshold: 0
       max-file-size: 10MB
       max-request-size: 100MB
-  #数据库连接配置
+  #Database connection configuration
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/db_secondhandtrade?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8
     username: root
-    password: 123456
+    password: root
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -37,11 +37,11 @@ spring:
           timeout: 3000
           writetimeout: 5000
           ssl:
-            enable: true #一定要开启ssl,不然会503 验证失败的（开启加密验证）
+            enable: true #Be sure to turn on ssl, otherwise 503 verification will fail (turn on encryption verification)
   redis:
     database: 0
-    host: 175.178.233.21
-    password: abcd6678696
+    host: 127.0.0.1
+    password: redis # set the password first 先配置redis密码 redis, 不是12345
     port: 6379
 mybatis-plus:
   global-config:
@@ -51,11 +51,11 @@ mybatis-plus:
   # 如果是放在resource目录 classpath:/mapper/**.xml
   mapper-locations: classpath:/mapper/**.xml
 
-#客户头像图片存储地址
-userImageFilePath: E://MyProject/IDEA/ActualCombat/SecondHandTrade/src/main/webapp/static/images/userImage/
-#轮播图图片存储地址
-carouselImageFilePath: E://MyProject/IDEA/ActualCombat/SecondHandTrade/src/main/webapp/static/images/carouselImage/
-#公告或商品详情图片存储地址
-articleImageFilePath: E://MyProject/IDEA/ActualCombat/SecondHandTrade/src/main/webapp/static/images/articleImage/
-#求购类别的id
+#Customer avatar image storage address D://sem6/WIA3003/SecondHandTrade/src/main/webapp/static
+userImageFilePath: D://sem6/WIA3003/SecondHandTrade/src/main/webapp/static/images/userImage/
+#Carousel image storage address
+carouselImageFilePath: D://sem6/WIA3003/SecondHandTrade/src/main/webapp/static/images/carouselImage/
+#Announcement or product details image storage address
+articleImageFilePath: D://sem6/WIA3003/SecondHandTrade/src/main/webapp/static/images/articleImage/
+#The id of the purchase category
 wantToBuyId: 8

@@ -15,8 +15,8 @@
         <!--商品列表-->
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header bg-primary text-white"><i class="fa fa-eercast"></i>搜索"<span
-                        th:text="${name}"></span>"的结果有&nbsp;&nbsp;<span th:text="${goodsList.size()}"></span>&nbsp;&nbsp;个
+                <div class="card-header bg-primary text-white"><i class="fa fa-eercast"></i>Results of "<span
+                        th:text="${name}"></span>" has&nbsp;&nbsp;<span th:text="${goodsList.size()}"></span>&nbsp;&nbsp; records
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -41,7 +41,7 @@
                                     <span class="badge badge-info" th:text="${goods.goodsTypeName}"
                                           style="float: right"></span>
                                 </p>
-                                <a th:href="${'/goods/'+goods.id}" class="btn btn-primary btn-sm">查看详情</a>
+                                <a th:href="${'/goods/'+goods.id}" class="btn btn-primary btn-sm">Check Details</a>
                             </div>
                         </div>
                     </div>

@@ -24,7 +24,7 @@ public class DrawImageController {
     public static final int HEIGHT = 30;
 
     /**
-     * 生成图片
+     * Generate pictures
      *
      * @param request
      * @param response

@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台预订记录Controller层
+ * Background booking record Controller layer
  *
  * @author LeDao
  * @company
@@ -39,7 +39,7 @@ public class ReserveRecordAdminController {
     private GoodsService goodsService;
 
     /**
-     * 分页条件查询预订记录
+     * Query reservation records with paging conditions
      *
      * @param reserveRecord
      * @param page
@@ -78,7 +78,7 @@ public class ReserveRecordAdminController {
     }
 
     /**
-     * 删除预订记录,可批量删除
+     * Delete reservation records, you can delete them in batches
      *
      * @param ids
      * @return
@@ -91,7 +91,7 @@ public class ReserveRecordAdminController {
         for (int i = 0; i < idsStr.length; i++) {
             Integer id = Integer.valueOf(idsStr[i]);
             ReserveRecord reserveRecord = reserveRecordService.findById(id);
-            //删除前将对应商品设置为上架状态
+            //Set the corresponding product to the shelf status before deleting it
             Goods goods = goodsService.findById(reserveRecord.getGoodsId());
             goods.setState(1);
             goodsService.update(goods);

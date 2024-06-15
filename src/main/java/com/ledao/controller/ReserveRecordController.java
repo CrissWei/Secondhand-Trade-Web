@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 前台预订记录Controller层
+ * Front desk booking record Controller layer
  *
  * @author LeDao
  * @company
@@ -42,7 +42,7 @@ public class ReserveRecordController {
     private UserService userService;
 
     /**
-     * 给购物车的某一商品预订记录
+     * pay
      *
      * @param goodsId
      * @param session
@@ -64,7 +64,7 @@ public class ReserveRecordController {
         int key = reserveRecordService.add(reserveRecord);
         Message message = new Message();
         message.setUserId(userService.findById(goods.getUserId()).getId());
-        message.setContent("你的商品（" + goods.getName() + "）已被预订，请联系买家当面交易哦！！");
+        message.setContent("your products（" + goods.getName() + "）has been purchased！！");
         message.setTime(new Date());
         message.setIsRead(0);
         messageService.add(message);
@@ -77,7 +77,7 @@ public class ReserveRecordController {
     }
 
     /**
-     * 修改预订记录状态
+     * Modify status
      *
      * @param reserveRecordId
      * @param state
@@ -94,7 +94,7 @@ public class ReserveRecordController {
         goodsService.update(goods);
         Message message = new Message();
         message.setUserId(userService.findById(goods.getUserId()).getId());
-        message.setContent("你的商品（" + goods.getName() + "）已被卖家取消预订！！");
+        message.setContent("your products（" + goods.getName() + "）has been canceled by the seller！！");
         message.setTime(new Date());
         message.setIsRead(0);
         messageService.add(message);

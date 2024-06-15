@@ -23,11 +23,11 @@ public class Goods {
      */
     private Integer id;
     /**
-     * 商品名称
+     * The title of the product
      */
     private String name;
     /**
-     * 商品详情
+     * Product details
      */
     private String content;
     /**

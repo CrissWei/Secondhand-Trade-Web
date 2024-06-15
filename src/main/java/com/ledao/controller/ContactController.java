@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 留言Controller层
+ * MessageController layer
  *
  * @author LeDao
  * @company
@@ -33,7 +33,7 @@ public class ContactController {
     private ContactService contactService;
 
     /**
-     * 跳转到我的留言界面
+     * Jump to my message interface
      *
      * @return
      */
@@ -47,7 +47,8 @@ public class ContactController {
         Page<Contact> contactPage = new Page<>(1, 10);
         List<Contact> contactList = contactService.list(contactQueryWrapper, contactPage);
         mav.addObject("contactList", contactList);
-        mav.addObject("title", "我的留言--LeDao校园二手交易平台");
+        mav.addObject("title",
+                "my message--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/myContact");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -55,16 +56,16 @@ public class ContactController {
     }
 
     /**
-     * 添加或修改留言
+     * Add or modify a message
      *
      * @param contact
-     * @return
+     * @re
      */
     @RequestMapping("/save")
     public ModelAndView save(Contact contact, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         User currentUser = (User) session.getAttribute("currentUser");
-        //id为null时添加
+        //Added when id is null
         if (contact.getId() == null) {
             contact.setTime(new Date());
             contactService.add(contact);
@@ -84,7 +85,7 @@ public class ContactController {
         Page<Contact> contactPage = new Page<>(1, 10);
         List<Contact> contactList = contactService.list(contactQueryWrapper, contactPage);
         mav.addObject("contactList", contactList);
-        mav.addObject("title", "我的留言--LeDao校园二手交易平台");
+        mav.addObject("title", "my message--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/myContact");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
@@ -92,7 +93,7 @@ public class ContactController {
     }
 
     /**
-     * 根据id删除留言
+     * Delete message based on id
      *
      * @param id
      * @return
@@ -108,7 +109,7 @@ public class ContactController {
         Page<Contact> contactPage = new Page<>(1, 10);
         List<Contact> contactList = contactService.list(contactQueryWrapper, contactPage);
         mav.addObject("contactList", contactList);
-        mav.addObject("title", "我的留言--LeDao校园二手交易平台");
+        mav.addObject("title", "my message--Campus second-hand trading platform");
         mav.addObject("mainPage", "page/myContact");
         mav.addObject("mainPageKey", "#b");
         //删除成功时
@@ -122,7 +123,7 @@ public class ContactController {
     }
 
     /**
-     * 查看留言详情
+     * View message details
      *
      * @param id
      * @return

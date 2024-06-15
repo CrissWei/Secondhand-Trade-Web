@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台商品类别Controller层
+ * Backend product category Controller layer
  *
  * @author LeDao
  * @company
@@ -33,8 +33,7 @@ public class GoodsTypeAdminController {
     private GoodsService goodsService;
 
     /**
-     * 下拉框模糊查询商品类别
-     *
+     * Fuzzy query of product categories in drop-down box
      * @param q
      * @return
      */
@@ -49,8 +48,7 @@ public class GoodsTypeAdminController {
     }
 
     /**
-     * 分页条件查询商品类别
-     *
+     * Query product categories with paging conditions
      * @param goodsType
      * @param page
      * @param rows
@@ -78,8 +76,7 @@ public class GoodsTypeAdminController {
     }
 
     /**
-     * 添加或修改商品类别
-     *
+     * Add or edit product categories
      * @param goodsType
      * @return
      */
@@ -101,7 +98,7 @@ public class GoodsTypeAdminController {
     }
 
     /**
-     * 删除商品类别,可批量删除
+     * Delete product categories, you can delete them in batches
      *
      * @param ids
      * @return
@@ -119,7 +116,7 @@ public class GoodsTypeAdminController {
                 goodsTypeService.deleteById(id);
                 key++;
             } else {
-                resultMap.put("errorInfo", "该分类下有商品，不能删除！！");
+                resultMap.put("errorInfo", "There are products in this category and cannot be deleted! !");
             }
         }
         if (key > 0) {

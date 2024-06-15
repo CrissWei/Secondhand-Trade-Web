@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="b">
+    <div class="row" style="margin-top: 5px">
+        <div class="col-md-3">
+            <div th:include="common/menuPersonalHubs::#m"></div>
+        </div>
+        <div class="col-md-9">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">Profile</a></li>
+                <li class="breadcrumb-item active">Buy</li>
+            </ol>
+            <form role="form" method="post" action="/contact/save">
+                <input type="hidden" class="form-control" id="userId" name="userId"
+                       th:value="${session.currentUser.id}">
+                <div class="row inline">
+                    <div class="col-md-5  card-body">
+                        <div>
+                            <img th:src="@{'/static/images/articleImage/'+${goods.imageName}+'.jpg'}"
+                                 class="img-thumbnail"
+                                 alt="" style="width: 100%">
+                        </div>
+                    </div>
+                    <div class="col-md-7 card-body">
+                        <h4 th:text="${goods.name}" style="color: #b52b27"></h4>
+                        <p>Post Time：<span th:text="${#dates.format(goods.addTime,'yyyy-MM-dd HH:mm:ss')}"></span></p>
+                        <p class="card-text">Price：￥<span th:text="${goods.priceNow}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<del
+                                th:if="${goods.priceLast!=0&&goods.priceLast>goods.priceNow}"
+                                style="color: darkred">￥
+                        </del>
+                            <del style="color: darkred"
+                                 th:text="${goods.priceLast}"
+                                 th:if="${goods.priceLast!=0&&goods.priceLast>goods.priceNow}"></del>
+                        </p>
+                        <p>Category：<span th:text="${goods.goodsTypeName}"></span></p>
+                        <p>Address：<span th:if="${shippingAddress==null}" style="color: red">Please set address first</span><span
+                                style="color: blue" th:if="${shippingAddress!=null}"
+                                th:text="${shippingAddress.content}"></span></p>
+                        <p>Payment Methods：
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                   value="option1" checked>
+                            <label class="form-check-label" for="inlineRadio1">Alipay</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                   value="option2">
+                            <label class="form-check-label" for="inlineRadio2">DuiNow</label>
+                        </div>
+                        </p>
+                    </div>
+                </div>
+            </form>
+            <div style="text-align: center">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Pay</button>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Scan QR code</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img th:src="@{/static/images/20240512112510.jpg}" id="img1" loading="lazy" style="width: 100%"
+                         alt="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a th:href="'javascript:reserve('+${goods.id}+')'">
+                        <button type="button" class="btn btn-primary">Comfirm Pay</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

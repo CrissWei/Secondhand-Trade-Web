@@ -39,12 +39,12 @@
                 success: function (result) {
                     var result = eval('(' + result + ')');
                     if (result.success) {
-                        $.messager.alert("系统提示", "保存成功！");
+                        $.messager.alert("Tips", "Saved！");
                         resetValue();
                         $("#dlg").dialog("close");
                         $("#dg").datagrid("reload");
                     } else {
-                        $.messager.alert("系统提示", "保存失败!");
+                        $.messager.alert("Tips", "Failed!");
                     }
                 }
             });
@@ -58,7 +58,7 @@
         function openGoodsTypeModifyDialog() {
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length != 1) {
-                $.messager.alert("系统提示", "请选择一条要修改的数据！");
+                $.messager.alert("Tips", "请选择一条要修改的数据！");
                 return;
             }
             var row = selectedRows[0];
@@ -70,7 +70,7 @@
         function deleteGoodsType() {
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length == 0) {
-                $.messager.alert("系统提示", "请选择要删除的数据！");
+                $.messager.alert("Tips", "Please select to delete！");
                 return;
             }
             var strIds = [];
@@ -78,14 +78,14 @@
                 strIds.push(selectedRows[i].id);
             }
             var ids = strIds.join(",");
-            $.messager.confirm("系统提示", "您确定要删除这<span style='color: red'>" + selectedRows.length + "</span>条数据吗?", function (r) {
+            $.messager.confirm("Tips", "Are you sure Delete <span style='color: red'>" + selectedRows.length + "</span> ?", function (r) {
                 if (r) {
                     $.post("/admin/goodsType/delete", {ids: ids}, function (result) {
                         if (result.success) {
-                            $.messager.alert("系统提示", "数据已成功删除！");
+                            $.messager.alert("Tips", "Deleted！");
                             $("#dg").datagrid("reload");
                         } else {
-                            $.messager.alert("系统提示", result.errorInfo);
+                            $.messager.alert("Tips", result.errorInfo);
                         }
                     }, "json");
                 }
@@ -111,24 +111,24 @@
        url="/admin/goodsType/list" fit="true" toolbar="#tb">
     <thead>
     <th field="cb" checkbox="true" align="center"></th>
-    <th field="id" width="10" align="center">编号</th>
-    <th field="name" width="50" align="center">名称</th>
-    <th field="sortNum" width="20" align="center">排序</th>
-    <th field="goodsNum" width="20" align="center">商品数量</th>
+    <th field="id" width="10" align="center">No.</th>
+    <th field="name" width="50" align="center">Name</th>
+    <th field="sortNum" width="20" align="center">Sort</th>
+    <th field="goodsNum" width="20" align="center">Number</th>
     </thead>
 </table>
 
 <div id="tb">
     <div>
-        <a href="javascript:openGoodsTypeAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
+        <a href="javascript:openGoodsTypeAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">Add</a>
         <a href="javascript:openGoodsTypeModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit"
-           plain="true">修改</a>
-        <a href="javascript:deleteGoodsType()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+           plain="true">Edit</a>
+        <a href="javascript:deleteGoodsType()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">Delete</a>
     </div>
     <div>
-        &nbsp;名称：&nbsp;<input type="text" id="s_name" size="20" onkeydown="if(event.keyCode==13) searchGoodsType()"/>
-        <a href="javascript:searchGoodsType()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
-        <a href="javascript:resetValue()" class="easyui-linkbutton" iconCls="icon-reset" plain="true">重置</a>
+        &nbsp;Name：&nbsp;<input type="text" id="s_name" size="20" onkeydown="if(event.keyCode==13) searchGoodsType()"/>
+        <a href="javascript:searchGoodsType()" class="easyui-linkbutton" iconCls="icon-search" plain="true">Search</a>
+        <a href="javascript:resetValue()" class="easyui-linkbutton" iconCls="icon-reset" plain="true">Reset</a>
     </div>
 </div>
 
@@ -138,13 +138,13 @@
     <form id="fm" method="post">
         <table cellspacing="8px">
             <tr>
-                <td valign="top">名称:</td>
+                <td valign="top">Name:</td>
                 <td>
                     <input id="name" name="name" class="easyui-validatebox" required="true" style="width: 200px">
                 </td>
             </tr>
             <tr>
-                <td valign="top">排序:</td>
+                <td valign="top">Sort:</td>
                 <td>
                     <input id="sortNum" name="sortNum" type="text" class="easyui-numberbox" required="true"
                            data-options="min:0" style="width: 200px;height: 23px">
@@ -155,8 +155,8 @@
 </div>
 
 <div id="dlg-buttons">
-    <a href="javascript:saveGoodsType()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
-    <a href="javascript:closeGoodsTypeDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+    <a href="javascript:saveGoodsType()" class="easyui-linkbutton" iconCls="icon-ok">Save</a>
+    <a href="javascript:closeGoodsTypeDialog()" class="easyui-linkbutton" iconCls="icon-cancel">Close</a>
 </div>
 </body>
 </html>

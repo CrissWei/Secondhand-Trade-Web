@@ -12,7 +12,7 @@
         <div class="col-md-3">
             <div th:include="common/menuSortAndRecommend::#m"></div>
         </div>
-        <!--商品详情-->
+        <!--Product details-->
         <div class="col-md-9 card">
             <hr>
             <div class="row inline">
@@ -24,8 +24,8 @@
                 </div>
                 <div class="col-md-7 card-body">
                     <h4 th:text="${goods.name}" style="color: #b52b27"></h4>
-                    <p>发布时间：<span th:text="${#dates.format(goods.addTime,'yyyy-MM-dd HH:mm:ss')}"></span></p>
-                    <p class="card-text">价格：￥<span th:text="${goods.priceNow}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<del
+                    <p>Post Time：<span th:text="${#dates.format(goods.addTime,'yyyy-MM-dd HH:mm:ss')}"></span></p>
+                    <p class="card-text">Price：￥<span th:text="${goods.priceNow}"></span>&nbsp;&nbsp;&nbsp;&nbsp;<del
                             th:if="${goods.priceLast!=0&&goods.priceLast>goods.priceNow}"
                             style="color: darkred">￥
                     </del>
@@ -33,30 +33,34 @@
                              th:text="${goods.priceLast}"
                              th:if="${goods.priceLast!=0&&goods.priceLast>goods.priceNow}"></del>
                     </p>
-                    <p>所属类别：<span th:text="${goods.goodsTypeName}"></span></p>
+                    <p>Category：<span th:text="${goods.goodsTypeName}"></span></p>
                     <p>
+                        <a th:href="'javascript:buyGoods('+${goods.id}+')'" style="text-decoration: none"
+                           th:if="${goods.goodsTypeId!=8&&session.currentUser!=null&&session.currentUser.id!=goods.userId&&goods.state==1}">
+                            <button type="button" class="btn btn-sm btn-warning">buy</button>
+                        </a>
                         <a th:href="'javascript:addGoodsToShoppingCart('+${goods.id}+')'" style="text-decoration: none"
-                           th:if="${goods.goodsTypeId!=8&&session.currentUser!=null&&session.currentUser.id!=goods.userId&&goods.state!=4}">
-                            <button type="button" class="btn btn-sm btn-primary">加入购物车</button>
+                           th:if="${goods.goodsTypeId!=8&&session.currentUser!=null&&session.currentUser.id!=goods.userId&&goods.state==1}">
+                            <button type="button" class="btn btn-sm btn-primary">Add to the Cart</button>
                         </a>
                         <span><strong style="color: red"
-                                      th:if="${session.currentUser!=null&&session.currentUser.id==goods.userId}">这是你自己的商品，无法购买哦</strong>
+                                      th:if="${session.currentUser!=null&&session.currentUser.id==goods.userId}">Cannot buy yourself items</strong>
                     </span>
                     <p style="color: red"
-                       th:if="${goods.goodsTypeId!=8&&session.currentUser==null}">登录后才可以购物</p>
+                       th:if="${goods.goodsTypeId!=8&&session.currentUser==null}">Login First</p>
                     <a href="/toLoginPage" style="text-decoration: none"
                        th:if="${goods.goodsTypeId!=8&&session.currentUser==null}">
                         <button type="button" class="btn btn-primary btn-sm">
-                            马上登录
+                            Login
                         </button>
                     </a>
                     <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal">
-                        <span th:text="${goods.goodsTypeId!=8?'获取卖家联系方式':'获取求购者联系方式'}"></span>
+                        <span th:text="${goods.goodsTypeId!=8?'Get the seller contact information':'Get buyer contact information'}"></span>
                     </button>
                 </div>
             </div>
             <hr>
-            <h3><span class="badge badge-info">详情</span></h3>
+            <h3><span class="badge badge-info">Details</span></h3>
             <p th:utext="${goods.content}"></p>
         </div>
         <!-- 模态框 -->
@@ -66,26 +70,26 @@
 
                     <!-- 模态框头部 -->
                     <div class="modal-header">
-                        <h4 class="modal-title">卖家联系方式</h4>
+                        <h4 class="modal-title">Seller Contact Method</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- 模态框主体 -->
                     <div class="modal-body">
-                        <span th:if="${session.currentUser==null}">登录后才能<span
-                                th:text="${goods.goodsTypeId!=8?'获取卖家联系方式':'获取求购者联系方式'}"></span>哦，去<a
+                        <span th:if="${session.currentUser==null}">Login First<span
+                                th:text="${goods.goodsTypeId!=8?'Get the seller contact information':'Get buyer contact information'}"></span>, Go <a
                                 href="/toLoginPage"><button
                                 type="button"
-                                class="btn btn-primary">登录</button></a></span>
-                        <span>邮箱：<span th:text="${emailStr}"
+                                class="btn btn-primary">Login</button></a></span>
+                        <span>Email：<span th:text="${emailStr}"
                                        th:if="${goods.contactInformationList.size()==0}"></span></span>
                         <table class="table table-bordered table-striped table-hover table-borderless"
                                style="margin-top: 4px"
                                th:if="${goods.contactInformationList.size()>0&&session.currentUser!=null}">
                             <thead>
                             <tr>
-                                <th style="text-align: center">名称</th>
-                                <th style="text-align: center">内容</th>
+                                <th style="text-align: center">Name</th>
+                                <th style="text-align: center">Content</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -101,7 +105,7 @@
 
                     <!-- 模态框底部 -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     </div>
 
                 </div>

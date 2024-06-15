@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台留言Controller层
+ * Background message Controller layer
  *
  * @author LeDao
  * @company
@@ -35,7 +35,7 @@ public class ContactAdminController {
     private UserService userService;
 
     /**
-     * 分页条件查询留言
+     * Paging condition query message
      *
      * @param contact
      * @param page
@@ -73,7 +73,7 @@ public class ContactAdminController {
     }
 
     /**
-     * 添加或修改留言
+     * Add or modify a message
      *
      * @param contact
      * @return
@@ -99,7 +99,7 @@ public class ContactAdminController {
     }
 
     /**
-     * 删除留言，可批量删除
+     * Delete messages, you can delete them in batches
      *
      * @param ids
      * @return

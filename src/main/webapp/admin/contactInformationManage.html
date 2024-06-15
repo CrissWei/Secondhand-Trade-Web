@@ -41,12 +41,12 @@
                 success: function (result) {
                     var result = eval('(' + result + ')');
                     if (result.success) {
-                        $.messager.alert("系统提示", "保存成功！");
+                        $.messager.alert("Tips", "保存成功！");
                         resetValue();
                         $("#dlg").dialog("close");
                         $("#dg").datagrid("reload");
                     } else {
-                        $.messager.alert("系统提示", "保存失败!");
+                        $.messager.alert("Tips", "保存失败!");
                     }
                 }
             });
@@ -60,7 +60,7 @@
         function openContactInformationModifyDialog() {
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length != 1) {
-                $.messager.alert("系统提示", "请选择一条要修改的数据！");
+                $.messager.alert("Tips", "请选择一条要修改的数据！");
                 return;
             }
             var row = selectedRows[0];
@@ -72,7 +72,7 @@
         function deleteContactInformation() {
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length == 0) {
-                $.messager.alert("系统提示", "请选择要删除的数据！");
+                $.messager.alert("Tips", "请选择要删除的数据！");
                 return;
             }
             var strIds = [];
@@ -80,14 +80,14 @@
                 strIds.push(selectedRows[i].id);
             }
             var ids = strIds.join(",");
-            $.messager.confirm("系统提示", "您确定要删除这<span style='color: red'>" + selectedRows.length + "</span>条数据吗?", function (r) {
+            $.messager.confirm("Tips", "您确定要删除这<span style='color: red'>" + selectedRows.length + "</span>条数据吗?", function (r) {
                 if (r) {
                     $.post("/admin/contactInformation/delete", {ids: ids}, function (result) {
                         if (result.success) {
-                            $.messager.alert("系统提示", "数据已成功删除！");
+                            $.messager.alert("Tips", "数据已成功删除！");
                             $("#dg").datagrid("reload");
                         } else {
-                            $.messager.alert("系统提示", result.errorInfo);
+                            $.messager.alert("Tips", result.errorInfo);
                         }
                     }, "json");
                 }
@@ -117,28 +117,28 @@
        url="/admin/contactInformation/list" fit="true" toolbar="#tb">
     <thead>
     <th field="cb" checkbox="true" align="center"></th>
-    <th field="id" width="20" align="center" hidden="hidden">编号</th>
-    <th field="name" width="50" align="center">名称</th>
-    <th field="content" width="50" align="center">内容</th>
-    <th field="user" width="50" align="center" formatter="formatUser">所属用户用户名</th>
+    <th field="id" width="20" align="center" hidden="hidden">No.</th>
+    <th field="name" width="50" align="center">Name</th>
+    <th field="content" width="50" align="center">Content</th>
+    <th field="user" width="50" align="center" formatter="formatUser">Username</th>
     </thead>
 </table>
 
 <div id="tb">
     <div>
         <a href="javascript:openContactInformationModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit"
-           plain="true">修改</a>
+           plain="true">Edit</a>
         <a href="javascript:deleteContactInformation()" class="easyui-linkbutton" iconCls="icon-remove"
-           plain="true">删除</a>
+           plain="true">Delete</a>
     </div>
     <div>
-        &nbsp;联系方式名称：&nbsp;<input type="text" id="s_name" size="20"
+        &nbsp;Contact：&nbsp;<input type="text" id="s_name" size="20"
                                   onkeydown="if(event.keyCode==13) searchContactInformation()"/>
-        &nbsp;用户名：&nbsp;<input type="text" id="s_userName" size="20"
+        &nbsp;Username：&nbsp;<input type="text" id="s_userName" size="20"
                                   onkeydown="if(event.keyCode==13) searchContactInformation()"/>
         <a href="javascript:searchContactInformation()" class="easyui-linkbutton" iconCls="icon-search"
-           plain="true">搜索</a>
-        <a href="javascript:resetValue()" class="easyui-linkbutton" iconCls="icon-reset" plain="true">重置</a>
+           plain="true">Search</a>
+        <a href="javascript:resetValue()" class="easyui-linkbutton" iconCls="icon-reset" plain="true">Reset</a>
     </div>
 </div>
 
@@ -148,14 +148,14 @@
     <form id="fm" method="post">
         <table cellspacing="8px">
             <tr>
-                <td valign="top">名称:</td>
+                <td valign="top">Name:</td>
                 <td>
                     <input id="id" name="id" class="easyui-validatebox" required="true" style="width: 140px">
                     <input id="name" name="name" class="easyui-validatebox" required="true" style="width: 140px">
                 </td>
             </tr>
             <tr>
-                <td valign="top">内容:</td>
+                <td valign="top">Content:</td>
                 <td>
                     <input id="content" name="content" class="easyui-validatebox" required="true" style="width: 140px">
                 </td>
@@ -165,8 +165,8 @@
 </div>
 
 <div id="dlg-buttons">
-    <a href="javascript:saveContactInformation()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
-    <a href="javascript:closeContactInformationDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+    <a href="javascript:saveContactInformation()" class="easyui-linkbutton" iconCls="icon-ok">Save</a>
+    <a href="javascript:closeContactInformationDialog()" class="easyui-linkbutton" iconCls="icon-cancel">Close</a>
 </div>
 </body>
 </html>

@@ -13,24 +13,24 @@
         </div>
         <div class="col-md-9">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">首页</a></li>
-                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">个人中心</a></li>
-                <li class="breadcrumb-item active">我的预订</li>
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/toPersonalHubsPage">Personal Center</a></li>
+                <li class="breadcrumb-item active">My Order</li>
             </ol>
             <form action="/toMyReserveRecordPage" method="post">
                 <div class="row" style="margin-left: 3px">
                     <input type="text" class="form-control" id="goodsNameMyReserveRecord" name="goodsName"
                            style="width: 200px"
                            th:value="${goodsName}"
-                           placeholder="请输入商品名称...">
+                           placeholder="Please enter a product name...">
                     <select id="stateMyReserveRecord" name="state" th:value="${state}"
                             style="width: 160px;margin-left: 2px"
                             class="form-control">
-                        <option value="">预订状态...</option>
+                        <option value="">Status...</option>
                         <div>
-                            <option value="0" th:selected="${state==0}">预订中</option>
-                            <option value="1" th:selected="${state==1}">预订已取消</option>
-                            <option value="2" th:selected="${state==2}">完成交易</option>
+                            <option value="0" th:selected="${state==0}">Bought</option>
+                            <option value="1" th:selected="${state==1}">Cancel transaction</option>
+                            <option value="2" th:selected="${state==2}">Sold out</option>
                         </div>
                     </select>
                     <button type="submit" class="btn btn-primary status-icon hint--top" style="margin-left: 2px"
@@ -38,17 +38,17 @@
                     </button>
                 </div>
             </form>
-            <span th:if="${reserveRecordList.size()!=0}" style="float: right">当前有&nbsp;<span
+            <span th:if="${reserveRecordList.size()!=0}" style="float: right">Has &nbsp;<span
                     style="margin-top: 10px;color: red"
-                    th:text="${reserveRecordList.size()}"></span>&nbsp;条数据</span>
+                    th:text="${reserveRecordList.size()}"></span>&nbsp;data</span>
             <table class="table table-bordered table-striped table-hover table-borderless"
                    th:if="${reserveRecordList.size()!=0}">
                 <thead>
                 <tr>
-                    <th style="text-align: center">预订时间</th>
-                    <th style="text-align: center">商品名称</th>
-                    <th style="text-align: center">是否被取消</th>
-                    <th style="text-align: center">操作</th>
+                    <th style="text-align: center">Bought Time</th>
+                    <th style="text-align: center">The title of the product</th>
+                    <th style="text-align: center">Status</th>
+                    <th style="text-align: center">Edit</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -59,25 +59,25 @@
                         <td style="text-align: center"><a th:href="${'/goods/'+reserveRecord.goodsId}"><span th:aria-label="${reserveRecord.goodsName}"
                                 th:text="${#strings.abbreviate(reserveRecord.goodsName,18)}" class="status-icon hint--top"></span></a></td>
                         <td style="text-align: center"><span
-                                th:text="${reserveRecord.state==0?'预订中':(reserveRecord.state==1?'预订已取消':'完成交易')}"
+                                th:text="${reserveRecord.state==0?'已购买':(reserveRecord.state==1?'交易取消':'完成交易')}"
                                 th:style="${reserveRecord.state==0?'color:blue':(reserveRecord.state==1?'color:red':'color:green')}"></span>
                         </td>
                         <td style="text-align: center">
                             <a th:href="'javascript:updateReserveRecordState('+${reserveRecord.id}+',1,'+${reserveRecord.state}+')'"
                                style="text-decoration: none" th:if="${reserveRecord.state==0}">
                                 <button type="button" class="btn btn-danger btn-sm status-icon hint--top"
-                                        aria-label="取消预订"><i
+                                        aria-label="取消交易"><i
                                         class="fa fa-ban"></i></button>
 
                             </a>
-                            <span style="color: rebeccapurple" th:if="${reserveRecord.state!=0}">不可操作</span>
+                            <span style="color: rebeccapurple" th:if="${reserveRecord.state!=0}">Cannot Edit</span>
                         </td>
                     </tr>
                 </div>
                 </tbody>
             </table>
             <div th:if="${reserveRecordList.size()==0}">
-                <span style="color: red">无数据</span>
+                <span style="color: red">No data</span>
             </div>
         </div>
     </div>
@@ -88,7 +88,7 @@
 
                 <!-- 模态框头部 -->
                 <div class="modal-header">
-                    <h4 class="modal-title"><span id="modalHeadName"></span>商品</h4>
+                    <h4 class="modal-title"><span id="modalHeadName"></span>Product</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -96,36 +96,36 @@
                 <div class="modal-body">
                     <form role="form" method="post" action="/goods/save" onsubmit="return checkAddGoodsValue()">
                         <div class="form-group">
-                            <label for="name">商品名称：</label>&nbsp;&nbsp;
+                            <label for="name">The title of the product：</label>&nbsp;&nbsp;
                             <input type="hidden" class="form-control" id="userId" name="userId"
                                    th:value="${session.currentUser.id}"
-                                   placeholder="请输入用户名" required="required">
+                                   placeholder="Please enter a username" required="required">
                             <input type="hidden" class="form-control" id="id" name="id"
                                    placeholder="请输入id" required="required">
                             <input type="text" class="form-control" id="goodsName" name="name"
-                                   placeholder="请输入商品名称" required="required">
+                                   placeholder="Please enter a product name" required="required">
                         </div>
                         <div class="form-group form-inline">
-                            <label for="name">商品类别：</label>&nbsp;&nbsp;
+                            <label for="name">Product category：</label>&nbsp;&nbsp;
                             <select id="goodsTypeId" name="goodsTypeId" required="required" class="form-control">
-                                <option value="">选择商品类别...</option>
+                                <option value="">Select a product category...</option>
                                 <div th:each="goodsType:${goodsTypeList}">
                                     <option th:text="${goodsType.name}" th:value="${goodsType.id}"></option>
                                 </div>
                             </select>
                         </div>
                         <div class="form-group form-inline">
-                            <label for="name">价格：</label>&nbsp;&nbsp;
+                            <label for="name">Price：</label>&nbsp;&nbsp;
                             <input type="text" class="form-control" id="priceNow" name="priceNow"
-                                   placeholder="请输入商品价格" required="required">
+                                   placeholder="Please enter the price of the item" required="required">
                         </div>
                         <div class="form-group">
-                            <label for="name">商品详情：</label>&nbsp;&nbsp;<span
-                                style="color: red">请至少上传一张图片，不然将采用系统的默认图片</span>
+                            <label for="name">Product details：</label>&nbsp;&nbsp;<span
+                                style="color: red">Please upload at least one image, otherwise the system default image will be used</span>
                             <textarea id="contentGoods" name="content" style="width: 50%"></textarea>
                         </div>
                         <div style="text-align: center">
-                            <button type="submit" class="btn btn-primary" id="modifyButton">提交</button>
+                            <button type="submit" class="btn btn-primary" id="modifyButton">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -139,7 +139,7 @@
 
                 <!-- 模态框头部 -->
                 <div class="modal-header">
-                    <h4 class="modal-title">买家联系方式</h4>
+                    <h4 class="modal-title">Buyer contact information</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -150,7 +150,7 @@
 
                 <!-- 模态框底部 -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
 
             </div>

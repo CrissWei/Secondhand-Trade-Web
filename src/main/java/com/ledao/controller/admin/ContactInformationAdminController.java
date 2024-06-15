@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台联系方式Controller层
+ * Backend contact informationController layer
  *
  * @author LeDao
  * @company
@@ -34,7 +34,7 @@ public class ContactInformationAdminController {
     private UserService userService;
 
     /**
-     * 分页条件查询联系方式
+     * Pagination condition query contact information
      *
      * @param contactInformation
      * @param page
@@ -75,7 +75,7 @@ public class ContactInformationAdminController {
     }
 
     /**
-     * 添加或修改联系方式
+     * Add or modify contact information
      *
      * @param contactInformation
      * @return
@@ -99,7 +99,7 @@ public class ContactInformationAdminController {
     }
 
     /**
-     * 删除联系方式，可批量删除
+     * Delete contact information, you can delete it in batches
      *
      * @param ids
      * @return

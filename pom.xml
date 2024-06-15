@@ -34,6 +34,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <!--他的报错，我需要添加版本-->
+            <version>1.18.26</version>
             <optional>true</optional>
         </dependency>
         <dependency>
